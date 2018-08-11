@@ -1,0 +1,69 @@
+\documentclass[prd]{revtex4}
+\usepackage{amsmath, graphicx}
+\usepackage{grffile}
+\usepackage{dcolumn}
+\usepackage{bm}
+\usepackage{epsfig}
+\usepackage{mathrsfs}  %  package for the "curly" fonts 
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{amssymb}
+\usepackage{tensor}
+\usepackage[math]{cellspace}
+\usepackage{bookmark}
+
+
+\newcommand*\apost{\textsc{\char13}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+  \edef\arraystretch{#1}%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols c}}
+\makeatother
+
+
+\topmargin 0.30in
+\textheight 9.00in
+
+ \addtolength{\voffset}{-2cm}
+ 
+\begin{document}
+
+\title{Horizon Penetrating Coordinate for Spherically Symmetric Metric}
+
+\author{Hyun Lim}
+
+%\pacs{}
+\maketitle
+
+We present a horizon penetrating coordinate for spherically symmetric metric. We adopt $G=c=1$ unit system. Consider usual Schwarzschild line element in BL coordinate for practice
+\begin{align}
+\label{eqn:schw_bl}
+ds^2 = - \left(1- \frac{2M}{r} \right) dt^2 + \left(1- \frac{2M}{r} \right)^{-1} dr^2 + r^2 d\Omega^2 
+\end{align}
+where $M$ is a mass. Compare this with usual 3+1 line element form $ds^2 = - \alpha^2 dt^2 + \gamma_{ij} ( dx^2 + \beta^i dt)(dx^j \beta^j dt)$ we can identify the lapse $\alpha^2 = \left(1- \frac{2M}{r} \right)$. As we know, the line element(Eqn.~\ref{eqn:schw_bl}) is singular at the horizon ($r=2M$) and lapse collapse to zero. This can be problematic because equations of motion for the metric can be become exponentially unstable in the presence of a coordinate singularity without some regularization technique.
+
+One way to resolve this problem is to move to a horizon penetrating coordinate system where this singularity is not present. The Kerr-Schild coordinates are one such coordinate system. General spherical symmetric line element in polar-areal form
+\begin{align}
+\label{eqn:ss-met-pa}
+ds^2 = - \alpha(r,t)^2 dt^2 + a(r,t)^2 dr^2 + r^2 d \Omega^2
+\end{align}
+where $\alpha$ is referred as lapse function. Compare with above Schwarzschild solution, $\alpha = 1/a$.
+
+\section{Model}
+
+Here, we first use the perfect fluid approximation for the matted model of our neutron stars. So the stress-energy tensor takes form
+\begin{align}
+\label{eqn:EMtPF}
+T_{ab} = (\rho + P) u_a u_b +P g_{ab} 
+\end{align}
+
+
+
+
+\end{document}
