@@ -46,23 +46,71 @@ We present a horizon penetrating coordinate for spherically symmetric metric. We
 \label{eqn:schw_bl}
 ds^2 = - \left(1- \frac{2M}{r} \right) dt^2 + \left(1- \frac{2M}{r} \right)^{-1} dr^2 + r^2 d\Omega^2 
 \end{align}
-where $M$ is a mass. Compare this with usual 3+1 line element form $ds^2 = - \alpha^2 dt^2 + \gamma_{ij} ( dx^2 + \beta^i dt)(dx^j \beta^j dt)$ we can identify the lapse $\alpha^2 = \left(1- \frac{2M}{r} \right)$. As we know, the line element(Eqn.~\ref{eqn:schw_bl}) is singular at the horizon ($r=2M$) and lapse collapse to zero. This can be problematic because equations of motion for the metric can be become exponentially unstable in the presence of a coordinate singularity without some regularization technique.
+where $M$ is a mass. Compare this with usual 3+1 line element form $ds^2 = - \alpha^2 dt^2 + \gamma_{ij} ( dx^2 + \beta^i dt)(dx^j + \beta^j dt)$ we can identify the lapse $\alpha^2 = \left(1- \frac{2M}{r} \right)$. As we know, the line element(Eqn.~\ref{eqn:schw_bl}) is singular at the horizon ($r=2M$) and lapse collapse to zero. This can be problematic because equations of motion for the metric can be become exponentially unstable in the presence of a coordinate singularity without some regularization technique.
 
-One way to resolve this problem is to move to a horizon penetrating coordinate system where this singularity is not present. The Kerr-Schild coordinates are one such coordinate system. General spherical symmetric line element in polar-areal form
+One way to resolve this problem is to move to a horizon penetrating coordinate system where this singularity is not present. The Kerr-Schild coordinates are one such coordinate system. 
+
+For example, Schwarzschild solution in spherical type Kerr-Schild coordinates
+\begin{align}
+\alpha &= \sqrt{\frac{r}{r+2M}} \\
+\beta^r &= \frac{2M}{r+2M} \\
+\beta_r &=\frac{2M}{r} \\
+\beta^\theta &= \beta^\varphi = 0 \\
+K_{ij} &= \textrm{diag} \left[ -\frac{2M(r+M)}{\sqrt{r^5 (r+2M)}} , 2M \sqrt{\frac{r}{r+2M}}, K_{\theta \theta} \sin^2 \theta \right]
+\end{align}
+Schwarzschild solution in Cartesian type Kerr-Schild coordinate
+\begin{align}
+\alpha &= \sqrt{\frac{r}{r+2M}} \\
+\beta^i &= \frac{2M}{r} \frac{x^i}{r+2M} \\
+\beta_i &=\frac{2M x_i}{r^2} \\
+K_{ij} &= \-\frac{2M}{r^4} \sqrt{\frac{r}{r+2M}} \left[ \left( \frac{M}{r}+2 \right) x_i x_j - r^2 \delta_{ij} \right]
+\end{align}
+where $x^i = (x,y,z)$ which is usual spatial Cartesian coordinate. In both cases, we can see lapse is regular at the horizon.
+
+General spherical symmetric line element in polar-areal form
 \begin{align}
 \label{eqn:ss-met-pa}
 ds^2 = - \alpha(r,t)^2 dt^2 + a(r,t)^2 dr^2 + r^2 d \Omega^2
 \end{align}
-where $\alpha$ is referred as lapse function. Compare with above Schwarzschild solution, $\alpha = 1/a$.
+where $\alpha$ is referred as lapse function. Compare with above Schwarzschild solution, $\alpha = 1/a$. 
+
+In terms of horizon penetrating coordinate, we can generalize it in 3+1 form
+\begin{align}
+\label{eqn:gen-sph-met}
+ds^2 = (-\alpha^2 + a^2 \beta^2) dt^2 + 2a^2 \beta dt dr + a^2 dr^2 + r^2 b^2 d \Omega^2
+\end{align}
+where $\alpha$, $a$, $b$, and $\beta$ are functions of $r$ and $t$, and $d\Omega^2$ is the metric of unit sphere. This is nothing but ingoing Eddington-Finkelstein coordinate system (IEF). Consider Schwarzschild again in IEF
+\begin{align}
+ds^2 = - \left( 1- \frac{2M}{r} \right) dV^2 + 2 dV dr + r^2 d \Omega^2
+\end{align}
+Define a timelike coordinate $t = V-r$ then metric becomes
+\begin{align}
+ds^2 = - \left( 1- \frac{2M}{r} \right) dt^2 + \frac{4M}{r} dt dr +  \left( 1+ \frac{2M}{r} \right) dr^2 + r^2 d \Omega^2
+\end{align}
+Compare this with Eqn.~\ref{eqn:gen-sph-met}, various following metric components can be found
+\begin{align}
+\alpha &= \sqrt{\frac{r}{r+2M}} \\
+\beta &=\frac{2M}{r+2M} \\
+a &=\sqrt{\frac{r+2M}{r}}
+\end{align}
+and so on. Note that we can also fix the spatial degree of coordinate freedom by introducing a shifting areal coordinate $R \equiv  r + f(t)$ where $f(t)$ is some undetermined function.  
 
 \section{Model}
 
-Here, we first use the perfect fluid approximation for the matted model of our neutron stars. So the stress-energy tensor takes form
+Here, as a beginning set up, we first use the perfect fluid approximation for the matted model. So the stress-energy tensor takes form
 \begin{align}
 \label{eqn:EMtPF}
 T_{ab} = (\rho + P) u_a u_b +P g_{ab} 
 \end{align}
+where $u^a(r,t)$ is the 4-velocity of a given perfect element, $P(r,t)$ is the isotropic pressure, $\rho(r,t) = \rho_0(r,t) (1+\epsilon(r,t))$ is the energy density, $\rho_0 (r,t)$ is the rest-mass energy density, and $\epsilon(r,t)$ is the specific internal energy.
 
+The equations of motion for this case are derive from the local conservative equations for energy and baryon number such that
+\begin{align}
+\nabla_a T\indices{^a_b} &= 0 \\
+\nabla_a (\rho_0 u^a) &= 0 
+\end{align}
+
+We follow usual remaining set-up i.e. employ Euler velocity, using Primitive variables etc for our system
 
 
 
