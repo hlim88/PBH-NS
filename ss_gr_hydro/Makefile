@@ -1,14 +1,12 @@
 MPILIB = -lmpi
-prefix = /usr/local
+prefix = /home/weast/
 
-LIBS       = -lpamrw -lamrdw $(MPILIB) -lm -lgfortran -lbbhutil  
-LDFLAGS    =  -L../../lib  -L. -L/usr/lib64/openmpi/1.3.2-gcc/lib -L/usr/lib64 -L$(prefix)/lib  \
-               -L/home/weast/usr/local/lib
+LIBS       = -lpamr -lamrd $(MPILIB) -lm -lgfortran -lbbhutil  
+LDFLAGS    =  -L../../lib  -L. -L$(prefix)/lib -L/home/weast/software/pamr/lib/ 
 
 CC       = mpicc 
 CFLAGS     = -g -O2 
-CPPFLAGS = -I.  -I../../include -I/usr/lib/openmpi/1.3.2-gcc/include -I$(prefix)/include \
-             -I/home/weast/usr/local/include
+CPPFLAGS = -I.  -I../../include -I$(prefix)/include -I/home/weast/software/pamr/include/ 
 CC_COMP  = $(CC) -c $(CFLAGS)
 
 F_COMP = mpif77 -c

@@ -13,8 +13,8 @@ Copyright William East, 2009
 #include <stdio.h>
 #include <math.h>
 #include <mpi.h>
-#include "pamr_w.h"
-#include "amrd_w.h"
+#include "pamr.h"
+#include "amrd.h"
 #include "fluidEvolve.h"
 #include "initialData.h"
 #include "gravityElliptic.h"
