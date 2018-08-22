@@ -1,0 +1,2 @@
+cat ../ss_gr_hydro.fparam ss_gr_hydro.rtparam > ss_gr_hydro.param
+mpirun -np 1 --mca btl tcp,sm,self ../ss_gr_hydro ss_gr_hydro.param

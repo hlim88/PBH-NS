@@ -1,0 +1,167 @@
+############################################################
+# RNPL program to solve the Einstein equations coupled to a 
+# a spherically symmetric fluid
+#
+# The program uses second order Runge-Kutta differencing with 
+# (implicit )ingoing/outgoing radiation conditions, using 
+# O(h^2) forward and backwards differences, at the boundaries.  
+# 
+############################################################
+
+#-----------------------------------------------------------
+# Definition of memory size (only needed for Fortran)
+#-----------------------------------------------------------
+system parameter int memsiz := 1000000
+
+#-----------------------------------------------------------
+# Definition of parameters and associated default values. 
+#-----------------------------------------------------------
+
+#-----------------------------------------------------------
+# Note that "rmin" and "rmax" are special in that they are 
+# also implicitly declared to be parameters via the 
+# definition of the coordinate system below.
+#-----------------------------------------------------------
+#-----------------------------------------------------------
+parameter float rmax       := 10.0
+parameter float rmin      := 0.0
+
+
+# The following parameters are used in the
+# specification of the initial data. 
+#-----------------------------------------------------------
+
+#-----------------------------------------------------------
+# Dissipation operator parameter
+#-----------------------------------------------------------
+parameter float epsdis     := 0.5
+
+
+#-----------------------------------------------------------
+# Definition of coordinate system, note that the first 
+# coordinate is always assumed to be the time coordinate.
+#-----------------------------------------------------------
+rect coordinates t, r
+
+#-----------------------------------------------------------
+# Definition of finite-difference grid: [1:Nr] specifies
+# the index range, {rmin:rmax} the coordinate range.
+#-----------------------------------------------------------
+uniform rect grid g1 [1:Nr] {rmin:rmax}
+
+#-----------------------------------------------------------
+# Definition of grid functions: since a Crank-Nicholson 
+# scheme is being used, the grid functions are defined at 
+# "temporal offsets" 0 and 1, corresponding to "current" and 
+# "advanced" time levels.  The directive {out_gf = 1} enables
+# default output of the grid function (output can be disabled
+# via {out_gf = 0}, by omitting the directive completely, or 
+# via modification of the file .rnpl.attributes prior to 
+# program invocation).
+#-----------------------------------------------------------
+float q1 on g1 at 0,1 {out_gf = 1}
+float q2 on g1 at 0,1 {out_gf = 1}
+float q3 on g1 at 0,1 {out_gf = 1}
+float p1 on g1 at 0,1 {out_gf = 1}
+float p2 on g1 at 0,1 {out_gf = 1}
+float p3 on g1 at 0,1 {out_gf = 1}
+float source1 on g1 at 0 {out_gf = 1}
+float source2 on g1 at 0 {out_gf = 1}
+float source3 on g1 at 0 {out_gf = 1}
+float flux1 on g1 at 0 {out_gf = 1}
+float flux2 on g1 at 0 {out_gf = 1}
+float flux3 on g1 at 0 {out_gf = 1}
+float fluxAlt1 on g1 at 0 {out_gf = 1}
+float fluxAlt2 on g1 at 0 {out_gf = 1}
+float fluxAlt3 on g1 at 0 {out_gf = 1}
+float alpha on g1 at 0 {out_gf = 1}
+float a on g1 at 0 {out_gf = 1}
+float test on g1 at 0 {out_gf = 1}
+#-----------------------------------------------------------
+# FINITE DIFFERENCE OPERATOR DEFINITIONS
+#-----------------------------------------------------------
+
+#-----------------------------------------------------------
+# Crank Nicholson time derivative operator (first forward 
+# difference)
+#-----------------------------------------------------------
+operator DCN(f,t) := (<1>f[0] - <0>f[0]) / dt
+
+#-----------------------------------------------------------
+# Forward time averaging operator
+#-----------------------------------------------------------
+operator MU(f,t) := (<1>f[0] + <0>f[0]) / 2
+
+#-----------------------------------------------------------
+# Forward space averaging operator
+#-----------------------------------------------------------
+operator MUSF(f,r) := (<0>f[1] + <0>f[0]) / 2
+
+#-----------------------------------------------------------
+# FBackward space averaging operator
+#-----------------------------------------------------------
+operator MUSB(f,r) := (<0>f[-1] + <0>f[0]) / 2
+
+#-----------------------------------------------------------
+# O(h^2) centred spatial derivative operator
+#-----------------------------------------------------------
+operator D0(f,r) := (<0>f[1] - <0>f[-1]) / (2*dr)
+
+#-----------------------------------------------------------
+# Dissipation operator
+#-----------------------------------------------------------
+operator DISS(f,t) := -epsdis / (16 * dt) *
+        (6 *<0>f[0] + <0>f[2] + <0>f[-2] - 4 * (<0>f[1] + <0>f[-1]))
+
+#-----------------------------------------------------------
+# O(h^2) backwards spatial derivative operator
+#-----------------------------------------------------------
+operator DB(f,r) := (3*<0>f[0] - 4*<0>f[-1] + <0>f[-2]) / (2*dr)
+
+#-----------------------------------------------------------
+# O(h^2) forwards spatial derivative operator
+#-----------------------------------------------------------
+operator DF(f,r) := (-3*<0>f[0] + 4*<0>f[1]  - <0>f[2]) / (2*dr)
+
+
+#-----------------------------------------------------------
+# DIFFERENCE EQUATION DEFINITIONS
+#-----------------------------------------------------------
+
+#NONE
+
+#-----------------------------------------------------------
+# INITIALIZATION STATEMENTS 
+#-----------------------------------------------------------
+
+#NONE
+
+#-----------------------------------------------------------
+# Intialize to an ingoing,outgoing or time-symmetric 
+# gaussian pulse (in the spatial derivative of the scalar
+# field), dependent on the value of idsignum.
+#-----------------------------------------------------------
+
+
+initializer.inc initializer initialize q1, q2, q3, p1, p2, p3, source1, source2, source3, flux1, flux2, flux3, a, alpha
+	header q1, q2, q3, p1, p2, p3, source1, source2, source3, flux1, flux2, flux3, fluxAlt1, fluxAlt2, fluxAlt3, a, alpha, r
+
+#-----------------------------------------------------------
+# Definition of type of time stepping algorithm.  The use
+# of "iterative" here, combined with the "auto update ..." 
+# statement below, results in a scheme whereby the 
+# residuals defined above are iteratively relaxed using 
+# a point-wise Newton-Gauss-Seidel technique, until the 
+# residual norms are below a certain threshold.
+#-----------------------------------------------------------
+looper standard
+
+#-----------------------------------------------------------
+# The following statement directs RNPL to automatically 
+# generate code to update the grid functions using the 
+# residual definitions.
+#-----------------------------------------------------------
+updateRK.inc rungeKuttaUpdater update q1, q2, q3, p1, p2, p3, flux1, flux2, flux3, fluxAlt1, fluxAlt2, fluxAlt3, source1, source2, source3
+	header q1, q2, q3, p1, p2, p3, flux1, flux2, flux3, fluxAlt1, fluxAlt2, fluxAlt3, source1, source2, source3,  alpha, a, r, dt, test 
+
+

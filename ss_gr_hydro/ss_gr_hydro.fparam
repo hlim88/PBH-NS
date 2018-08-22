@@ -1,0 +1,67 @@
+#---------- ssgr fixed parameter file --------------------
+
+app_name := ["Spherically symmetric GR plus hydro"]
+
+num_evo_tl := 2
+ic_n := 2
+evo_max_iter := 3
+evo_min_iter := 3
+
+dim := 1
+
+#2nd order RK 
+#
+#Note that third time-step is 'dummy' time-step used to insure that AMR boundaries are set correctly
+t_interp_substeps := [0 0.5 1] 
+
+
+
+v_tag := "_v"
+
+hyperbolic_vars := [ "a_v" "alpha_v" "q1" "q2" "q3" "p1" "p2" "p3" ]
+
+elliptic_vars := [ "phi_v" ]
+
+AMRH_work_vars := ["q1_v" "q2_v" "q3_v" "p1_v" "p2_v" "p3_v" "a_res" "T"]
+
+AMRH_work_in_MGH_vars := [ "q1_v" "q2_v" "q3_v" "p1_v" "p2_v" "p3_v" ]
+t0 := 0
+
+fc_vars := ["q1" "q2" "q3"]
+
+amr_inject       := [ "a_v" "alpha_v" "p1" "p2" "p3" ]
+#amr_inject_extensive := ["q1" "q2" "q3"]
+amr_inject_wavg := ["q1" "q2" "q3"]
+
+amr_sync         := [ "a_v" "q1" "q2" "q3" "p1" "p2" "p3" ]
+
+amr_interp4      := [ "a_v" ] 
+amr_interp2 := ["p1" "p2" "p3" "q1" "q2" "q3"]
+#amr_interp_extensive := ["q1" "q2" "q3" ]
+
+amr_transfer4    := [ "phi_v" " a_v" ]
+amr_transfer2 := ["q1" "q2" "q3" "p1" "p2" "p3" ]
+#amr_transfer_extensive := ["q1" "q2" "q3" "p1" "p2" "p3" ]
+
+amr_bdy_interp2 := ["q1" "q2" "q3" ]
+
+amr_c_to_v2 := [ "q1" "q2" "q3" "p1" "p2" "p3" ]
+
+mg_hw_restr := ["phi_v" "a_v" "q1_v" "q2_v" "q3_v" "p1_v" "p2_v" "p3_v" ]
+
+num_mg_interp2 := 1
+mg_interp2 := [ "phi_v" ]
+
+mg_sync := [ "phi_v" ]
+
+num_interp_AMR_bdy_vars := 1
+interp_AMR_bdy_vars := [ "phi_v" ]
+interp_AMR_bdy_order := 4
+
+min_mg_cwidth := [9]
+AMR_bdy_width := 2
+AMR_bdy_width_c := 2
+re_interp_width_c := 2
+
+TRE_vars := [ "a_v" ]
+#-----------------------------------------------------
