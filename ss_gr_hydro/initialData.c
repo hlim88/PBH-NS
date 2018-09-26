@@ -111,7 +111,10 @@ double getInitialData(double centralPressure, double velocityAmp, double *consVa
 
 // HL : New initial data based on PBH-NS coupling in HP coordinate
 
-double getInitialData(double centralPressure, double velocityAmp, double *consVar, double *primVar, double *a, double *alpha, double *rGravity, double *rFluid, int length){
+double getID2(double centralPressure, double velocityAmp, 
+		      double *consVar, double *primVar, double *a, 
+                      double *alpha, double *rGravity, double *rFluid, 
+                      int length){
 
 	double pressure[length];
 	double atmPressure = ATM_PRESSURE;
@@ -144,8 +147,10 @@ double getInitialData(double centralPressure, double velocityAmp, double *consVa
 		double x = rFluid[i]/starRadius;
 		if(x<1.0){
 			coordVelocity[i] = 0.5*velocityAmp*(x*x*x-3.0*x);
-		} else if(x<xatm ){	
-			coordVelocity[i] = 0.5*velocityAmp*(-4.0*x*x*x+6.0*x*x*(1.0+xatm)-12.0*xatm*x+2.0*xatm*xatm*(3.0-xatm))/(xatm-1.0)/(xatm-1.0)/(xatm-1.0);
+		} else if(x < xatm){	
+			coordVelocity[i] = 0.5*velocityAmp*(-4.0*x*x*x+6.0*x*x*(1.0+xatm)
+                                         -12.0*xatm*x+2.0*xatm*xatm*(3.0-xatm))/(xatm-1.0)
+                                         /(xatm-1.0)/(xatm-1.0);
 		} else {
 			coordVelocity[i] = 0.0;
 		}
