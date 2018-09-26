@@ -537,6 +537,9 @@ void ssgrhydro_var_post_init(char *pfile)
    # include "equationOfState.h" 
    if(eos_flag==GAMMA_LAW){
 	setEquationOfState(eos_flag, gamma_poly);
+   } else if(eos_flag==ADIABATIC){
+	setEquationOfState(eos_flag, gamma_poly);
+   }
    } else if(eos_flag==SHEN_EOS){
 	setEquationOfState(eos_flag, Ye);
    }
