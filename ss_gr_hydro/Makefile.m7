@@ -1,12 +1,12 @@
 MPILIB = -lmpi
-prefix = /home/hlm10/
+prefix = /fslhome/hlim10/local
 
 LIBS       = -lpamr -lamrd $(MPILIB) -lm -lgfortran -lbbhutil  
-LDFLAGS    =  -L../../lib  -L. -L$(prefix)/lib -L/home/hlim10/project/pbh-ns/pamr/lib/ 
+LDFLAGS    =  -L../../lib  -L. -L$(prefix)/lib -L/home/hlim10/project/pbh-ns/pamr/lib/ -L$(prefix)/pac_lib/gnu/lib/
 
 CC       = mpicc 
 CFLAGS     = -g -O2 
-CPPFLAGS = -I.  -I../../include -I$(prefix)/include -I/home/hlim10/project/pbh-ns/pamr/include/ 
+CPPFLAGS = -I.  -I../../include -I$(prefix)/include -I/home/hlim10/project/pbh-ns/pamr/include/ -L$(prefix)/pac_lib/gnu/include/
 CC_COMP  = $(CC) -c $(CFLAGS)
 
 F_COMP = mpif77 -c
