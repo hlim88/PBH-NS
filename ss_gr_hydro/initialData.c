@@ -198,6 +198,7 @@ double getID2(double centralPressure, double velocityAmp,
 	
 	return starRadius;
 }
+
 /*
  For partial domains, this function extends the domain from r=0 to r=rMaxExt
  Then it uses getInitialData() to find ID over this extended domain and then

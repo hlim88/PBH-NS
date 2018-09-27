@@ -17,9 +17,8 @@ void setEquationOfState(int eos_type, double param){
 	eosType = eos_type;
 	if(eosType==GAMMA_LAW){
 		GAMMA_INDEX = param;
-        } else if(eosType==adiabatic){
-                GAMMA_INDEX = param;
-        }	
+        } else if(eosType==ADIABATIC){
+                GAMMA_INDEX = param;	
 	} else if(eosType==SHEN_EOS){
 		//Load Shen EOS with Ye=param
 		loadShenTable(param);
@@ -35,7 +34,6 @@ double getPressure(double restDensity, double specificEnergy){
 		pressure = (GAMMA_INDEX-1.0)*restDensity*specificEnergy;
 	} else if(eosType == ADIABATIC){
 		pressure = KAPPA_CONST*pow(restDensity,GAMMA_INDEX);
-	}
 	} else if(eosType == SHEN_EOS){
 		pressure = getShenPressure(restDensity, specificEnergy);
 	}

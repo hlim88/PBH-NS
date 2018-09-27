@@ -1,6 +1,7 @@
 
 enum eosTypes {
 	GAMMA_LAW,
+    ADIABATIC,
 	SHEN_EOS
 };
 
