@@ -10,6 +10,11 @@ velocityAmp is parameter determining magnitude of velcity profile
 */
 double getInitialData(double centralPressure, double velocityAmp, double *consVar, double *primVar, double *a, double *alpha, double *rGravity, double *rFluid, int length);
 
+double getID2(double centralPressure, double velocityAmp,
+              double *consVar, double *primVar, double *a,
+              double *alpha, double *rGravity, double *rFluid,
+              int length){
+
 /*
  For partial domains, this function extends the domain from r=0 to r=rMaxExt
  Then it uses getInitialData() to find ID over this extended domain and then
