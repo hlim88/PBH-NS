@@ -1,12 +1,15 @@
 MPILIB = -lmpi
-prefix = /home/weast/
+#prefix = /home/weast/
+prefix = /usr/local
 
 LIBS       = -lpamr -lamrd $(MPILIB) -lm -lgfortran -lbbhutil  
-LDFLAGS    =  -L../../lib  -L. -L$(prefix)/lib -L/home/weast/software/pamr/lib/ 
+#LDFLAGS    =  -L../../lib  -L. -L$(prefix)/lib -L/home/weast/software/pamr/lib/ 
+LDFLAGS    = -L. -L$(prefix)/lib -L/Users/hyunlim/Desktop/project/pamr/lib/ 
 
 CC       = mpicc 
 CFLAGS     = -g -O2 
-CPPFLAGS = -I.  -I../../include -I$(prefix)/include -I/home/weast/software/pamr/include/ 
+#CPPFLAGS = -I.  -I../../include -I$(prefix)/include -I/home/weast/software/pamr/include/ 
+CPPFLAGS = -I. -I$(prefix)/include -I/Users/hyunlim/Desktop/project/pamr/include/ 
 CC_COMP  = $(CC) -c $(CFLAGS)
 
 F_COMP = mpif77 -c
@@ -20,7 +23,7 @@ all: ss_gr_hydro
 
 
 ss_gr_hydro: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o ss_gr_hydro
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o ss_gr_hydroSolver
 
 
 
@@ -78,3 +81,6 @@ fluxCorrection.o: fluxCorrection.c fluxCorrection.h
 
 ss_gr_hydro.o: ss_gr_hydro.c ss_gr_hydro.h
 	$(CC) $(CPPFLAGS) -c $(CFLAGS) ss_gr_hydro.c
+
+clean:
+	rm -rf *.o ss_gr_hydroSolver
