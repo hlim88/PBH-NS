@@ -18,7 +18,7 @@ OBJS = blackHoleFinder.o fluxCorrection.o gravityElliptic.o initialData.o fluidE
 all: ss_gr_hydro
 
 ss_gr_hydro: $(OBJS)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o ss_gr_hydro
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o ss_gr_hydroSolver
 
 
 flux.o: flux.c variableDef.h
@@ -77,4 +77,4 @@ ss_gr_hydro.o: ss_gr_hydro.c ss_gr_hydro.h
 	$(CC) $(CPPFLAGS) -c $(CFLAGS) ss_gr_hydro.c
 
 clean:
-	rm -rf *.o ss_gr_hydro
+	rm -rf *.o ss_gr_hydroSolver
