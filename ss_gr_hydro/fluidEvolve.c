@@ -30,9 +30,15 @@ void timeStep(int iter, int boolInnerBdy, int boolOuterBdy, double dt, int lengt
 	static double initialMass = 0.0;
 	if(boolInnerBdy && boolOuterBdy && length==4097){
 		double totMass = 0.0;
-		for(i=0; i<length-1; i++) totMass+=consVar_n[i*numVariables]*(rGravity[i+1]*rGravity[i+1]*rGravity[i+1]-rGravity[i]*rGravity[i]*rGravity[i]);
-		if(initialMass==0.0) initialMass = totMass;
-		printf("totalMass on L=%d is %E loss fraction=%E\n",length,totMass,(initialMass-totMass)/initialMass);
+		for(i=0; i<length-1; i++){
+            totMass+= consVar_n[i*numVariables]*(rGravity[i+1]*rGravity[i+1]*rGravity[i+1]
+                    - rGravity[i]*rGravity[i]*rGravity[i]);
+        }
+		if(initialMass==0.0){
+            initialMass = totMass;
+        }
+		printf("totalMass on L=%d is %E loss fraction=%E\n",length,
+                   totMass,(initialMass-totMass)/initialMass);
 	}
 
 	int lengthF = length-1;		
@@ -109,9 +115,19 @@ void timeStep(int iter, int boolInnerBdy, int boolOuterBdy, double dt, int lengt
 
 		double coeff = -3.0/(rGravity[i+1]*rGravity[i+1]*rGravity[i+1]-rGravity[i]*rGravity[i]*rGravity[i]);
 		for(j=0; j<numVariables; j++){
-			consVar_np1[i*numVariables+j] = consVar_n[i*numVariables+j] + deltaT*(coeff*(rGravity[i+1]*rGravity[i+1]*alpha[i+1]/a[i+1]*flux[i*numVariables+j]-rGravity[i]*rGravity[i]*alpha[i]/a[i]*flux[(i-1)*numVariables+j])-(alpha[i+1]/a[i+1]*fluxAlt[i*numVariables+j]-alpha[i]/a[i]*fluxAlt[(i-1)*numVariables+j])/(rGravity[i+1]-rGravity[i]) + source[i*numVariables+j]);
+			consVar_np1[i*numVariables+j] = consVar_n[i*numVariables+j] 
+                                          + deltaT*(coeff*(rGravity[i+1]*rGravity[i+1]
+                                          * alpha[i+1]/a[i+1]*flux[i*numVariables+j]
+                                          - rGravity[i]*rGravity[i]*alpha[i]/a[i]*flux[(i-1)
+                                          * numVariables+j])-(alpha[i+1]/a[i+1]
+                                          * fluxAlt[i*numVariables+j]-alpha[i]/a[i]
+                                          * fluxAlt[(i-1)*numVariables+j])/(rGravity[i+1]
+                                          - rGravity[i]) + source[i*numVariables+j]);
 			if(isnan(consVar_np1[i*numVariables+j])) {
-				printf("timeStep: consVar_np1 nan at r=%E and consVar_n= %E a= %E alpha = %E flux =%E fluxAlt =%E\n",rFluid[i], consVar_n[i*numVariables+j], a[i], alpha[i], flux[i*numVariables+j], fluxAlt[i*numVariables+j]);
+				printf("timeStep: consVar_np1 nan at r=%E and" 
+                        "consVar_n= %E a= %E alpha = %E flux =%E fluxAlt =%E\n",rFluid[i], 
+                        consVar_n[i*numVariables+j], a[i], alpha[i], flux[i*numVariables+j], 
+                        fluxAlt[i*numVariables+j]);
 			}		
 		}
 	}

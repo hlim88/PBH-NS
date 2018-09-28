@@ -20,7 +20,12 @@
 /*  This routine updates the following grid functions 
     q1 q2 q3 p1 p2 p3 flux1 flux2 flux3 fluxAlt1 fluxAlt2 fluxAlt3 source1 source2 source3 
 */
-void rungeKuttaUpdater(int *rnpldone,double *q1_np1,double *q1_n,double *q2_np1,double *q2_n,double *q3_np1,double *q3_n,double *p1_np1,double *p1_n,double *p2_np1,double *p2_n,double *p3_np1,double *p3_n,double *source1_n,double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,int g1_Nr,double *r,double dt)
+void rungeKuttaUpdater(int *rnpldone,double *q1_np1,double *q1_n,double *q2_np1,double *q2_n,
+                       double *q3_np1,double *q3_n,double *p1_np1,double *p1_n,double *p2_np1,
+                       double *p2_n,double *p3_np1,double *p3_n,double *source1_n,
+                       double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,
+                       double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n, 
+                       double *alpha_n,double *a_n,double *test_n,int g1_Nr,double *r,double dt)
 {
 
 /*

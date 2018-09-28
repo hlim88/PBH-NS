@@ -51,3 +51,19 @@ void setOuterBoundaryCondition(double *consVar, int L){
 	}
 
 }
+/* 
+Sommerfeld boundary condition 
+*/
+
+void sommerfeldBoundary(double *consVar){
+
+  const double f_falloff[3] = { 1.0, 1.0, 1.0};
+
+  const double f_asymptotic[3] = {1.0, 0.0, 0.0}; 
+  
+  for (int i = 0; i<numVariables; i++){
+      consVar[i] = f_falloff[i] * (consVar[i] - f_asymptotic[i]);
+  }
+
+
+}

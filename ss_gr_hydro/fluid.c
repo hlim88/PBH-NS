@@ -48,13 +48,24 @@ double calc_resid(int g1_Nr)
   return 0.0;
 }
 
-void take_step(int *rnpldone,double *q1_np1,double *q1_n,double *q2_np1,double *q2_n,double *q3_np1,double *q3_n,double *p1_np1,double *p1_n,double *p2_np1,double *p2_n,double *p3_np1,double *p3_n,double *source1_n,double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,int g1_Nr,double *r,double dt,double t)
+void take_step(int *rnpldone,double *q1_np1,double *q1_n,double *q2_np1,double *q2_n,
+               double *q3_np1,double *q3_n,double *p1_np1,double *p1_n,double *p2_np1,
+               double *p2_n,double *p3_np1,double *p3_n,double *source1_n,double *source2_n,
+               double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,
+               double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,
+               double *a_n,double *test_n,int g1_Nr,double *r,double dt,double t)
 {
 
   rungeKuttaUpdater(rnpldone,q1_np1,q1_n,q2_np1,q2_n,q3_np1,q3_n,p1_np1,p1_n,p2_np1,p2_n,p3_np1,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,g1_Nr,r,dt);
 }
 
-int update_gfuncs(int *rnpldone, int maxstep, double epsiter,double *q1_np1,double *q1_n,double *q2_np1,double *q2_n,double *q3_np1,double *q3_n,double *p1_np1,double *p1_n,double *p2_np1,double *p2_n,double *p3_np1,double *p3_n,double *source1_n,double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,int g1_Nr,double *r,double dt,double t)
+int update_gfuncs(int *rnpldone, int maxstep, double epsiter,double *q1_np1,double *q1_n,
+                  double *q2_np1,double *q2_n,double *q3_np1,double *q3_n,double *p1_np1,
+                  double *p1_n,double *p2_np1,double *p2_n,double *p3_np1,double *p3_n,
+                  double *source1_n,double *source2_n,double *source3_n,double *flux1_n,
+                  double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,
+                  double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,
+                  int g1_Nr,double *r,double dt,double t)
 {
   take_step(rnpldone,q1_np1,q1_n,q2_np1,q2_n,q3_np1,q3_n,p1_np1,p1_n,p2_np1,p2_n,p3_np1,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,g1_Nr,r,dt,t);
   return 1;
