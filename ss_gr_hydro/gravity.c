@@ -139,3 +139,61 @@ void evolveMomentumEq(double *consVar, double *a,  double *a_n, double *a_np1, d
 	i=length-1;
 	if(outerBdy) a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*0.5*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI]);
 }
+
+#if 0
+/*
+Solve polar-areal slicing condition for alpha.
+It is assumed that the last entry of alpha is already set.
+*/
+void solveSlicingConditionHP(double *consVar, double *primVar, double *a, double *r, int length, double *alpha){
+
+	int k;
+
+	//Recast equations in terms of B=ln(alpha)
+	double lnalpha = log(alpha[length-1]);
+	
+	for(k=length-1; k>0; k--){
+
+		double pressure = getPressure(primVar[(k-1)*numVariables+REST_DENSITY],primVar[(k-1)*numVariables+SPECIFIC_ENERGY]);
+		double coef = 0.5*(consVar[(k-1)*numVariables+PI]-consVar[(k-1)*numVariables+PHI])*primVar[(k-1)*numVariables+VELOCITY]+pressure;
+		double rAvg = 0.5*(r[k]+r[k-1]);
+		double aAvg = 0.5*(a[k]+a[k-1]);
+		double dr = r[k]-r[k-1];
+		double aSq = aAvg*aAvg;
+		double psQuantity = aSq*4.0*CONSTANT_PI*rAvg*coef+0.5/rAvg*(aSq-1.0);
+		lnalpha-=dr*psQuantity;
+		alpha[k-1]=exp(lnalpha);
+	}	
+
+}
+
+/*
+Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.
+*/
+void calculateMomentumEqResidualHP(double *consVar_n, double *consVar_np1, double *a_n, double *a_np1, double *alpha_n, double *alpha_np1, double *r, double dt, int length, double *residual){
+	int i;
+	residual[0]=0.0;
+	for(i=1; i<length; i++){
+		double S_np1 = 0.25*(consVar_np1[(i-1)*numVariables+PI]-consVar_np1[(i-1)*numVariables+PHI])+0.25*(consVar_np1[i*numVariables+PI]-consVar_np1[i*numVariables+PHI]);
+		double S_n = 0.25*(consVar_n[(i-1)*numVariables+PI]-consVar_n[(i-1)*numVariables+PHI])+0.25*(consVar_n[i*numVariables+PI]-consVar_n[i*numVariables+PHI]);
+		residual[i]=(a_np1[i]-a_n[i])/dt+4.0*CONSTANT_PI*r[i]*0.5*(alpha_np1[i]*a_np1[i]*a_np1[i]*S_np1+alpha_n[i]*a_n[i]*a_n[i]*S_n);
+
+	}
+
+}
+
+/*
+Use momentum equation to evolve a
+We let a_np1 = a_n + dt*F(a)
+*/
+void evolveMomentumEqHP(double *consVar, double *a,  double *a_n, double *a_np1, double *alpha, double *r, double dt, int length, int innerBdy, int outerBdy){
+	int i;
+	if(innerBdy) a_np1[0]=1.0;
+	for(i=1; i<length-1; i++){
+		double S = 0.25*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI])+0.25*(consVar[i*numVariables+PI]-consVar[i*numVariables+PHI]);
+		a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*S;
+	}
+	i=length-1;
+	if(outerBdy) a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*0.5*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI]);
+}
+#endif
