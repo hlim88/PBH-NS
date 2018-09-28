@@ -24,7 +24,7 @@ Once you didn't see any problmes during configuration, then type
 make install
 ```
 If you build the library correctly, you should fine `libpamr.a`
-and `libamrd.a` in your `/home/<your username/local/lib` 
+and `libamrd.a` in your `/home/<your username>/local/lib` 
 directory
 
 
@@ -47,7 +47,7 @@ Once you didn't see any problmes during configuration, then type
 make install
 ```
 If you build the library correctly, you should fine `libpamr.a`
-and `libamrd.a` in your `/home/<your username/local/lib` 
+and `libamrd.a` in your `/home/<your username>/local/lib` 
 directory
 
 ### On Mac
