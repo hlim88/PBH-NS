@@ -109,7 +109,7 @@ double getInitialData(double centralPressure, double velocityAmp, double *consVa
 	return starRadius;
 }
 
-// HL : New initial data based on PBH-NS coupling in HP coordinate
+// HL : New initial data based on HP coordinate
 
 double getID2(double centralPressure, double velocityAmp, 
 		      double *consVar, double *primVar, double *a, 
@@ -204,7 +204,9 @@ double getID2(double centralPressure, double velocityAmp,
  Then it uses getInitialData() to find ID over this extended domain and then
  copies in the required part.
  */
-double getInitialDataPartialDomain(double centralPressure, double velocityAmp, double rMaxExt, double *consVar, double *primVar, double *a, double *alpha, double *rGravity, double *rFluid, int length){
+double getInitialDataPartialDomain(double centralPressure, double velocityAmp, double rMaxExt, 
+				   double *consVar, double *primVar, double *a, double *alpha, 
+   		                   double *rGravity, double *rFluid, int length){
 
 	
 	double dr = rGravity[1]-rGravity[0];
