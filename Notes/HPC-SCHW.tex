@@ -70,32 +70,55 @@ where $x^i = (x,y,z)$ which is usual spatial Cartesian coordinate. In both cases
 General spherical symmetric line element in polar-areal form
 \begin{align}
 \label{eqn:ss-met-pa}
-ds^2 = - \alpha(r,t)^2 dt^2 + a(r,t)^2 dr^2 + r^2 d \Omega^2
+ds^2 = - \alpha(r)^2 dt^2 + a(r)^2 dr^2 + r^2 d \Omega^2
 \end{align}
 where $\alpha$ is referred as lapse function. Compare with above Schwarzschild solution, $\alpha = 1/a$. 
 
-In terms of horizon penetrating coordinate, we can generalize it in 3+1 form
+Now consider a transformation of the Schwarzschild time t coordinate to a new generic coordinate $\hat{t}$ according to
 \begin{align}
-\label{eqn:gen-sph-met}
-ds^2 = (-\alpha^2 + a^2 \beta^2) dt^2 + 2a^2 \beta dt dr + a^2 dr^2 + r^2 b^2 d \Omega^2
+d\hat{t} = dt + a^2 \sqrt{1-\frac{g}{a^2}} dr
 \end{align}
-where $\alpha$, $a$, $b$, and $\beta$ are functions of $r$ and $t$, and $d\Omega^2$ is the metric of unit sphere. This is nothing but ingoing Eddington-Finkelstein coordinate system (IEF). Consider Schwarzschild again in IEF
+where $g(r)$ is arbitrary function. Substitute this into $ds^2 = -\alpha^2 dt^2 + a^2 dr^2 + r^2 d\Omega^2$ gives
 \begin{align}
-ds^2 = - \left( 1- \frac{2M}{r} \right) dV^2 + 2 dV dr + r^2 d \Omega^2
+ds^2 &= - \alpha^2 \left (d\hat{t} - a^2 \sqrt{1-\frac{g}{a^2}} dr\right)^2 + a^2 dr^2 + r^2 d\Omega^2 \nonumber \\
+&= - \alpha^2 d \hat{t}^2 + 2 \sqrt{1-\frac{g}{a^2}} d\hat{t} dr + g dr^2 + r^2 d \Omega^2
 \end{align}
-Define a timelike coordinate $t = V-r$ then metric becomes
+Compare this with usual 3+1 framework
 \begin{align}
-ds^2 = - \left( 1- \frac{2M}{r} \right) dt^2 + \frac{4M}{r} dt dr +  \left( 1+ \frac{2M}{r} \right) dr^2 + r^2 d \Omega^2
+ds^2 = - \alpha^2 d \hat{t}^2 + \gamma_{ij} (dx^i + \beta^i d\hat{t}\,)(dx^j + \beta^j d\hat{t}\,)
 \end{align}
-Compare this with Eqn.~\ref{eqn:gen-sph-met}, various following metric components can be found
-\begin{align}
-\alpha &= \sqrt{\frac{r}{r+2M}} \\
-\beta &=\frac{2M}{r+2M} \\
-a &=\sqrt{\frac{r+2M}{r}}
-\end{align}
-and so on. Note that we can also fix the spatial degree of coordinate freedom by introducing a shifting areal coordinate $R \equiv  r + f(t)$ where $f(t)$ is some undetermined function.  
+and so into the lapse $\alpha = 1/\sqrt{g}$, the shift $\beta_i = (\sqrt{1-g/a^2},0,0)$ or $\beta^i = \gamma^{ij} \beta_j$ and the spatial metric of the constant $\hat{t}$ hypersurface $\gamma_{ij} = diag(g,r^2,r^2\sin^2 \theta)$. 
 
-\section{Model}
+If we choose $\alpha = \sqrt{1-2M/r} = 1/a$ and $g = 1+2M/r$ like in previous (which we will use this), we get
+\begin{align}
+ds^2 = - \left(1 - \frac{2M}{r} \right) d \hat{t}^2 + \frac{4M}{r} d \hat{t} dr + \left(1+\frac{2M}{r} \right) dr^2 + r^2 d\Omega^2
+\end{align}
+which is Schwarzschild in Kerr-Schild coordinate (or Eddington-Finkelstein coordinate). And correspondingly, $\alpha = \sqrt{r/(r+2M)}$, $\beta_i = (2M/r,0,0)$, and $\gamma_{ij} = diag(1+2M/r,r^2,r^2\sin^2 \theta)$ which are same as above.
+
+As you can see here, the KS (or EF) form of the metric represents an analytic expansion of the Schwarzschild solution from the region $2M < r< \infty$ to  $0<r<\infty$. Thus, we apply this coordinate transformation for our equations.
+
+%In terms of horizon penetrating coordinate, we can generalize it in 3+1 form
+%\begin{align}
+%\label{eqn:gen-sph-met}
+%ds^2 = (-\alpha^2 + a^2 \beta^2) dt^2 + 2a^2 \beta dt dr + a^2 dr^2 + r^2 b^2 d \Omega^2
+%\end{align}
+%where $\alpha$, $a$, $b$, and $\beta$ are functions of $r$ and $t$, and $d\Omega^2$ is the metric of unit sphere. This is nothing but ingoing Eddington-Finkelstein coordinate system (IEF). Consider Schwarzschild again in IEF
+%\begin{align}
+%ds^2 = - \left( 1- \frac{2M}{r} \right) dV^2 + 2 dV dr + r^2 d \Omega^2
+%\end{align}
+%Define a timelike coordinate $t = V-r$ then metric becomes
+%\begin{align}
+%ds^2 = - \left( 1- \frac{2M}{r} \right) dt^2 + \frac{4M}{r} dt dr +  \left( 1+ \frac{2M}{r} \right) dr^2 + r^2 d \Omega^2
+%\end{align}
+%Compare this with Eqn.~\ref{eqn:gen-sph-met}, various following metric components can be found
+%\begin{align}
+%\alpha &= \sqrt{\frac{r}{r+2M}} \\
+%\beta &=\frac{2M}{r+2M} \\
+%a &=\sqrt{\frac{r+2M}{r}}
+%\end{align}
+%and so on. Note that we can also fix the spatial degree of coordinate freedom by introducing a shifting areal coordinate $R \equiv  r + f(t)$ where $f(t)$ is some undetermined function.  
+
+\section{Theoretical Model}
 
 Here, as a beginning set up, we first use the perfect fluid approximation for the matted model. So the stress-energy tensor takes form
 \begin{align}
@@ -112,6 +135,91 @@ The equations of motion for this case are derive from the local conservative equ
 
 We follow usual remaining set-up i.e. employ Euler velocity, using Primitive variables etc for our system
 
+\subsection{GR-Hydro Equation in HPC}
 
+Here we solve GR hydrodynamic equations on Schwarzschild background in KS coordinate system. We follow standard techniques that describe in many literatures. Fluid EOM conservative form 
+\begin{align}
+\partial_t {\bf q} +\frac{1}{r^2} \partial_r (r^2 X {\bf f}) = {\bf \psi}
+\end{align}
+where
+\begin{align}
+{\bf q} = \begin{bmatrix}
+D\\
+\Pi\\
+\Phi
+\end{bmatrix} , \,\,\,\,\,\,\,
+{\bf f} = \begin{bmatrix}
+Dv\\
+v(\Pi+P) + P\\
+v(\Phi + P) + P
+\end{bmatrix} , \,\,\,\,\,\,\,
+{\bf \psi} = \begin{bmatrix}
+0\\
+\Sigma\\
+-\Sigma
+\end{bmatrix} 
+\end{align}
+where $v$ is Eulerian velocity of fluid such that $ v = a u^r / (\alpha u^t)$, $X=\alpha/a$ is a purely geometric quantity and
+\begin{align}
+D &= a \rho_0 W\\
+\Pi &= E-D+S\\
+\Phi &=E-D-S\\
+S &= \rho_0 h W^2 v \\
+E &=\rho_0 h W^2 - P 
+\end{align}
+where $W$ is Lorentz factor such that $W = \alpha u^t=1/\sqrt{1-v^2}$ and $h=1+\epsilon+P/\rho_0$ which is specific enthalpy. 
+
+Further, a sufficient set of Einstein\apost s equations for geometric variable $\alpha$ and $a$ are given by the nontrivial component of momentum constraint
+\begin{align}
+\partial_t a = - 4 \pi r \alpha a^2 S
+\end{align}
+and by the polar slicing condition which follows from the demand that metric have the spherically symmetric form for all time
+\begin{align}
+\partial_r (\ln \alpha) = a^2 \left[4 \pi r (Sv+P) + \frac{m}{r^2} \right]
+\end{align}
+and from Hamiltonian constraint
+\begin{align}
+\partial_r a = a^3 \left(4 \pi r E - \frac{m}{r^2} \right)
+\end{align}
+To solve these sets of equations on Schwarzschild background in KS, we consider following coordinate transformation in time 
+\begin{align}
+\hat{t} = t + 2 M \ln | \frac{r}{2M} - 1 | + k
+\end{align}
+where $k$ is arbitrary constant. So for arbitrary function $F$
+\begin{align}
+\frac{\partial F}{\partial t} = \frac{\partial \hat{t}}{\partial t} \frac{\partial F}{\partial \hat{t}} = \left(1+\frac{2MXv}{r-2M} \right) \frac{\partial F}{\partial \hat{t}} = \left(1+\frac{2Mv}{r} \right) \frac{\partial F}{\partial \hat{t}}
+\end{align}
+We apply this rule to above equations for HPC
+
+
+%From the metric,
+%\begin{align}
+%ds^2 = - \alpha^2 dt^2 + a^2 dr^2 + r^2 d \Omega^2
+%\end{align}
+%Identify $a = \sqrt{r/(r-2M)}$ which is usual Schwarzschild in Schwarzschild coordinate then Einstein\apost s equations and energy conservation imply the TOV system of ODEs
+%\begin{align}
+%\frac{d m}{dr} &= 4 \pi r^2 \rho \\
+%\frac{d P}{dr} &= - (\rho + P) \frac{M + 4 \pi r^3 P}{r(r-2M)} \\
+%\frac{d (\ln \alpha)}{d r} &= \frac{M+4\pi r^3 P}{r(r-2M)}
+%\end{align}
+%Again $\rho = \rho_0 ( 1+ \epsilon)$. Now consider this system in Kerr-Schild coordinate which provides horizon penetrating. Metric becomes from previous section
+%\begin{align}
+%ds^2 = (- \alpha^2 + a^2 \beta^2) dt^2 + 2 a^2 \beta dt dr + a^2 dr^2 + r^2 d \Omega^2
+%\end{align}
+%In this case, $\alpha$, $a$, and $\beta$ are function of $r$. Also we define 
+
+
+
+%obtaining TOV equation. Here, we still have spherical symmetry and staticity so
+%\begin{align}
+%\frac{d}{dr} ( \sqrt{-g} \rho_0 u^1) &= 0 \nonumber \\
+%\frac{d}{dr} ( \sqrt{-g} T^1_0 ) &= 0 \nonumber 
+%\end{align}
+%where $T_{ab}=(\rho + P) u_a u_b + Pg_{ab}$ or $T_{ab}=\rho_0 h u_a u_b + Pg_{ab}$ where $h = 1+\epsilon+p/\rho_0$ which is specific entalpy
+
+\subsection{Initial Data}
+Our initial NS model is approximated by solution of TOV until Schwarzschild radius.
+
+\subsection{Analytic Case}
 
 \end{document}
