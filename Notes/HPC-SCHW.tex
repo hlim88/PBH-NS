@@ -34,7 +34,7 @@
  
 \begin{document}
 
-\title{Horizon Penetrating Coordinate for Spherically Symmetric Metric}
+\title{General Relativistic Hydrodynamical System in Spherically Symmetric Metric with Horizon Penetrating Coordinate}
 
 \author{Hyun Lim}
 
@@ -97,6 +97,22 @@ which is Schwarzschild in Kerr-Schild coordinate (or Eddington-Finkelstein coord
 
 As you can see here, the KS (or EF) form of the metric represents an analytic expansion of the Schwarzschild solution from the region $2M < r< \infty$ to  $0<r<\infty$. Thus, we apply this coordinate transformation for our equations.
 
+It is good to rewrite the metric into usual $3+1$ variable form i.e. keep it geometric variables (should be careful of confusion) with considering time dependent case (This is almost same as Marsa and Choptuik\apost s paper). Here, we use $t$ for time coordinate that we used above.
+\begin{align}
+\label{eqn:gen-sph-met}
+ds^2 = (-\alpha^2 + a^2 \beta^2) dt^2 + 2a^2 \beta dt dr + a^2 dr^2 + r^2 b^2 d \Omega^2
+\end{align}
+where $\alpha$, $a$, $b$, and $\beta$ are functions of $r$ and $t$, and $d\Omega^2$ is the metric of unit sphere. From this, we can calculate non-vanishing components of connection coefficients and Ricci tensors for $i,j$, and $k$ (spatial indices)
+\begin{align}
+&\Gamma\indices{^r_{rr}} = \frac{\partial_r a}{a}, \,\,\,\,\,\,\,\, \Gamma\indices{^r_{\theta \theta}} = - \frac{rb \partial_r (rb)}{a^2}, \,\,\,\,\,\,\,\, \Gamma\indices{^\theta_{r \theta}} = \frac{\partial_r (rb)}{rb} \nonumber  \\
+&\Gamma\indices{^r_{\varphi \varphi}} = -\sin^2 \theta \frac{rb \partial_r (rb)}{a^2}, \,\,\,\,\,\,\,\, \Gamma\indices{^\varphi_{r \varphi}} = \Gamma\indices{^\theta_{r \theta}} \nonumber \\
+&\Gamma\indices{^\theta_{\varphi \varphi}} = -\sin \theta \cos \theta, \,\,\,\,\,\,\,\, \Gamma\indices{^\varphi_{\varphi \theta}} = -\cot \theta \nonumber 
+\end{align}
+\begin{align}
+R\indices{^r_r} &= -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) \\
+R\indices{^\theta_\theta} &= \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] \\
+\end{align}
+
 %In terms of horizon penetrating coordinate, we can generalize it in 3+1 form
 %\begin{align}
 %\label{eqn:gen-sph-met}
@@ -133,63 +149,148 @@ The equations of motion for this case are derive from the local conservative equ
 \nabla_a (\rho_0 u^a) &= 0 
 \end{align}
 
-We follow usual remaining set-up i.e. employ Euler velocity, using Primitive variables etc for our system
+First, we define variables. 
+\begin{align}
+D &= \rho_0 W  \\
+E &= \rho_0 h  W^2 -P \\
+S &= \rho_0 h W^2 v\\
+\tau &= E-D
+\end{align}
+%\begin{align}
+%{\bf q} = \begin{bmatrix}
+%D\\
+%\Pi\\
+%\Phi
+%\end{bmatrix} , \,\,\,\,\,\,\,
+%{\bf f} = \begin{bmatrix}
+%Dv\\
+%v(\Pi+P) + P\\
+%v(\Phi + P) + P
+%\end{bmatrix} , \,\,\,\,\,\,\,
+%{\bf \psi} = \begin{bmatrix}
+%0\\
+%\Sigma\\
+%-\Sigma
+%\end{bmatrix} 
+%\end{align}
+%where $v$ is Eulerian velocity of fluid such that $ v = a u^r / (\alpha u^t)$, $X=\alpha/a$ is a purely geometric quantity and
+%\begin{align}
+%D &= a \rho_0 W\\
+%\Pi &= E-D+S\\
+%\Phi &=E-D-S\\
+%S &= \rho_0 h W^2 v \\
+%E &=\rho_0 h W^2 - P 
+%\end{align}
+where $W$ is Lorentz factor such that $W = \alpha u^t=1/\sqrt{1-v^2}$ with fluid velocity $v =(a u^r) / (\alpha u^t)$ and $h=1+\epsilon+P/\rho_0$ which is specific enthalpy. In our case, $u^a = (u^t, u^r, 0, 0)$
 
-\subsection{GR-Hydro Equation in HPC}
+And nonzero components of $T^{ab}$ which we are using
+\begin{align}
+T\indices{^t_t} &= -E \\
+T\indices{^t_r} &= \frac{a}{\alpha} S \\
+T\indices{^r_r} &=Sv+P\\
+T\indices{^\theta_\theta}&=T\indices{^\varphi_\varphi}=P
+\end{align}
 
-Here we solve GR hydrodynamic equations on Schwarzschild background in KS coordinate system. We follow standard techniques that describe in many literatures. Fluid EOM conservative form 
+Using these variables under the metric which we consider, $\nabla_a (\rho_0 u^a)=0$ (continuity equation) gives
 \begin{align}
-\partial_t {\bf q} +\frac{1}{r^2} \partial_r (r^2 X {\bf f}) = {\bf \psi}
-\end{align}
-where
+\partial_t (\rho_0 u^t) + \Gamma\indices{^t_{tt}}(\rho_0 u^t) + \Gamma\indices{^t_{tr}}(\rho_0 u^r) = 0
+\end{align} 
+In terms of our variables, $\rho_0 u^t = D/\alpha$, $\rho_0 u^r = D v /a$ so
 \begin{align}
-{\bf q} = \begin{bmatrix}
-D\\
-\Pi\\
-\Phi
-\end{bmatrix} , \,\,\,\,\,\,\,
-{\bf f} = \begin{bmatrix}
-Dv\\
-v(\Pi+P) + P\\
-v(\Phi + P) + P
-\end{bmatrix} , \,\,\,\,\,\,\,
-{\bf \psi} = \begin{bmatrix}
-0\\
-\Sigma\\
--\Sigma
-\end{bmatrix} 
-\end{align}
-where $v$ is Eulerian velocity of fluid such that $ v = a u^r / (\alpha u^t)$, $X=\alpha/a$ is a purely geometric quantity and
-\begin{align}
-D &= a \rho_0 W\\
-\Pi &= E-D+S\\
-\Phi &=E-D-S\\
-S &= \rho_0 h W^2 v \\
-E &=\rho_0 h W^2 - P 
-\end{align}
-where $W$ is Lorentz factor such that $W = \alpha u^t=1/\sqrt{1-v^2}$ and $h=1+\epsilon+P/\rho_0$ which is specific enthalpy. 
+\partial_t (D/\alpha) + \Gamma\indices{^t_{tt}}(D/\alpha) + \Gamma\indices{^t_{tr}}(D v / a) = 0
+\end{align} 
 
-Further, a sufficient set of Einstein\apost s equations for geometric variable $\alpha$ and $a$ are given by the nontrivial component of momentum constraint
+$\nabla_a T\indices{^a_b}=0$ gives
 \begin{align}
-\partial_t a = - 4 \pi r \alpha a^2 S
+\partial_t T\indices{^t_b} + \Gamma\indices{^t_{tc}}T\indices{^c_b} - \Gamma\indices{^c_{tb}}T\indices{^t_c} = 0
 \end{align}
-and by the polar slicing condition which follows from the demand that metric have the spherically symmetric form for all time
+The covariant $t$-component of above equation gives energy equation $T\indices{^t_t} = - E$
 \begin{align}
-\partial_r (\ln \alpha) = a^2 \left[4 \pi r (Sv+P) + \frac{m}{r^2} \right]
+&\partial_t T\indices{^t_t} + \Gamma\indices{^t_{tc}}T\indices{^c_t} - \Gamma\indices{^c_{tt}}T\indices{^t_c} = 0 \nonumber \\
+&\rightarrow \partial_t T\indices{^t_t} + \Gamma\indices{^t_{tt}}T\indices{^t_t} +\Gamma\indices{^t_{tr}}T\indices{^r_t}- \Gamma\indices{^t_{tt}}T\indices{^t_t} - \Gamma\indices{^r_{tt}}T\indices{^t_r} = 0 \nonumber \\
+&\rightarrow \partial_t E + \Gamma\indices{^t_{tr}} \frac{a^3}{\alpha^3} S + \Gamma\indices{^r_{tt}} \frac{a}{\alpha} S = 0
 \end{align}
-and from Hamiltonian constraint
+Next, consider the covariant $r$-component 
 \begin{align}
-\partial_r a = a^3 \left(4 \pi r E - \frac{m}{r^2} \right)
+&\partial_t T\indices{^t_r} + \Gamma\indices{^t_{tc}}T\indices{^c_r} - \Gamma\indices{^c_{tr}}T\indices{^t_c} = 0 \nonumber \\
+&\rightarrow \partial_t T\indices{^t_r} + \Gamma\indices{^t_{tt}}T\indices{^t_r} +\Gamma\indices{^t_{tr}}T\indices{^r_r}- \Gamma\indices{^t_{tr}}T\indices{^t_t} - \Gamma\indices{^r_{tr}}T\indices{^t_r} = 0 \nonumber \\
+&\rightarrow \partial_t \left(\frac{a}{\alpha} S\right) + \Gamma\indices{^t_{tt}}(\frac{a}{\alpha} S)  +\Gamma\indices{^t_{tr}}(Sv+P) + \Gamma\indices{^t_{tr}}E - \Gamma\indices{^r_{tr}}\frac{a}{\alpha} S= 0 \nonumber 
 \end{align}
-To solve these sets of equations on Schwarzschild background in KS, we consider following coordinate transformation in time 
+Non-vanishing connection coefficients are evaluated via Mathematica. You can find it \href{https://github.com/hlim88/PBH-NS/tree/master/tools}{here}
+
+
+%Here, we use the fact that $\sqrt{-g} = \alpha \sqrt{\gamma}$ where $\gamma = det(\gamma_{ij})$ which came from above metric.
+
+Now consider the Einstein\apost s equations. Define below quantities that are appearing in the 3+1 equations
 \begin{align}
-\hat{t} = t + 2 M \ln | \frac{r}{2M} - 1 | + k
+\rho_{hydro} &= n_a n_b T^{ab} = \rho_0 h W^2 - P \\
+S_i^{hydro} &= - \gamma_{ia} n_b T^{ab}  = \rho_0 h W u_i \\
+S_{ij}^{hydro} &= \gamma_{ia} \gamma_{ib} T^{ab} = P \gamma_{ij} + \rho_0 h u_i u_j \\
+S_{hydro} &= \gamma^{ij} S_{ij} = 3 P + \rho_0 h (W^2 -1)
 \end{align}
-where $k$ is arbitrary constant. So for arbitrary function $F$
+
+The Einstein\apost s equations in the ADM form are
 \begin{align}
-\frac{\partial F}{\partial t} = \frac{\partial \hat{t}}{\partial t} \frac{\partial F}{\partial \hat{t}} = \left(1+\frac{2MXv}{r-2M} \right) \frac{\partial F}{\partial \hat{t}} = \left(1+\frac{2Mv}{r} \right) \frac{\partial F}{\partial \hat{t}}
+\label{eqn:adm:gam}
+\partial_t \gamma_{ij} &= - 2 \alpha K_{ij} + D_i \beta_j + D_j \beta_i \\ 
+\label{eqn:adm:K}
+\partial_t K\indices{^i_j} &= \alpha (R\indices{^i_j} + K K\indices{^i_j}) - D^i D_j \alpha - 8 \pi \alpha \left(S\indices{^i_j} - \frac{1}{2} \delta\indices{^i_j} (S-\rho)\right) \nonumber \\
+& + \beta^k \partial_k K\indices{^i_j} + K\indices{^i_k} \partial_j \beta^k - K\indices{^k_j} \partial_k \beta^i
 \end{align}
-We apply this rule to above equations for HPC
+where $D_i$ is covariant derivative on spatial hypersurface. Momentum and Hamiltonian constraints are
+\begin{align}
+R+K^2 - K_{ij} K^{ij} = 16 \pi \rho \\
+D_i K\indices{^i_j} - D_j K = 8 \pi S_j
+\end{align}
+
+Substitute hydro source terms ($\rho$, $S$ etc) from above then we have
+\begin{align}
+\partial_t K\indices{^i_j} &= \alpha (R\indices{^i_j} + K K\indices{^i_j}) - \gamma^{ik} (\partial_i \partial_k \alpha - \Gamma\indices{^l_{ik}} \partial_l \alpha) - 8 \pi \alpha \left(\frac{1}{2} \delta\indices{^i_j} (\rho_0 h - 2 P) + \rho_0 h u^i u_j \right) \nonumber \\
+& + \beta^k \partial_k K\indices{^i_j} + K\indices{^i_k} \partial_j \beta^k - K\indices{^k_j} \partial_k \beta^i \\
+\partial_t \gamma_{ij} &= - 2 \alpha K_{ij} + D_i \beta_j + D_j \beta_i \\ 
+&R+K^2 - K_{ij} K^{ij} = 16 \pi (\rho_0 h W^2 -P)\\
+&D_i K\indices{^i_j} - D_j K = 8 \pi \rho_0 h W u_j
+\end{align}
+
+From our choice of metric/coordinate system, we calculated non-trivial connection coefficients and Ricci tensors. Also, metric form suggests that $\beta^i = (\beta^r,0,0)$, $K\indices{^i_j} = diag(K\indices{^r_r}, K\indices{^\theta_\theta},K\indices{^\theta_\theta})$. Using these facts, the evolution equations for geometric quantities are
+\begin{align}
+\partial_t a &= - \alpha a K\indices{^r_r} + \partial_r (a \beta^r) \\
+\partial_t b &= - \alpha b K\indices{^\theta_\theta} + \frac{\beta^r}{r} \partial_r (r \beta^r) \\
+\partial_t K\indices{^r_r} &= \beta^r \partial_r K\indices{^r_r} + \alpha K\indices{^r_r} K - \frac{1}{a} \partial_r \left( \frac{\partial_r \alpha}{a} \right) - \frac{2 \alpha}{arb} \partial_r \left( \frac{\partial_r (rb)}{a} \right) \nonumber \\
+& - 4 \pi \alpha \left[ (1+2 u^r u_r) \rho_0 h - 2P \right] \\
+\partial_t K\indices{^\theta_\theta} &= \beta^r \partial_r K\indices{^\theta_\theta} + \alpha K\indices{^\theta_\theta} K - \frac{\alpha}{r^2 b^2} - \frac{1}{ar^2b^2} \partial_r \left( \frac{\alpha r b \partial_r (rb)}{a} \right) \nonumber \\
+& - 4 \pi \alpha (\rho_0 h -2 P)
+\end{align}
+From constraints
+\begin{align}
+ \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) + 2K\indices{^\theta_\theta}(K\indices{^\theta_\theta}+2 K\indices{^r_r}) &= 16 \pi (\rho_0 h W^2 -P) \nonumber \\
+ \frac{\partial_t (r b)}{rb} (K\indices{^\theta_\theta} - K\indices{^r_r}) - \partial_r K\indices{^\theta_\theta} &= 4 \pi \rho_0 h W u_r
+\end{align}
+
+We can apply different choice of slicing (i.e. gauge choice) to reduce/determine above system. Possible (or simple) choices would be maximal or polar slicing. 
+
+%Further, a sufficient set of Einstein\apost s equations for geometric variable $\alpha$ and $a$ are given by the nontrivial component of momentum constraint
+%\begin{align}
+%\partial_t a = - 4 \pi r \alpha a^2 S
+%\end{align}
+%and by the polar slicing condition which follows from the demand that metric have the spherically symmetric form for all time
+%\begin{align}
+%\partial_r (\ln \alpha) = a^2 \left[4 \pi r (Sv+P) + \frac{m}{r^2} \right]
+%\end{align}
+%and from Hamiltonian constraint
+%\begin{align}
+%\partial_r a = a^3 \left(4 \pi r E - \frac{m}{r^2} \right)
+%\end{align}
+
+%To solve these sets of equations on Schwarzschild background in KS, we consider following coordinate transformation in time 
+%\begin{align}
+%\hat{t} = t + 2 M \ln | \frac{r}{2M} - 1 | + k
+%\end{align}
+%where $k$ is arbitrary constant. So for arbitrary function $F$
+%\begin{align}
+%\frac{\partial F}{\partial t} = \frac{\partial \hat{t}}{\partial t} \frac{\partial F}{\partial \hat{t}} = \left(1+\frac{2MXv}{r-2M} \right) \frac{\partial F}{\partial \hat{t}} = \left(1+\frac{2Mv}{r} \right) \frac{\partial F}{\partial \hat{t}}
+%\end{align}
+%We apply this rule to above equations for HPC
 
 
 %From the metric,
