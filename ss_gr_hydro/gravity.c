@@ -140,9 +140,11 @@ void evolveMomentumEq(double *consVar, double *a,  double *a_n, double *a_np1, d
 	if(outerBdy) a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*0.5*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI]);
 }
 
+// HL : This is the addtional part
+
 #if 0
 /*
-Solve polar-areal slicing condition for alpha.
+Solve maximal slicing condition for alpha.
 It is assumed that the last entry of alpha is already set.
 */
 void solveSlicingConditionHP(double *consVar, double *primVar, double *a, double *r, int length, double *alpha){
