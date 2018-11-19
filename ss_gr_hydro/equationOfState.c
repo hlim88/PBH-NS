@@ -62,7 +62,7 @@ double getSoundSpeed(double restDensity, double specificEnergy){
 	
 	if(eosType == GAMMA_LAW){
 		soundSpeed = sqrt(GAMMA_INDEX*(GAMMA_INDEX-1.0)*specificEnergy/(1.0+GAMMA_INDEX*specificEnergy));
-	} else if(eosType == GAMMA_LAW){
+	} else if(eosType == ADIABATIC){
 		soundSpeed = sqrt(GAMMA_INDEX*(GAMMA_INDEX-1.0)*specificEnergy/(1.0+GAMMA_INDEX*specificEnergy));
 	} else if(eosType == SHEN_EOS){ 
 		soundSpeed = getShenSoundSpeed(restDensity, specificEnergy);

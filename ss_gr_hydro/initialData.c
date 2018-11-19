@@ -18,6 +18,25 @@ double getDensity(double pressure){
 	return density;
 }
 
+//Density (not rest density) as a function of pressure using EOS and polytropic relation and
+//that connects like piecewise way
+double getPieceWiseDensity(double pressure, double *rFluid, int length){
+	if(pressure<0.0){
+		pressure = ATM_PRESSURE;
+	}
+ 	//Define a radius for interface between star and PBH
+ 	double r_in=1.0;
+        double r = rFluid[0]/1.0;
+        if (r <= r_in) {
+	   double density = 0.0;
+	   return density;
+	} else {
+	  double restDensity = getPolytropicRestDensity(pressure);
+	  double specificEnergy = getSpecificEnergy(restDensity, pressure);
+	  double density = restDensity*(1.0+specificEnergy);
+	  return density;
+        }
+}
 
 // Aug.22.2018 
 // Old initial data

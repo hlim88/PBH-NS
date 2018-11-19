@@ -17,7 +17,10 @@
 #define FALSE 0
 #endif
 
-void swap_levels(double **q1_np1,double **q1_n,double **q2_np1,double **q2_n,double **q3_np1,double **q3_n,double **p1_np1,double **p1_n,double **p2_np1,double **p2_n,double **p3_np1,double **p3_n)
+void swap_levels(double **q1_np1,double **q1_n,double **q2_np1,
+		 double **q2_n,double **q3_np1,double **q3_n,
+		 double **p1_np1,double **p1_n,double **p2_np1,
+		 double **p2_n,double **p3_np1,double **p3_n)
 {
   int *tmpi;
   double *tmpr;
@@ -56,7 +59,17 @@ void take_step(int *rnpldone,double *q1_np1,double *q1_n,double *q2_np1,double *
                double *a_n,double *test_n,int g1_Nr,double *r,double dt,double t)
 {
 
-  rungeKuttaUpdater(rnpldone,q1_np1,q1_n,q2_np1,q2_n,q3_np1,q3_n,p1_np1,p1_n,p2_np1,p2_n,p3_np1,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,g1_Nr,r,dt);
+  rungeKuttaUpdater(rnpldone,
+	            q1_np1,q1_n,
+  	            q2_np1,q2_n,
+                    q3_np1,q3_n,
+ 		    p1_np1,p1_n,
+		    p2_np1,p2_n,
+		    p3_np1,p3_n,
+		    source1_n,source2_n,source3_n,
+		    flux1_n,flux2_n,flux3_n,
+		    fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+		    alpha_n,a_n,test_n,g1_Nr,r,dt);
 }
 
 int update_gfuncs(int *rnpldone, int maxstep, double epsiter,double *q1_np1,double *q1_n,
@@ -67,11 +80,31 @@ int update_gfuncs(int *rnpldone, int maxstep, double epsiter,double *q1_np1,doub
                   double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,
                   int g1_Nr,double *r,double dt,double t)
 {
-  take_step(rnpldone,q1_np1,q1_n,q2_np1,q2_n,q3_np1,q3_n,p1_np1,p1_n,p2_np1,p2_n,p3_np1,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,g1_Nr,r,dt,t);
-  return 1;
+  take_step(rnpldone,
+	    q1_np1,q1_n,
+	    q2_np1,q2_n,
+	    q3_np1,q3_n,
+	    p1_np1,p1_n,
+	    p2_np1,p2_n,
+	    p3_np1,p3_n,
+	    source1_n,source2_n,source3_n,
+	    flux1_n,flux2_n,flux3_n,
+ 	    fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+	    alpha_n,a_n,test_n,g1_Nr,r,dt,t);
+  return 1; //Retrun 1?
 }
 
-void read_parameters(char *p_file,int *Nr0,int *set_Nr0,double *epsdis,int *set_epsdis,double *epsiter,int *set_epsiter,double *epsiterid,int *set_epsiterid,int *fout,int *set_fout,char **in_file,int *set_in_file,int *iter,int *set_iter,double *lambda,int *set_lambda,int *level,int *set_level,int *maxstep,int *set_maxstep,int *maxstepid,int *set_maxstepid,char **out_file,int *set_out_file,int **output,int *set_output,double *rmax,int *set_rmax,double *rmin,int *set_rmin,int *s_step,int *set_s_step,int *ser,int *set_ser,double *start_t,int *set_start_t,char **tag,int *set_tag,int **trace,int *set_trace)
+void read_parameters(char *p_file,int *Nr0,int *set_Nr0,double *epsdis,
+		     int *set_epsdis,double *epsiter,int *set_epsiter,
+                     double *epsiterid,int *set_epsiterid,int *fout,
+ 		     int *set_fout,char **in_file,int *set_in_file,
+		     int *iter,int *set_iter,double *lambda,int *set_lambda,
+  	   	     int *level,int *set_level,int *maxstep,int *set_maxstep,
+		     int *maxstepid,int *set_maxstepid,char **out_file,
+                     int *set_out_file,int **output,int *set_output,double *rmax,
+                     int *set_rmax,double *rmin,int *set_rmin,int *s_step,
+                     int *set_s_step,int *ser,int *set_ser,double *start_t,
+                     int *set_start_t,char **tag,int *set_tag,int **trace,int *set_trace)
 {
   if(!*set_Nr0)
     if(get_param(p_file,"Nr0","long",1,Nr0)==1)
@@ -135,7 +168,27 @@ void read_parameters(char *p_file,int *Nr0,int *set_Nr0,double *epsdis,int *set_
       *set_trace=1;
 }
 
-void sread_parameters(char *p_str,int *Nr0,int *set_Nr0,double *epsdis,int *set_epsdis,double *epsiter,int *set_epsiter,double *epsiterid,int *set_epsiterid,int *fout,int *set_fout,char **in_file,int *set_in_file,int *iter,int *set_iter,double *lambda,int *set_lambda,int *level,int *set_level,int *maxstep,int *set_maxstep,int *maxstepid,int *set_maxstepid,char **out_file,int *set_out_file,int **output,int *set_output,double *rmax,int *set_rmax,double *rmin,int *set_rmin,int *s_step,int *set_s_step,int *ser,int *set_ser,double *start_t,int *set_start_t,char **tag,int *set_tag,int **trace,int *set_trace)
+void sread_parameters(char *p_str,
+		      int *Nr0,int *set_Nr0,
+		      double *epsdis,int *set_epsdis,
+ 		      double *epsiter,int *set_epsiter,
+		      double *epsiterid,int *set_epsiterid,
+		      int *fout,int *set_fout,
+  	              char **in_file,int *set_in_file,
+		      int *iter,int *set_iter,
+		      double *lambda,int *set_lambda,
+		      int *level,int *set_level,
+		      int *maxstep,int *set_maxstep,
+		      int *maxstepid,int *set_maxstepid,
+		      char **out_file,int *set_out_file,
+		      int **output,int *set_output,
+		      double *rmax,int *set_rmax,
+		      double *rmin,int *set_rmin,
+		      int *s_step,int *set_s_step,
+		      int *ser,int *set_ser,
+		      double *start_t,int *set_start_t,
+		      char **tag,int *set_tag,
+	 	      int **trace,int *set_trace)
 {
   if(!*set_Nr0)
     if(sget_param(p_str,"Nr0","long",1,Nr0,1)==1)
@@ -206,7 +259,27 @@ void read_attributes(char *p_file,int *out_gf,int *set_out_gf)
       *set_out_gf=1;
 }
 
-int check_params_attribs(int Nr0,int set_Nr0,double epsdis,int set_epsdis,double epsiter,int set_epsiter,double epsiterid,int set_epsiterid,int fout,int set_fout,char *in_file,int set_in_file,int iter,int set_iter,double lambda,int set_lambda,int level,int set_level,int maxstep,int set_maxstep,int maxstepid,int set_maxstepid,char *out_file,int set_out_file,int *output,int set_output,double rmax,int set_rmax,double rmin,int set_rmin,int s_step,int set_s_step,int ser,int set_ser,double start_t,int set_start_t,char *tag,int set_tag,int *trace,int set_trace,int *out_gf,int set_out_gf)
+int check_params_attribs(int Nr0,int set_Nr0,
+			 double epsdis,int set_epsdis,
+			 double epsiter,int set_epsiter,
+			 double epsiterid,int set_epsiterid,
+			 int fout,int set_fout,
+			 char *in_file,int set_in_file,
+			 int iter,int set_iter,
+			 double lambda,int set_lambda,
+			 int level,int set_level,
+			 int maxstep,int set_maxstep,
+			 int maxstepid,int set_maxstepid,
+			 char *out_file,int set_out_file,
+			 int *output,int set_output,
+			 double rmax,int set_rmax,
+			 double rmin,int set_rmin,
+			 int s_step,int set_s_step,
+			 int ser,int set_ser,
+			 double start_t,int set_start_t,
+			 char *tag,int set_tag,
+			 int *trace,int set_trace,
+			 int *out_gf,int set_out_gf)
 {
   int all_ok=1;
   if(!set_Nr0 && !(1)){
@@ -317,7 +390,34 @@ int check_params_attribs(int Nr0,int set_Nr0,double epsdis,int set_epsdis,double
   return(all_ok);
 }
 
-void read_state(int argc, char **argv, lattice_type *lats,double *q1_n,double *q2_n,double *q3_n,double *p1_n,double *p2_n,double *p3_n,double *source1_n,double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,int *Nr0,int set_Nr0,double *epsdis,int set_epsdis,double *epsiter,int set_epsiter,double *epsiterid,int set_epsiterid,int *fout,int set_fout,char **in_file,int set_in_file,int *iter,int set_iter,double *lambda,int set_lambda,int *level,int set_level,int *maxstep,int set_maxstep,int *maxstepid,int set_maxstepid,char **out_file,int set_out_file,int *output,int set_output,double *rmax,int set_rmax,double *rmin,int set_rmin,int *s_step,int set_s_step,int *ser,int set_ser,double *start_t,int set_start_t,char **tag,int set_tag,int *trace,int set_trace)
+void read_state(int argc, char **argv, 
+		lattice_type *lats,
+		double *q1_n,double *q2_n,double *q3_n,
+		double *p1_n,double *p2_n,double *p3_n,
+		double *source1_n,double *source2_n,double *source3_n,
+		double *flux1_n,double *flux2_n,double *flux3_n,
+		double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,
+		double *alpha_n,double *a_n,double *test_n,
+		int *Nr0,int set_Nr0,
+		double *epsdis,int set_epsdis,
+		double *epsiter,int set_epsiter,
+		double *epsiterid,int set_epsiterid,
+		int *fout,int set_fout,
+		char **in_file,int set_in_file,
+		int *iter,int set_iter,
+		double *lambda,int set_lambda,
+		int *level,int set_level,
+		int *maxstep,int set_maxstep,
+		int *maxstepid,int set_maxstepid,
+		char **out_file,int set_out_file,
+		int *output,int set_output,
+		double *rmax,int set_rmax,
+		double *rmin,int set_rmin,
+		int *s_step,int set_s_step,
+		int *ser,int set_ser,
+		double *start_t,int set_start_t,
+		char **tag,int set_tag,
+		int *trace,int set_trace)
 {
   char command[256];
   FILE *fp;
@@ -400,7 +500,23 @@ void read_state(int argc, char **argv, lattice_type *lats,double *q1_n,double *q
   gft_set_multi();
 }
 
-void dump_state(const double t, lattice_type *lats,double *q1_n,double *q2_n,double *q3_n,double *p1_n,double *p2_n,double *p3_n,double *source1_n,double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,int Nr0,double epsdis,double epsiter,double epsiterid,int fout,char *in_file,int iter,double lambda,int level,int maxstep,int maxstepid,char *out_file,int *output,double rmax,double rmin,int s_step,int ser,double start_t,char *tag,int *trace)
+void dump_state(const double t, 
+		lattice_type *lats,
+		double *q1_n,double *q2_n,double *q3_n,
+		double *p1_n,double *p2_n,double *p3_n,
+		double *source1_n,double *source2_n,double *source3_n,
+		double *flux1_n,double *flux2_n,double *flux3_n,
+		double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,
+		double *alpha_n,double *a_n,double *test_n,
+		int Nr0,
+		double epsdis,double epsiter,double epsiterid,
+		int fout,char *in_file,
+		int iter,double lambda,int level,
+		int maxstep,int maxstepid,
+		char *out_file,int *output,
+		double rmax,double rmin,
+		int s_step,int ser,
+		double start_t,char *tag,int *trace)
 {
   gft_set_single(out_file);
   gft_write_id_gf("q1",lats[0].shape,lats[0].rank,q1_n);
@@ -491,7 +607,15 @@ void handler(int sig, int *rnpldone, int *rmod, char **fname, int *out_gf)
   }
 }
 
-void output_gfuncs(int fout, int ser, double t, int *out_gf, char **fname,double *q1_n,double *q2_n,double *q3_n,double *p1_n,double *p2_n,double *p3_n,double *source1_n,double *source2_n,double *source3_n,double *flux1_n,double *flux2_n,double *flux3_n,double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,double *alpha_n,double *a_n,double *test_n,int g1_rank, int *g1_shape, char *g1_cnames, double *g1_crds)
+void output_gfuncs(int fout, int ser, double t, 
+		   int *out_gf, char **fname,
+		   double *q1_n,double *q2_n,double *q3_n,
+		   double *p1_n,double *p2_n,double *p3_n,
+		   double *source1_n,double *source2_n,double *source3_n,
+		   double *flux1_n,double *flux2_n,double *flux3_n,
+		   double *fluxAlt1_n,double *fluxAlt2_n,double *fluxAlt3_n,
+		   double *alpha_n,double *a_n,double *test_n,
+		   int g1_rank, int *g1_shape, char *g1_cnames, double *g1_crds)
 {
   if(out_gf[0]){
     if(fout)
@@ -782,7 +906,27 @@ int main(int argc, char **argv)
   while((opt=getopt(argc,argv,"p:"))!=EOF){
     switch(opt){
       case 'p' :
-        sread_parameters(optarg,&Nr0,&set_Nr0,&epsdis,&set_epsdis,&epsiter,&set_epsiter,&epsiterid,&set_epsiterid,&fout,&set_fout,&in_file,&set_in_file,&iter,&set_iter,&lambda,&set_lambda,&level,&set_level,&maxstep,&set_maxstep,&maxstepid,&set_maxstepid,&out_file,&set_out_file,&output,&set_output,&rmax,&set_rmax,&rmin,&set_rmin,&s_step,&set_s_step,&ser,&set_ser,&start_t,&set_start_t,&tag,&set_tag,&trace,&set_trace);
+        sread_parameters(optarg,
+			 &Nr0,&set_Nr0,
+			 &epsdis,&set_epsdis,
+			 &epsiter,&set_epsiter,
+			 &epsiterid,&set_epsiterid,
+			 &fout,&set_fout,
+			 &in_file,&set_in_file,
+			 &iter,&set_iter,
+			 &lambda,&set_lambda,
+			 &level,&set_level,
+			 &maxstep,&set_maxstep,
+			 &maxstepid,&set_maxstepid,
+			 &out_file,&set_out_file,
+			 &output,&set_output,
+			 &rmax,&set_rmax,
+			 &rmin,&set_rmin,
+			 &s_step,&set_s_step,
+			 &ser,&set_ser,
+			 &start_t,&set_start_t,
+			 &tag,&set_tag,
+			 &trace,&set_trace);
         break;
       case '?' :
         argerr=1;
@@ -809,7 +953,27 @@ int main(int argc, char **argv)
   }
   fclose(fp);
 
-  read_parameters(param_file,&Nr0,&set_Nr0,&epsdis,&set_epsdis,&epsiter,&set_epsiter,&epsiterid,&set_epsiterid,&fout,&set_fout,&in_file,&set_in_file,&iter,&set_iter,&lambda,&set_lambda,&level,&set_level,&maxstep,&set_maxstep,&maxstepid,&set_maxstepid,&out_file,&set_out_file,&output,&set_output,&rmax,&set_rmax,&rmin,&set_rmin,&s_step,&set_s_step,&ser,&set_ser,&start_t,&set_start_t,&tag,&set_tag,&trace,&set_trace);
+  read_parameters(param_file,
+		  &Nr0,&set_Nr0,
+		  &epsdis,&set_epsdis,
+		  &epsiter,&set_epsiter,
+		  &epsiterid,&set_epsiterid,
+		  &fout,&set_fout,
+		  &in_file,&set_in_file,
+		  &iter,&set_iter,
+		  &lambda,&set_lambda,
+		  &level,&set_level,
+		  &maxstep,&set_maxstep,
+		  &maxstepid,&set_maxstepid,
+		  &out_file,&set_out_file,
+		  &output,&set_output,
+		  &rmax,&set_rmax,
+		  &rmin,&set_rmin,
+		  &s_step,&set_s_step,
+		  &ser,&set_ser,
+		  &start_t,&set_start_t,
+		  &tag,&set_tag,
+		  &trace,&set_trace);
   read_attributes(param_file,out_gf,&set_out_gf);
   read_attributes(".rnpl.attributes",out_gf,&set_out_gf);
   /* initialize coordinate differentials */
@@ -916,8 +1080,56 @@ int main(int argc, char **argv)
   fname[17]=(char *)malloc(17*sizeof(char));
   sprintf(fname[17],"%stest_%d",tag,level);
 
-  read_state(argc, argv, lats,q1_n,q2_n,q3_n,p1_n,p2_n,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,&Nr0,set_Nr0,&epsdis,set_epsdis,&epsiter,set_epsiter,&epsiterid,set_epsiterid,&fout,set_fout,&in_file,set_in_file,&iter,set_iter,&lambda,set_lambda,&level,set_level,&maxstep,set_maxstep,&maxstepid,set_maxstepid,&out_file,set_out_file,output,set_output,&rmax,set_rmax,&rmin,set_rmin,&s_step,set_s_step,&ser,set_ser,&start_t,set_start_t,&tag,set_tag,trace,set_trace);
-  if(!check_params_attribs(Nr0,set_Nr0,epsdis,set_epsdis,epsiter,set_epsiter,epsiterid,set_epsiterid,fout,set_fout,in_file,set_in_file,iter,set_iter,lambda,set_lambda,level,set_level,maxstep,set_maxstep,maxstepid,set_maxstepid,out_file,set_out_file,output,set_output,rmax,set_rmax,rmin,set_rmin,s_step,set_s_step,ser,set_ser,start_t,set_start_t,tag,set_tag,trace,set_trace,out_gf,set_out_gf)){
+  read_state(argc, argv,
+	     lats,
+	     q1_n,q2_n,q3_n,
+	     p1_n,p2_n,p3_n,
+	     source1_n,source2_n,source3_n,
+	     flux1_n,flux2_n,flux3_n,
+	     fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+	     alpha_n,a_n,test_n,
+	     &Nr0,set_Nr0,
+	     &epsdis,set_epsdis,
+	     &epsiter,set_epsiter,
+	     &epsiterid,set_epsiterid,
+	     &fout,set_fout,
+	     &in_file,set_in_file,
+	     &iter,set_iter,
+	     &lambda,set_lambda,
+	     &level,set_level,
+	     &maxstep,set_maxstep,
+	     &maxstepid,set_maxstepid,
+	     &out_file,set_out_file,
+	     output,set_output,
+	     &rmax,set_rmax,
+	     &rmin,set_rmin,
+	     &s_step,set_s_step,
+	     &ser,set_ser,
+	     &start_t,set_start_t,
+	     &tag,set_tag,
+	     trace,set_trace);
+
+  if(!check_params_attribs(Nr0,set_Nr0,
+			   epsdis,set_epsdis,
+			   epsiter,set_epsiter,
+			   epsiterid,set_epsiterid,
+			   fout,set_fout,
+			   in_file,set_in_file,
+			   iter,set_iter,
+			   lambda,set_lambda,
+			   level,set_level,
+			   maxstep,set_maxstep,
+			   maxstepid,set_maxstepid,
+			   out_file,set_out_file,
+			   output,set_output,
+			   rmax,set_rmax,
+			   rmin,set_rmin,
+			   s_step,set_s_step,
+			   ser,set_ser,
+			   start_t,set_start_t,
+			   tag,set_tag,
+			   trace,set_trace,
+			   out_gf,set_out_gf)){
     fprintf(stderr,"fluid: Unable to continue.\n");
     exit(0);
   }
@@ -951,17 +1163,44 @@ int main(int argc, char **argv)
     if(do_ivec(i,iter,trace))
       fprintf(stdout,"Starting evolution. step: %d at t=%g\n",i,t);
     if(((rmod!=-1) && (i%rmod==0)) || do_ivec(i,iter,output)){
-      output_gfuncs(fout,ser,t,out_gf,fname,q1_n,q2_n,q3_n,p1_n,p2_n,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,lats[0].rank,lats[0].shape,cname[lats[0].cs],lats[0].coords);
+      output_gfuncs(fout,ser,t,out_gf,fname,
+		    q1_n,q2_n,q3_n,
+		    p1_n,p2_n,p3_n,
+		    source1_n,source2_n,source3_n,
+		    flux1_n,flux2_n,flux3_n,
+		    fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+		    alpha_n,a_n,test_n,
+		    lats[0].rank,lats[0].shape,
+		    cname[lats[0].cs],lats[0].coords);
     }
   }
   for(i++;i<=iter && !rnpldone;i++){
-    steps=update_gfuncs(&rnpldone,maxstep,epsiter,q1_np1,q1_n,q2_np1,q2_n,q3_np1,q3_n,p1_np1,p1_n,p2_np1,p2_n,p3_np1,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,lats[0].shape[0],r,dt,t);
-    swap_levels(&q1_np1,&q1_n,&q2_np1,&q2_n,&q3_np1,&q3_n,&p1_np1,&p1_n,&p2_np1,&p2_n,&p3_np1,&p3_n);
+    steps=update_gfuncs(&rnpldone,maxstep,epsiter,
+			q1_np1,q1_n,q2_np1,q2_n,q3_np1,q3_n,
+			p1_np1,p1_n,p2_np1,p2_n,p3_np1,p3_n,
+			source1_n,source2_n,source3_n,
+			flux1_n,flux2_n,flux3_n,
+			fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+			alpha_n,a_n,test_n,
+			lats[0].shape[0],
+			r,dt,t);
+
+    swap_levels(&q1_np1,&q1_n,&q2_np1,&q2_n,&q3_np1,&q3_n,
+	        &p1_np1,&p1_n,&p2_np1,&p2_n,&p3_np1,&p3_n);
     t+=dt;
+
     if(do_ivec(i,iter,trace))
       printf("step: %d  t=%g  steps=%d\n",i,t,steps);
     if(((rmod!=-1) && (i%rmod==0)) || do_ivec(i,iter,output)){
-      output_gfuncs(fout,ser,t,out_gf,fname,q1_n,q2_n,q3_n,p1_n,p2_n,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,lats[0].rank,lats[0].shape,cname[lats[0].cs],lats[0].coords);
+      output_gfuncs(fout,ser,t,out_gf,fname,
+		    q1_n,q2_n,q3_n,
+		    p1_n,p2_n,p3_n,
+		    source1_n,source2_n,source3_n,
+		    flux1_n,flux2_n,flux3_n,
+		    fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+		    alpha_n,a_n,test_n,
+		    lats[0].rank,lats[0].shape,
+		    cname[lats[0].cs],lats[0].coords);
     }
     if(got_signal){
       handler(got_signal,&rnpldone,&rmod,fname,out_gf);
@@ -973,7 +1212,23 @@ int main(int argc, char **argv)
   ed=time(&ed);
   fprintf(stdout,"Elapsed: %lu sec\n",ed-st);
   s_step=i-1;
-  dump_state(t, lats,q1_n,q2_n,q3_n,p1_n,p2_n,p3_n,source1_n,source2_n,source3_n,flux1_n,flux2_n,flux3_n,fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,alpha_n,a_n,test_n,Nr0,epsdis,epsiter,epsiterid,fout,in_file,iter,lambda,level,maxstep,maxstepid,out_file,output,rmax,rmin,s_step,ser,start_t,tag,trace);
+  dump_state(t,lats,
+	     q1_n,q2_n,q3_n,
+	     p1_n,p2_n,p3_n,
+	     source1_n,source2_n,source3_n,
+	     flux1_n,flux2_n,flux3_n,
+	     fluxAlt1_n,fluxAlt2_n,fluxAlt3_n,
+	     alpha_n,a_n,
+	     test_n,Nr0,
+	     epsdis,epsiter,epsiterid,
+	     fout,in_file,iter,
+	     lambda,level,
+	     maxstep,maxstepid,
+	     out_file,output,
+	     rmax,rmin,s_step,ser,
+	     start_t,tag,trace);
+
+
   free(q1_np1);
   free(q1_n);
   free(q2_np1);
