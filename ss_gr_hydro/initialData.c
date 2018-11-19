@@ -128,7 +128,7 @@ double getInitialData(double centralPressure, double velocityAmp, double *consVa
 	return starRadius;
 }
 
-// HL : New initial data based on HP coordinate
+// HL : New initial data : put a valocity profile in certain region and make it BH very fastly
 
 double getID2(double centralPressure, double velocityAmp, 
 		      double *consVar, double *primVar, double *a, 
@@ -164,7 +164,16 @@ double getID2(double centralPressure, double velocityAmp,
 
 		//Add a velocity profile to the solution
 		double x = rFluid[i]/starRadius;
-		if(x<1.0){
+		
+		//HL : TODO make belows as parameters or other treatment
+		double bh_tlv = 0.01; //Test threshold value to put fast velocity profile
+		double bigVelAmp = 5.0;
+
+		if (x<bh_tlv) {
+			//Still use same ingoing velocity prof as in Eqn.25 in 0709.3527 but
+			// big velocity amplitude. This is just for testing
+			coordVelocity[i] = 0.5*bigVelAmp * (x*x*x-3.0*x); 
+		} else if(x<1.0){
 			coordVelocity[i] = 0.5*velocityAmp*(x*x*x-3.0*x);
 		} else if(x < xatm){	
 			coordVelocity[i] = 0.5*velocityAmp*(-4.0*x*x*x+6.0*x*x*(1.0+xatm)
