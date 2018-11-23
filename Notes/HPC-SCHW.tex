@@ -269,6 +269,27 @@ From constraints
 
 We can apply different choice of slicing (i.e. gauge choice) to reduce/determine above system. Possible (or simple) choices would be maximal or polar slicing. 
 
+\subsection{Choice of Gauge}
+
+First, we consider maximal slicing i.e. $K=\partial_t K = 0$ then 
+
+\begin{align}
+\partial_t a &= - \alpha a K\indices{^r_r} + \partial_r (a \beta^r) \\
+\partial_t b &= - \alpha b K\indices{^\theta_\theta} + \frac{\beta^r}{r} \partial_r (r \beta^r) \\
+\partial_t K\indices{^r_r} &= \beta^r \partial_r K\indices{^r_r}  - \frac{1}{a} \partial_r \left( \frac{\partial_r \alpha}{a} \right) - \frac{2 \alpha}{arb} \partial_r \left( \frac{\partial_r (rb)}{a} \right) 
+ - 4 \pi \alpha \left[ (1+2 u^r u_r) \rho_0 h - 2P \right] \\
+\partial_t K\indices{^\theta_\theta} &= \beta^r \partial_r K\indices{^\theta_\theta} - K - \frac{\alpha}{r^2 b^2} - \frac{1}{ar^2b^2} \partial_r \left( \frac{\alpha r b \partial_r (rb)}{a} \right)  - 4 \pi \alpha (\rho_0 h -2 P)
+\end{align}
+From constraints
+\begin{align}
+ \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) - [(K\indices{^r_r})^2+2 (K\indices{^\theta_\theta})^2] &= 16 \pi (\rho_0 h W^2 -P) \nonumber \\
+ \frac{2 \partial_t (r b)}{rb} (K\indices{^\theta_\theta} - K\indices{^r_r}) + \partial_r K\indices{^r_r} &= 8 \pi \rho_0 h W u_r
+\end{align}
+Fluid EOM parts are same as previous
+
+Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
+
+
 %Further, a sufficient set of Einstein\apost s equations for geometric variable $\alpha$ and $a$ are given by the nontrivial component of momentum constraint
 %\begin{align}
 %\partial_t a = - 4 \pi r \alpha a^2 S
@@ -319,8 +340,29 @@ We can apply different choice of slicing (i.e. gauge choice) to reduce/determine
 %where $T_{ab}=(\rho + P) u_a u_b + Pg_{ab}$ or $T_{ab}=\rho_0 h u_a u_b + Pg_{ab}$ where $h = 1+\epsilon+p/\rho_0$ which is specific entalpy
 
 \subsection{Initial Data}
-Our initial NS model is approximated by solution of TOV until Schwarzschild radius.
+Our initial NS model is approximated by solution of TOV. After the initial data calculation, an in-going velocity profile is added to drive the star to collapse. We follow the way is described in (https://arxiv.org/pdf/gr-qc/0107045.pdf). First, specifying the coordinate velocity
+\begin{align}
+U \equiv \frac{dr}{dt} = \frac{u^r}{u^r}
+\end{align}
+of the star. In general, the profile take the algebraic form $U_g(x) = A_0 (x^3 - B_0 x)$ where $x \equiv = r/R_{star}$ and $R_{star}$ is the radius of the TOV solution.
+
+In this work, we set three profiles
+\begin{align}
+U(x) =
+\begin{cases}
+U_1(x) = U_{crit} ( x^3 - 3x) & x < x_{tlv} \\
+\\
+U_2(x) = \frac{U_{amp}}{2} (x^3 - 3x) & x_{tlv}<x<1 \\
+\\
+U_3(x) = \frac{27 U_{amp}}{10\sqrt{5}} \left(x^3 - \frac{5x}{3} \right) & \textrm{otherwise}
+\end{cases}
+\end{align}
+where $U_{amp}$ is amplitude of ingoing velocity profile, $U_{crit}$ is the amplitude that occurs critical collapse, and $x_{tlv}$ the region that forms black hole. 
+
+Our interest is interaction between BH inside of NS so $U_{amp} > U_{crit}$ and we set $x_{tlv}$ is small value such as 1\% of size of star
 
 \subsection{Analytic Case}
+
+For code test and validation, we use well-known Michel problem
 
 \end{document}
