@@ -344,22 +344,20 @@ Our initial NS model is approximated by solution of TOV. After the initial data 
 \begin{align}
 U \equiv \frac{dr}{dt} = \frac{u^r}{u^r}
 \end{align}
-of the star. In general, the profile take the algebraic form $U_g(x) = A_0 (x^3 - B_0 x)$ where $x \equiv = r/R_{star}$ and $R_{star}$ is the radius of the TOV solution.
+of the star. In general, the profile take the algebraic form $U_g(x) = A_0 (x^3 - B_0 x)$ where $x \equiv  r/R_{star}$ and $R_{star}$ is the radius of the TOV solution.
 
-In this work, we set three profiles
+In this work, we set two profiles
 \begin{align}
 U(x) =
 \begin{cases}
 U_1(x) = U_{crit} ( x^3 - 3x) & x < x_{tlv} \\
 \\
-U_2(x) = \frac{U_{amp}}{2} (x^3 - 3x) & x_{tlv}<x<1 \\
-\\
-U_3(x) = \frac{27 U_{amp}}{10\sqrt{5}} \left(x^3 - \frac{5x}{3} \right) & \textrm{otherwise}
+U_2(x) = 0 & \textrm{otherwise} \\
 \end{cases}
 \end{align}
-where $U_{amp}$ is amplitude of ingoing velocity profile, $U_{crit}$ is the amplitude that occurs critical collapse, and $x_{tlv}$ the region that forms black hole. 
+$U_{crit}$ is the amplitude that occurs critical collapse, and $x_{tlv}$ the region that forms black hole. 
 
-Our interest is interaction between BH inside of NS so $U_{amp} > U_{crit}$ and we set $x_{tlv}$ is small value such as 1\% of size of star
+Our interest is interaction between BH inside of NS we set $x_{tlv}$ is small value such as 1\% of size of star i.e. $x_{tlv} = 0.01$ since $x$ is normalized radius by star radius.
 
 \subsection{Analytic Case}
 
