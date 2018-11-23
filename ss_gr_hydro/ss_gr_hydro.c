@@ -151,7 +151,7 @@ void set_gfns(void)
     #if 0 
     if ((Krr_gfn=PAMR_get_gfn("Krr_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if ((Kthth_gfn=PAMR_get_gfn("Kthth_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
-    #endif 1
+    #endif 
     if (AMRD_num_inject_wavg_vars) if ((wavg_mg_gfn = PAMR_get_gfn("wavg",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if (AMRD_num_inject_wavg_vars) if ((wavg_gfn    = PAMR_get_gfn("wavg",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
 }
