@@ -6,6 +6,7 @@ This project studies full dynamical evolution in PBH-NS
 system using numerical relativity simulation.
 
 `Notes` directory includes basic description about the project.
+This is working note so contents are updating frequently and correctness are not guaranteed.
 
 `ss_gr_hydro` directory includes spherically symmetric GR-Hydro
 code that is origianlly written by Will East. To run this code,
