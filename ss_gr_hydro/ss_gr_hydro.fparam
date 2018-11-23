@@ -19,6 +19,7 @@ t_interp_substeps := [0 0.5 1]
 v_tag := "_v"
 
 hyperbolic_vars := [ "a_v" "alpha_v" "q1" "q2" "q3" "p1" "p2" "p3" ]
+#hyperbolic_vars := [ "a_v" "alpha_v" "q1" "q2" "q3" "p1" "p2" "p3" "Krr" "Kthth" ]
 
 elliptic_vars := [ "phi_v" ]
 

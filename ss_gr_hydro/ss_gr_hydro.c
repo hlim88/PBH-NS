@@ -80,6 +80,10 @@ int phi_res_gfn, phi_lop_gfn, phi_rhs_gfn;
 int mask_mg_gfn, mask_v_gfn, mask_c_gfn;
 int wavg_gfn, wavg_mg_gfn;
 
+#if 0
+int Krr, Kthth;
+#endif
+
 //=============================================================================
 // call after variables have been defined
 //=============================================================================
@@ -136,12 +140,18 @@ void set_gfns(void)
     if ((phi_np1_gfn = PAMR_get_gfn("phi_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_gfn=PAMR_get_gfn("phi_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     
+
     if ((phi_res_gfn=PAMR_get_gfn("phi_res_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_lop_gfn=PAMR_get_gfn("phi_lop_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_rhs_gfn=PAMR_get_gfn("phi_rhs_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if ((mask_mg_gfn=PAMR_get_gfn("cmask_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if ((mask_v_gfn=PAMR_get_gfn("cmask_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((mask_c_gfn=PAMR_get_gfn("cmask",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+   
+    #if 0 
+    if ((Krr_gfn=PAMR_get_gfn("Krr_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+    if ((Kthth_gfn=PAMR_get_gfn("Kthth_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+    #endif 1
     if (AMRD_num_inject_wavg_vars) if ((wavg_mg_gfn = PAMR_get_gfn("wavg",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if (AMRD_num_inject_wavg_vars) if ((wavg_gfn    = PAMR_get_gfn("wavg",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
 }
@@ -230,7 +240,12 @@ void ldptr(void)
    mask_mg = gfs[mask_mg_gfn-1];
    mask_v = gfs[mask_v_gfn-1];
    mask_c = gfs[mask_c_gfn-1];
-   
+  
+   #if 0
+   Krr = gfs[Krr_gtn-1];
+   Kthth = gfs[Kthth_gtn-1];
+   #endif	
+ 
    if (AMRD_num_inject_wavg_vars) wavg = gfs[wavg_gfn-1];
    if (AMRD_num_inject_wavg_vars) wavg_mg = gfs[wavg_mg_gfn-1];
 
