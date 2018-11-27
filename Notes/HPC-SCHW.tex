@@ -216,7 +216,7 @@ Next, consider the covariant $r$-component
 &\rightarrow \partial_t T\indices{^t_r} + \Gamma\indices{^t_{tt}}T\indices{^t_r} +\Gamma\indices{^t_{tr}}T\indices{^r_r}- \Gamma\indices{^t_{tr}}T\indices{^t_t} - \Gamma\indices{^r_{tr}}T\indices{^t_r} = 0 \nonumber \\
 &\rightarrow \partial_t \left(\frac{a}{\alpha} S\right) + \Gamma\indices{^t_{tt}}(\frac{a}{\alpha} S)  +\Gamma\indices{^t_{tr}}(Sv+P) + \Gamma\indices{^t_{tr}}E - \Gamma\indices{^r_{tr}}\frac{a}{\alpha} S= 0 \nonumber 
 \end{align}
-Non-vanishing connection coefficients are evaluated via Mathematica. You can find it \href{https://github.com/hlim88/PBH-NS/tree/master/tools}{here}
+Non-vanishing connection coefficients are evaluated via Mathematica. You can find it \href{https://github.com/hlim88/PBH-NS/tree/master/tools}{here}. After all simplifications, we have
 
 
 %Here, we use the fact that $\sqrt{-g} = \alpha \sqrt{\gamma}$ where $\gamma = det(\gamma_{ij})$ which came from above metric.
@@ -267,6 +267,7 @@ From constraints
  \frac{\partial_t (r b)}{rb} (K\indices{^\theta_\theta} - K\indices{^r_r}) - \partial_r K\indices{^\theta_\theta} &= 4 \pi \rho_0 h W u_r
 \end{align}
 
+
 We can apply different choice of slicing (i.e. gauge choice) to reduce/determine above system. Possible (or simple) choices would be maximal or polar slicing. 
 
 \subsection{Choice of Gauge}
@@ -286,6 +287,28 @@ From constraints
  \frac{2 \partial_t (r b)}{rb} (K\indices{^\theta_\theta} - K\indices{^r_r}) + \partial_r K\indices{^r_r} &= 8 \pi \rho_0 h W u_r
 \end{align}
 Fluid EOM parts are same as previous
+
+For lapse, we use 
+\begin{align}
+\partial_t K = - D^2 \alpha + \alpha (K^{ij}K_{ij} + 4 \pi (\rho + S))+ \beta^i D_i K
+\end{align}
+In our choice of gauge, this can be reduced
+\begin{align}
+D^2 \alpha &= \alpha ( K^{ij} K_{ij} + 4 \pi (\rho + S)) = \alpha \left( K^{ij} K_{ij} + 8 \pi \left[P + \rho_0 h \left(W^2 - \frac{1}{2}  \right)\right]\right) \nonumber \\
+&= \alpha \left( (K\indices{^r_r})^2+2 (K\indices{^\theta_\theta})^2 + 8 \pi \left[P + \rho_0 h \left(W^2 - \frac{1}{2}  \right)\right]\right)
+\end{align}
+Also, for shift, we use
+\begin{align}
+\partial_t \ln \sqrt{\gamma} = - \alpha K + D_i \beta^i 
+\end{align}
+In maximal slicing, this reduces
+\begin{align}
+D_i \beta^i = - \partial_t \ln \sqrt{\gamma}  
+\end{align}
+In terms of our metric choice and variable
+\begin{align}
+\partial_r \beta^r = \frac{b}{2b+\beta^r} \left[\alpha(K\indices{^r_r}+K\indices{^\theta_\theta}) - \frac{(\beta^r)^2 b}{r}- \frac{2\beta^r}{a} \partial_r a \right]
+\end{align}
 
 Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
 
