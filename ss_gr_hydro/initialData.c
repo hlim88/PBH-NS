@@ -173,12 +173,6 @@ double getID2(double centralPressure, double velocityAmp,
 			//Still use same ingoing velocity prof as in Eqn.25 in 0709.3527 but
 			// big velocity amplitude. This is just for testing
 			coordVelocity[i] = 0.5*bigVelAmp * (x*x*x-3.0*x); 
-		} else if(x<1.0){
-			coordVelocity[i] = 0.5*velocityAmp*(x*x*x-3.0*x);
-		} else if(x < xatm){	
-			coordVelocity[i] = 0.5*velocityAmp*(-4.0*x*x*x+6.0*x*x*(1.0+xatm)
-                                         -12.0*xatm*x+2.0*xatm*xatm*(3.0-xatm))/(xatm-1.0)
-                                         /(xatm-1.0)/(xatm-1.0);
 		} else {
 			coordVelocity[i] = 0.0;
 		}
