@@ -369,15 +369,15 @@ First, we consider maximal slicing i.e. $K=\partial_t K = 0$ then
 
 \begin{align}
 \partial_t a &= - \alpha a K\indices{^r_r} + \partial_r (a \beta^r) \\
-\partial_t b &= - \alpha b K\indices{^\theta_\theta} + \frac{\beta^r}{r} \partial_r (r \beta^r) \\
+\partial_t b &=  \frac{\alpha b}{2} K\indices{^r_r} + \frac{\beta^r}{r} \partial_r (r \beta^r) \\
 \partial_t K\indices{^r_r} &= \beta^r \partial_r K\indices{^r_r}  - \frac{1}{a} \partial_r \left( \frac{\partial_r \alpha}{a} \right) - \frac{2 \alpha}{arb} \partial_r \left( \frac{\partial_r (rb)}{a} \right) 
- - 4 \pi \alpha \left[ (1+2 u^r u_r) \rho_0 h - 2P \right] \\
-\partial_t K\indices{^\theta_\theta} &= \beta^r \partial_r K\indices{^\theta_\theta} - K - \frac{\alpha}{r^2 b^2} - \frac{1}{ar^2b^2} \partial_r \left( \frac{\alpha r b \partial_r (rb)}{a} \right)  - 4 \pi \alpha (\rho_0 h -2 P)
+-  \frac{2 \alpha}{r^2 b^2} - \frac{2}{ar^2b^2} \partial_r \left( \frac{\alpha r b \partial_r (rb)}{a} \right)  \nonumber \\
+& - 8 \pi \alpha \left[ (2+2 u^r u_r) \rho_0 h - 4P \right] 
 \end{align}
 From constraints
 \begin{align}
- \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) - [(K\indices{^r_r})^2+2 (K\indices{^\theta_\theta})^2] &= 16 \pi (\rho_0 h W^2 -P) \nonumber \\
- \frac{2 \partial_t (r b)}{rb} (K\indices{^\theta_\theta} - K\indices{^r_r}) + \partial_r K\indices{^r_r} &= 8 \pi \rho_0 h W u_r
+ \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) - \frac{3}{2}(K\indices{^r_r})^2 &= 16 \pi (\rho_0 h W^2 -P) \nonumber \\
+  \partial_r K\indices{^r_r} -\frac{3 \partial_t (r b)}{rb}  K\indices{^r_r} &= 8 \pi \rho_0 h W u_r
 \end{align}
 Fluid EOM parts are same as previous
 
@@ -388,7 +388,7 @@ For lapse, we use
 In our choice of gauge, this can be reduced
 \begin{align}
 D^2 \alpha &= \alpha ( K^{ij} K_{ij} + 4 \pi (\rho + S)) = \alpha \left( K^{ij} K_{ij} + 8 \pi \left[P + \rho_0 h \left(W^2 - \frac{1}{2}  \right)\right]\right) \nonumber \\
-&= \alpha \left( (K\indices{^r_r})^2+2 (K\indices{^\theta_\theta})^2 + 8 \pi \left[P + \rho_0 h \left(W^2 - \frac{1}{2}  \right)\right]\right)
+&= \alpha \left( 2(K\indices{^r_r})^2 + 8 \pi \left[P + \rho_0 h \left(W^2 - \frac{1}{2}  \right)\right]\right)
 \end{align}
 Also, for shift, we use
 \begin{align}
@@ -406,7 +406,7 @@ This shows that the proper volume element $\sqrt{\gamma}$ satisfies a continuity
 
 In terms of our metric choice and variable
 \begin{align}
-\partial_r \beta^r = \frac{b}{2b+\beta^r} \left[\alpha(K\indices{^r_r}+K\indices{^\theta_\theta}) - \frac{(\beta^r)^2 b}{r}- \frac{\partial_r a}{a} \beta^r \right]
+\partial_r \beta^r = \frac{b}{2b+\beta^r} \left[\frac{\alpha K\indices{^r_r}}{2} - \frac{(\beta^r)^2 b}{r}- \frac{\partial_r a}{a} \beta^r \right]
 \end{align}
 
 Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
