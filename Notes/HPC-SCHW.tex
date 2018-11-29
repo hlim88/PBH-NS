@@ -149,13 +149,106 @@ The equations of motion for this case are derive from the local conservative equ
 \nabla_a (\rho_0 u^a) &= 0 
 \end{align}
 
-First, we define variables. 
+We are using HRSC so we would like to write this in terms of flux-conservative form such that
 \begin{align}
-D &= \rho_0 W  \\
+\partial_t {\bf U} + \partial_i {\bf F^i} = {\bf \Psi}
+\end{align}
+where ${\bf U}$, 
+\begin{align}
+{\bf U} = 
+\begin{pmatrix}
+\sqrt{\gamma} W \rho_0 \\
+\sqrt{\gamma} \alpha T\indices{^t_j} \\
+\alpha^2 \sqrt{\gamma} T^{tt} - \sqrt{\gamma} W \rho_0
+\end{pmatrix}
+\end{align}
+
+and ${\bf F^i}$
+\begin{align}
+{\bf F^i} = 
+\begin{pmatrix}
+\sqrt{\gamma} W \rho_0 v^i \\
+\sqrt{\gamma} \alpha T\indices{^i_j} \\
+\alpha^2 \sqrt{\gamma} T^{ti} - \sqrt{\gamma} W \rho_0 v^i
+\end{pmatrix}
+\end{align}
+
+and ${\bf \psi}$
+\begin{align}
+{\bf \Psi} = 
+\begin{pmatrix}
+0\\
+\frac{1}{2}\sqrt{\gamma} \alpha T\indices{^{ab}}g_{ab,j} \\
+\alpha^2 \sqrt{\gamma} (T^{at} \partial_a \alpha - \Gamma\indices{^0_{ab}} T^{ab} \alpha )
+\end{pmatrix}
+\end{align}
+where $W$ is Lorentz factor such that $W = \alpha u^t$ and $v^i = u^i/u^t$. Under our choice of system, $u^a = (u^t, u^r, 0, 0)$ so we can reduce
+\begin{align}
+\partial_t ( r^2 a b W \rho_0) + \partial_r (r^2 a b W \rho_0 v^r) &= 0 \\
+\partial_t (r^2 a b \alpha T\indices{^t_r}) + \partial_r ( r^2 a b \alpha T\indices{^r_r}) &= \frac{1}{2} r^2 a b T^{ab} g_{ab,r} \\
+\partial_t ( \alpha^2 r^2 a b T^{tt} - r^2 a b W \rho_0 ) + \partial_r(\alpha^2 r^2 a b T^{tr} - r^2 a b W \rho_0 v^r) &= \alpha r^2 ab (T^{at} \partial_a \alpha - \Gamma\indices{^0_{ab}} T^{ab} \alpha )
+\end{align}
+
+
+Here I omit $\sin$ term in the metric determinant because it will be cancelled out anyway
+
+It is useful to define variables like below
+\begin{align}
+D &= \rho_0 ab W  \\
 E &= \rho_0 h  W^2 -P \\
 S &= \rho_0 h W^2 v\\
 \tau &= E-D
 \end{align}
+And nonzero components of $T^{ab}$ which we are using
+\begin{align}
+T\indices{^t_t} &= -E \\
+T\indices{^t_r} &= \frac{ab}{\alpha} S \\
+T\indices{^r_r} &=Sv+P\\
+T\indices{^\theta_\theta}&=T\indices{^\varphi_\varphi}=P
+\end{align}
+where we define fluid velocity in Eulerian observer
+\begin{align}
+v = \frac{ab}{\alpha} v^r = \frac{ab u^r}{\alpha u^t}
+\end{align}
+then also $W=1 / \sqrt{1-v^2}$ and $h=1+\epsilon+P/\rho_0$ which is specific enthalpy.  Then we can reduce
+\begin{align}
+\partial_t ( r^2 D) + \partial_r \left(\frac{r^2\alpha}{ab}D v\right) &= 0 \\
+\partial_t (r^2 S) + \partial_r \left( \frac{r^2 \alpha}{ab}( E v + P)\right) &= \frac{1}{2} r^2 a b T^{ab} g_{ab,r} \\
+\partial_t ( r^2\tau) + \partial_r\left(\frac{r^2\alpha}{ab}(S - D v)\right) &= \alpha r^2 ab (T^{at} \partial_a \alpha - \Gamma\indices{^0_{ab}} T^{ab} \alpha )
+\end{align}
+or in the form
+\begin{align}
+\partial_t {\bf u} + \frac{1}{r^2} \partial_r (X r^2 {\bf f}) = \psi
+\end{align}
+\begin{align}
+{\bf u} = 
+\begin{pmatrix}
+D \\
+S \\
+\tau
+\end{pmatrix}, \,\,\,\,
+{\bf f} = 
+\begin{pmatrix}
+Dv \\
+Ev + P \\
+S - Dv
+\end{pmatrix}, \,\,\,\,
+{\bf \psi} = 
+\begin{pmatrix}
+0 \\
+\frac{ab}{2} a b T^{ab} g_{ab,r} \\
+\alpha ab (T^{at} \partial_a \alpha - \Gamma\indices{^0_{ab}} T^{ab} \alpha )
+\end{pmatrix}
+\end{align}
+where $X= \alpha / (ab)$ which is purely geometric factor. Some detail evaluation of RHS source terms are in \href{https://github.com/hlim88/PBH-NS/tree/master/tools}{here}
+
+
+
+
+
+
+\iffalse
+First, we define variables. 
 %\begin{align}
 %{\bf q} = \begin{bmatrix}
 %D\\
@@ -217,7 +310,7 @@ Next, consider the covariant $r$-component
 &\rightarrow \partial_t \left(\frac{a}{\alpha} S\right) + \Gamma\indices{^t_{tt}}(\frac{a}{\alpha} S)  +\Gamma\indices{^t_{tr}}(Sv+P) + \Gamma\indices{^t_{tr}}E - \Gamma\indices{^r_{tr}}\frac{a}{\alpha} S= 0 \nonumber 
 \end{align}
 Non-vanishing connection coefficients are evaluated via Mathematica. You can find it \href{https://github.com/hlim88/PBH-NS/tree/master/tools}{here}. After all simplifications, we have
-
+\fi
 
 %Here, we use the fact that $\sqrt{-g} = \alpha \sqrt{\gamma}$ where $\gamma = det(\gamma_{ij})$ which came from above metric.
 
@@ -386,7 +479,7 @@ U_2(x) = 0 & \textrm{otherwise} \\
 \end{align}
 $U_{crit}$ is the amplitude that occurs critical collapse, and $x_{tlv}$ the region that forms black hole. 
 
-Our interest is interaction between BH inside of NS we set $x_{tlv}$ is small value such as 1\% of size of star i.e. $x_{tlv} = 0.01$ since $x$ is normalized radius by star radius.
+Our interest is interaction between BH inside of NS we set $x_{tlv}$ is small value such as 1\% of size of star i.e. $x_{tlv} = 0.01$ since $x$ is normalized radius by star radius ($x_{tlv}$ must be smaller than $1$).
 
 \subsection{Analytic Case}
 
