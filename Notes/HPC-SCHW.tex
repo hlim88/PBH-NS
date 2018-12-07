@@ -365,6 +365,7 @@ We can apply different choice of slicing (i.e. gauge choice) to reduce/determine
 
 \subsection{Choice of Gauge}
 
+\subsubsection{Maximal Slicing}
 First, we consider maximal slicing i.e. $K=\partial_t K = 0$ then 
 
 \begin{align}
@@ -409,7 +410,23 @@ In terms of our metric choice and variable
 \partial_r \beta^r = \frac{b}{2b+\beta^r} \left[\frac{\alpha K\indices{^r_r}}{2} - \frac{(\beta^r)^2 b}{r}- \frac{\partial_r a}{a} \beta^r \right]
 \end{align}
 
-Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
+\subsubsection{Spherical-BSSN with 1+log and $\Gamma$ driver}
+Recall the eqns
+\begin{align}
+\partial_t a &= - \alpha a K\indices{^r_r} + \partial_r (a \beta^r) \\
+\partial_t b &=  \frac{\alpha b}{2} K\indices{^r_r} + \frac{\beta^r}{r} \partial_r (r \beta^r) \\
+\partial_t K\indices{^r_r} &= \beta^r \partial_r K\indices{^r_r}  - \frac{1}{a} \partial_r \left( \frac{\partial_r \alpha}{a} \right) - \frac{2 \alpha}{arb} \partial_r \left( \frac{\partial_r (rb)}{a} \right) 
+-  \frac{2 \alpha}{r^2 b^2} - \frac{2}{ar^2b^2} \partial_r \left( \frac{\alpha r b \partial_r (rb)}{a} \right)  \nonumber \\
+& - 8 \pi \alpha \left[ (2+2 u^r u_r) \rho_0 h - 4P \right] 
+\end{align}
+From constraints
+\begin{align}
+ \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) - \frac{3}{2}(K\indices{^r_r})^2 &= 16 \pi (\rho_0 h W^2 -P) \nonumber \\
+  \partial_r K\indices{^r_r} -\frac{3 \partial_t (r b)}{rb}  K\indices{^r_r} &= 8 \pi \rho_0 h W u_r
+\end{align}
+Let \apost s consider usual BSSN form (make conformal transformation $\hat{\gamma} \rightarrow e^{4\chi} \gamma$
+
+%Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
 
 
 %Further, a sufficient set of Einstein\apost s equations for geometric variable $\alpha$ and $a$ are given by the nontrivial component of momentum constraint
