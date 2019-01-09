@@ -8,9 +8,83 @@
 #include "gravity.h"
 
 /*
-Solve Hamiltonian constraint for a using pointwise Newtonian iteration.
-It is assumed that a[0] is already set to the correct value.
+Solve Einstein's equation in spherically symmetry with HPC that
+couples to ideal fluid
 */
+
+void bssnrhs(double *u){
+
+  #if 0
+  /*TODO : Need to clean up
+    This is usual full 3D BSSN but we are not using
+    all vars. I just keep it anyway.
+    This also include 1+log slicing with Gamma driver condition
+  */     
+
+  const double *alpha = &uZipVars[VAR::U_ALPHA][offset];
+  const double *chi = &uZipVars[VAR::U_CHI][offset];
+  const double *K = &uZipVars[VAR::U_K][offset];
+  const double *gt0 = &uZipVars[VAR::U_SYMGT0][offset];
+  const double *gt1 = &uZipVars[VAR::U_SYMGT1][offset];
+  const double *gt2 = &uZipVars[VAR::U_SYMGT2][offset];
+  const double *gt3 = &uZipVars[VAR::U_SYMGT3][offset];
+  const double *gt4 = &uZipVars[VAR::U_SYMGT4][offset];
+  const double *gt5 = &uZipVars[VAR::U_SYMGT5][offset];
+  const double *beta0 = &uZipVars[VAR::U_BETA0][offset];
+  const double *beta1 = &uZipVars[VAR::U_BETA1][offset];
+  const double *beta2 = &uZipVars[VAR::U_BETA2][offset];
+  const double *At0 = &uZipVars[VAR::U_SYMAT0][offset];
+  const double *At1 = &uZipVars[VAR::U_SYMAT1][offset];
+  const double *At2 = &uZipVars[VAR::U_SYMAT2][offset];
+  const double *At3 = &uZipVars[VAR::U_SYMAT3][offset];
+  const double *At4 = &uZipVars[VAR::U_SYMAT4][offset];
+  const double *At5 = &uZipVars[VAR::U_SYMAT5][offset];
+  const double *Gt0 = &uZipVars[VAR::U_GT0][offset];
+  const double *Gt1 = &uZipVars[VAR::U_GT1][offset];
+  const double *Gt2 = &uZipVars[VAR::U_GT2][offset];
+  const double *B0 = &uZipVars[VAR::U_B0][offset];
+  const double *B1 = &uZipVars[VAR::U_B1][offset];
+  const double *B2 = &uZipVars[VAR::U_B2][offset];
+
+  double *a_rhs = &unzipVarsRHS[VAR::U_ALPHA][offset];
+  double *chi_rhs = &unzipVarsRHS[VAR::U_CHI][offset];
+  double *K_rhs = &unzipVarsRHS[VAR::U_K][offset];
+  double *gt_rhs00 = &unzipVarsRHS[VAR::U_SYMGT0][offset];
+  double *gt_rhs01 = &unzipVarsRHS[VAR::U_SYMGT1][offset];
+  double *gt_rhs02 = &unzipVarsRHS[VAR::U_SYMGT2][offset];
+  double *gt_rhs11 = &unzipVarsRHS[VAR::U_SYMGT3][offset];
+  double *gt_rhs12 = &unzipVarsRHS[VAR::U_SYMGT4][offset];
+  double *gt_rhs22 = &unzipVarsRHS[VAR::U_SYMGT5][offset];
+  double *b_rhs0 = &unzipVarsRHS[VAR::U_BETA0][offset];
+  double *b_rhs1 = &unzipVarsRHS[VAR::U_BETA1][offset];
+  double *b_rhs2 = &unzipVarsRHS[VAR::U_BETA2][offset];
+  double *At_rhs00 = &unzipVarsRHS[VAR::U_SYMAT0][offset];
+  double *At_rhs01 = &unzipVarsRHS[VAR::U_SYMAT1][offset];
+  double *At_rhs02 = &unzipVarsRHS[VAR::U_SYMAT2][offset];
+  double *At_rhs11 = &unzipVarsRHS[VAR::U_SYMAT3][offset];
+  double *At_rhs12 = &unzipVarsRHS[VAR::U_SYMAT4][offset];
+  double *At_rhs22 = &unzipVarsRHS[VAR::U_SYMAT5][offset];
+  double *Gt_rhs0 = &unzipVarsRHS[VAR::U_GT0][offset];
+  double *Gt_rhs1 = &unzipVarsRHS[VAR::U_GT1][offset];
+  double *Gt_rhs2 = &unzipVarsRHS[VAR::U_GT2][offset];
+  double *B_rhs0 = &unzipVarsRHS[VAR::U_B0][offset];
+  double *B_rhs1 = &unzipVarsRHS[VAR::U_B1][offset];
+  double *B_rhs2 = &unzipVarsRHS[VAR::U_B2][offset];
+  #endif
+
+  // Const var for BSSN gauge
+  const unsigned int lambda[4] = {BSSN_LAMBDA[0], BSSN_LAMBDA[1],
+                                    BSSN_LAMBDA[2], BSSN_LAMBDA[3]};
+  const double lambda_f[2] = {BSSN_LAMBDA_F[0], BSSN_LAMBDA_F[1]};
+
+}
+
+//Solving this with RK routine
+
+void solBSSN() {
+
+}
+
 void solveHamiltonianConstraint(double *consVar, double *r, int length, double *a){
 	int numNewtIter = NUM_NEWT_ITER; //Maximum number of allowed Newton iterations
 	double relError = REL_ERROR; //Relative error tolerance in solution

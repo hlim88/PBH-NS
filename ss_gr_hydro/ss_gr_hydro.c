@@ -1,7 +1,9 @@
 /*
 Spherically symmetric solver for the Einstein equations
-coupled to hydrodynamics.
-Copyright William East, 2009
+coupled to hydrodynamics in horizon penetrating coordinate 
+
+Orignated from Will East but this version we use BSSN like
+defs to track geometric vars
 */
 
 #define NUM_HYDRO_VAR 3
@@ -54,6 +56,9 @@ real *a_res;
 real *T_trace;
 real *mask_c, *mask_v, *mask_mg;
 real *wavg, *wavg_mg;
+
+// Additional variables for eqns
+real Delta_c;
 
 real *rVertex, *rCell;
 
