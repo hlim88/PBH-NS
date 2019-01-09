@@ -6,6 +6,7 @@
 #include "variableDef.h"
 #include "equationOfState.h"
 #include "gravity.h"
+#include "rungeKutta.h"
 
 /*
 Solve Einstein's equation in spherically symmetry with HPC that
@@ -82,6 +83,15 @@ void bssnrhs(double *u){
 //Solving this with RK routine
 
 void solBSSN() {
+
+  //Apply RK4 routine
+  for(i=1; i<length; i++) {
+
+      fourthOrderRKStep(); //TODO : Reduce inputs?
+
+  }
+
+
 
 }
 
