@@ -78,6 +78,7 @@ void bssnrhs(double *u){
                                     BSSN_LAMBDA[2], BSSN_LAMBDA[3]};
   const double lambda_f[2] = {BSSN_LAMBDA_F[0], BSSN_LAMBDA_F[1]};
 
+  #include "gravityBSSNeqns.h"
 }
 
 //Solving this with RK routine
