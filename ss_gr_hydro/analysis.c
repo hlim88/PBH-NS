@@ -9,6 +9,8 @@ Brief : Some analysis tools for comparision to validate the code
 
 void unpertTOV_comp(){
 
+  //Put simple analytic form of TOV star
+
 
 }
 
@@ -45,9 +47,9 @@ double printL2Constraint(const double **constraintVec, unsigned int timeSteps){
 
   double constraintL2[numConstVars];
 
-  for (unsigned int id = 0; index < numConstVars; id++) {
+  for (unsigned int id = 0; id < numConstVars; id++) {
       constraintL2[id] = computeConstraintL2();
-      printf("Constraint : %lf\n",constraintL2[id]);
+      printf("Constraint : %lf %lf\n",constraintL2[id]);
   }
 
   //TODO : Add routine to generate output using sprintf?
