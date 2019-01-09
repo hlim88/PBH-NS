@@ -5,14 +5,7 @@
    Define BSSN eqns with usual 1+log slicing and gamma driver
 */
 
-// For alpha
+void bssnrhs(double *u);
 
-// For trK
+void solBSSN(double *u, double rkstage[]);
 
-// For a
-
-// For b
-
-// For A
-
-// For constraint
