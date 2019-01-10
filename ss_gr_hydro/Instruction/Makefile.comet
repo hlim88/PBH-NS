@@ -54,6 +54,15 @@ gravity.o: gravity.c gravity.h
 
 gravityElliptic.o: gravityElliptic.c gravityElliptic.h
 	$(CC_COMP) gravityElliptic.c
+# Additional part
+ifeq ($(BSSN),1)
+prefix = /usr/local
+gravityBSSN.o: gravityBSSN.c gravityBSSNeqns.c gravityBSSN.h
+        $(CC_COMP) gravityBSSN.c
+analysis.o: analysis.c
+        $(CC_COMP) analysis.c
+endif
+
 
 TOV.o: TOV.c TOV.h
 	$(CC_COMP) TOV.c
