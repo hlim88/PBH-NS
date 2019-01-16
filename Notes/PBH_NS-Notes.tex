@@ -14,9 +14,18 @@
 \usepackage{tensor}
 \usepackage[math]{cellspace}
 \usepackage{bookmark}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{hyperref}
+\usepackage{slashed}
+\usepackage{youngtab}
+\usepackage{physics}
+\usepackage{tensor}
 
 
 \newcommand*\apost{\textsc{\char13}}
+
+\newcommand{\TODO}[1]{{\color{red}[}{\color{red}TODO:} {\color{blue}#1}{\color{red}]}}
+\newcommand{\NOTE}[1]{{\color{blue}[#1]}}
 
 \makeatletter
 \renewcommand*\env@matrix[1][\arraystretch]{%
@@ -34,7 +43,7 @@
  
 \begin{document}
 
-\title{General Relativistic Hydrodynamical System in Spherically Symmetric Metric with Horizon Penetrating Coordinate}
+\title{Einstein Equations and General Relativistic Hydrodynamical System in Spherically Symmetric Metric with Horizon Penetrating Coordinate}
 
 \author{Hyun Lim}
 
@@ -410,20 +419,14 @@ In terms of our metric choice and variable
 \partial_r \beta^r = \frac{b}{2b+\beta^r} \left[\frac{\alpha K\indices{^r_r}}{2} - \frac{(\beta^r)^2 b}{r}- \frac{\partial_r a}{a} \beta^r \right]
 \end{align}
 
-\subsubsection{Spherical-BSSN with 1+log and $\Gamma$ driver}
-Recall the eqns
-\begin{align}
-\partial_t a &= - \alpha a K\indices{^r_r} + \partial_r (a \beta^r) \\
-\partial_t b &=  \frac{\alpha b}{2} K\indices{^r_r} + \frac{\beta^r}{r} \partial_r (r \beta^r) \\
-\partial_t K\indices{^r_r} &= \beta^r \partial_r K\indices{^r_r}  - \frac{1}{a} \partial_r \left( \frac{\partial_r \alpha}{a} \right) - \frac{2 \alpha}{arb} \partial_r \left( \frac{\partial_r (rb)}{a} \right) 
--  \frac{2 \alpha}{r^2 b^2} - \frac{2}{ar^2b^2} \partial_r \left( \frac{\alpha r b \partial_r (rb)}{a} \right)  \nonumber \\
-& - 8 \pi \alpha \left[ (2+2 u^r u_r) \rho_0 h - 4P \right] 
-\end{align}
-From constraints
-\begin{align}
- \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) - \frac{3}{2}(K\indices{^r_r})^2 &= 16 \pi (\rho_0 h W^2 -P) \nonumber \\
-  \partial_r K\indices{^r_r} -\frac{3 \partial_t (r b)}{rb}  K\indices{^r_r} &= 8 \pi \rho_0 h W u_r
-\end{align}
+\subsubsection{Spherical-G-BSSN with 1+log and $\Gamma$ driver}
+Another possible way to describe this system is writing the equations in terms of BSSN form. This makes every equations
+in hyperbolic form which do not require to solve elliptic equations.
+
+We follow the usual treatment in BSSN variable. Also, we still keep HPC SS metric which is described previous section
+
+\TODO{Add equations}
+
 Let \apost s consider usual BSSN form (make conformal transformation $\hat{\gamma} \rightarrow e^{4\chi} \gamma$
 
 %Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
