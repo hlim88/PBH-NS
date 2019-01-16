@@ -419,15 +419,47 @@ In terms of our metric choice and variable
 \partial_r \beta^r = \frac{b}{2b+\beta^r} \left[\frac{\alpha K\indices{^r_r}}{2} - \frac{(\beta^r)^2 b}{r}- \frac{\partial_r a}{a} \beta^r \right]
 \end{align}
 
-\subsubsection{Spherical-G-BSSN with 1+log and $\Gamma$ driver}
+\subsection{Spherical-G-BSSN with 1+log and $\Gamma$ driver}
 Another possible way to describe this system is writing the equations in terms of BSSN form. This makes every equations
 in hyperbolic form which do not require to solve elliptic equations.
 
-We follow the usual treatment in BSSN variable. Also, we still keep HPC SS metric which is described previous section
+We follow the usual treatment in BSSN variable. Also, we still keep HPC-SS metric which is described previous section
 
-\TODO{Add equations}
-
-Let \apost s consider usual BSSN form (make conformal transformation $\hat{\gamma} \rightarrow e^{4\chi} \gamma$
+Let \apost s consider usual BSSN form (make conformal transformation $\hat{\gamma} \rightarrow e^{4\phi} \gamma$ i.e.
+\begin{align}
+\phi = \frac{1}{12} \ln(\gamma / \hat{\gamma})
+\end{align}
+It is common to define a new variable $\chi = e^{-2 \phi}$ instead of using the conformal factor $\phi$. (Perhaps, we get similar result..) Evolution equation for $\chi$ is
+\begin{align}
+\partial_t \chi = \beta^r \partial_r \chi - \frac{1}{3} \chi \left[ \alpha K - \partial_r \beta^r - \beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right) \right]
+\end{align}
+We also use traceless part of the extrinsic curvature $\hat{A}_{ij}$. In SS, we have $\hat{A}^r_r$ and $\hat{A}^\theta_\theta$. Note that as $\hat{A}_{ij}$ is traceless $\hat{A}^r_r+2\hat{A}^\theta_\theta=0$. Evolution equations for spatial metric $\gamma$ give
+\begin{align}
+\partial_t a &= \beta^r \partial_r a + 2 a \partial_r \beta^r - \frac{2a}{3}\left[ \partial_r \beta^r +\beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right] -2 \alpha a \hat{A}^r_r \\
+\partial_t b &= \beta^r \partial_r b + 2 b \frac{\beta^r}{r} - \frac{2b}{3} \left[\partial_r \beta^r + \beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right] + \alpha b \hat{A}^r_r
+\end{align}
+Evolution equation for trace of extrinsic curvature $K$ is
+\begin{align}
+\partial_t K &= \beta^r \partial_r K - \frac{\chi^2}{\alpha} \left[\partial_r \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r b}{b} +\frac{\partial_r \chi}{\chi} - \frac{2}{r} \right) \right] \nonumber \\
+&+ \alpha \left(\frac{3}{2} (\hat{A}^r_r)^2 + \frac{1}{3} K^2 \right) + 4 \pi \alpha (\rho + S^r_r + S^\theta_\theta)
+\end{align}
+We have only one independent component of traceless part of the extrinsic curvature. Evolution equations for that is
+\TODO {Check eqns for A and conformal connection function}
+\begin{align}
+\partial_t \hat{A}^r_r = \beta^r \partial_r \hat{A}^r_r 
+\end{align}
+\subsubsection{Gauge Choice}
+In addition to SS-GBSSN variables, we still have two more variables that need to be chosen. Here, we use 1+log condition for lapse and Gamma driver condition for shift.
+The form of this slicing condition is
+\begin{align}
+\partial_t \alpha = -2\alpha K
+\end{align}
+We have only radial component for shift vector so Gamma driver condition is
+\begin{align}
+\partial_t B^r &= \frac{3}{4} \partial_t \hat{\Delta}^r \\
+\partial_t \beta^r &= B^r
+\end{align}
+We introduce an auxiliary variable $B^r$ to reduce derivative order of time from second to first
 
 %Another possible choice to set the lapse is demanding that the ingoing combination of tangent vectors $\vec{\partial}_t - \vec{\partial}_r$ be null. This gives a condition on the metric : $g_{tt} - 2 g_{tr} + g_{rr}=0$. This gives $\alpha = a(1-\beta)$
 
