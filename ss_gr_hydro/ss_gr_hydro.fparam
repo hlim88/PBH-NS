@@ -1,6 +1,6 @@
 #---------- ssgr fixed parameter file --------------------
 
-app_name := ["Spherically symmetric GR plus hydro"]
+app_name := ["Spherically symmetric GR plus hydro in HPC"]
 
 num_evo_tl := 2
 ic_n := 2
@@ -19,9 +19,9 @@ t_interp_substeps := [0 0.5 1]
 v_tag := "_v"
 
 hyperbolic_vars := [ "a_v" "alpha_v" "q1" "q2" "q3" "p1" "p2" "p3" ]
-#hyperbolic_vars := [ "a_v" "alpha_v" "q1" "q2" "q3" "p1" "p2" "p3" "Krr" "Kthth" ]
+#hyperbolic_vars := [ "a_v" "alpha_v" "q1" "q2" "q3" "p1" "p2" "p3" "trK_v" "chi_v" "b_v" "Arr_v" "GamDelta_v" "momC_v" "hamC_v" "betaR_v" "Br_v" ]
 
-elliptic_vars := [ "phi_v" ]
+#elliptic_vars := [ "phi_v" ]
 
 AMRH_work_vars := ["q1_v" "q2_v" "q3_v" "p1_v" "p2_v" "p3_v" "a_res" "T"]
 
