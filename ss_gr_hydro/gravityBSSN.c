@@ -22,55 +22,25 @@ void bssnrhs(double *u){
     This also include 1+log slicing with Gamma driver condition
   */     
 
-  const double *alpha = &uZipVars[VAR::U_ALPHA][offset];
-  const double *chi = &uZipVars[VAR::U_CHI][offset];
-  const double *K = &uZipVars[VAR::U_K][offset];
-  const double *gt0 = &uZipVars[VAR::U_SYMGT0][offset];
-  const double *gt1 = &uZipVars[VAR::U_SYMGT1][offset];
-  const double *gt2 = &uZipVars[VAR::U_SYMGT2][offset];
-  const double *gt3 = &uZipVars[VAR::U_SYMGT3][offset];
-  const double *gt4 = &uZipVars[VAR::U_SYMGT4][offset];
-  const double *gt5 = &uZipVars[VAR::U_SYMGT5][offset];
-  const double *beta0 = &uZipVars[VAR::U_BETA0][offset];
-  const double *beta1 = &uZipVars[VAR::U_BETA1][offset];
-  const double *beta2 = &uZipVars[VAR::U_BETA2][offset];
-  const double *At0 = &uZipVars[VAR::U_SYMAT0][offset];
-  const double *At1 = &uZipVars[VAR::U_SYMAT1][offset];
-  const double *At2 = &uZipVars[VAR::U_SYMAT2][offset];
-  const double *At3 = &uZipVars[VAR::U_SYMAT3][offset];
-  const double *At4 = &uZipVars[VAR::U_SYMAT4][offset];
-  const double *At5 = &uZipVars[VAR::U_SYMAT5][offset];
-  const double *Gt0 = &uZipVars[VAR::U_GT0][offset];
-  const double *Gt1 = &uZipVars[VAR::U_GT1][offset];
-  const double *Gt2 = &uZipVars[VAR::U_GT2][offset];
-  const double *B0 = &uZipVars[VAR::U_B0][offset];
-  const double *B1 = &uZipVars[VAR::U_B1][offset];
-  const double *B2 = &uZipVars[VAR::U_B2][offset];
+  const double *alpha = &uZipVars[U_ALPHA][offset];
+  const double *chi = &uZipVars[U_CHI][offset];
+  const double *trK = &uZipVars[U_TRK][offset];
+  const double *a = &uZipVars[U_A][offset];
+  const double *b = &uZipVars[U_B][offset];
+  const double *Arr = &uZipVars[U_ARR][offset];
+  const double *GamDelta = &uZipVars[U_GAMDELTA][offset];
+  const double *betar = &uZipVars[U_BETAR][offset];
+  const double *Br = &uZipVars[U_BR][offset];
 
-  double *a_rhs = &unzipVarsRHS[VAR::U_ALPHA][offset];
-  double *chi_rhs = &unzipVarsRHS[VAR::U_CHI][offset];
-  double *K_rhs = &unzipVarsRHS[VAR::U_K][offset];
-  double *gt_rhs00 = &unzipVarsRHS[VAR::U_SYMGT0][offset];
-  double *gt_rhs01 = &unzipVarsRHS[VAR::U_SYMGT1][offset];
-  double *gt_rhs02 = &unzipVarsRHS[VAR::U_SYMGT2][offset];
-  double *gt_rhs11 = &unzipVarsRHS[VAR::U_SYMGT3][offset];
-  double *gt_rhs12 = &unzipVarsRHS[VAR::U_SYMGT4][offset];
-  double *gt_rhs22 = &unzipVarsRHS[VAR::U_SYMGT5][offset];
-  double *b_rhs0 = &unzipVarsRHS[VAR::U_BETA0][offset];
-  double *b_rhs1 = &unzipVarsRHS[VAR::U_BETA1][offset];
-  double *b_rhs2 = &unzipVarsRHS[VAR::U_BETA2][offset];
-  double *At_rhs00 = &unzipVarsRHS[VAR::U_SYMAT0][offset];
-  double *At_rhs01 = &unzipVarsRHS[VAR::U_SYMAT1][offset];
-  double *At_rhs02 = &unzipVarsRHS[VAR::U_SYMAT2][offset];
-  double *At_rhs11 = &unzipVarsRHS[VAR::U_SYMAT3][offset];
-  double *At_rhs12 = &unzipVarsRHS[VAR::U_SYMAT4][offset];
-  double *At_rhs22 = &unzipVarsRHS[VAR::U_SYMAT5][offset];
-  double *Gt_rhs0 = &unzipVarsRHS[VAR::U_GT0][offset];
-  double *Gt_rhs1 = &unzipVarsRHS[VAR::U_GT1][offset];
-  double *Gt_rhs2 = &unzipVarsRHS[VAR::U_GT2][offset];
-  double *B_rhs0 = &unzipVarsRHS[VAR::U_B0][offset];
-  double *B_rhs1 = &unzipVarsRHS[VAR::U_B1][offset];
-  double *B_rhs2 = &unzipVarsRHS[VAR::U_B2][offset];
+  const double *alpha_rhs = &uZipVars[U_ALPHA][offset];
+  const double *chi_rhs = &uZipVars[U_CHI][offset];
+  const double *trK_rhs = &uZipVars[U_TRK][offset];
+  const double *a_rhs = &uZipVars[U_A][offset];
+  const double *b_rhs = &uZipVars[U_B][offset];
+  const double *Arr_rhs = &uZipVars[U_ARR][offset];
+  const double *GamDelta_rhs = &uZipVars[U_GAMDELTA][offset];
+  const double *betar_rhs = &uZipVars[U_BETAR][offset];
+  const double *Br_rhs = &uZipVars[U_BR][offset];
   #endif
 
   // Const var for BSSN gauge
