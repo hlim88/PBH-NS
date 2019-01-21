@@ -64,6 +64,9 @@ real *Arr_n, *Arr_np1, *Arr, *GamDelta_n, *GamDelta_np1, *GamDelta;
 // Constraints
 real *momC_n, *momC_np1, *momC, *hamC_n, *hamC_np1, *hamC;
 
+//Gauge
+real *betaR_n, *betaR_np1, *betaR, *Br_n, *Br_np1, *Br;
+
 real *rVertex, *rCell;
 
 int shape[3],shape_c[3],ghost_width[6],Nr,phys_bdy[6],numCells,g_rank,dim;
@@ -99,6 +102,10 @@ int GamDelta_n_gfn, GamDelta_np1_gfn, GamDelta_gfn;
 //Constraints treat as additional vars
 int momC_n_gfn, momC_np1_gfn, momC_gfn;
 int hamC_n_gfn, hamC_np1_gfn, hamC_gfn;
+
+//Gauge
+int betaR_n_gfn, betaR_np1_gfn, betaR_gfn;
+int Br_n_gfn, Br_np1_gfn, Br_gfn;
 
 //=============================================================================
 // call after variables have been defined
@@ -186,7 +193,18 @@ void set_gfns(void)
     if ((hamC_np1_gfn = PAMR_get_gfn("hamC_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((hamC_gfn=PAMR_get_gfn("hamC_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
 
-    // Constraints monitoring end   
+    // Constraints monitoring end  
+
+    // Gauge NOTE : alpha is declared alreay 
+
+    if ((betaR_n_gfn   = PAMR_get_gfn("betaR_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((betaR_np1_gfn = PAMR_get_gfn("betaR_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((betaR_gfn=PAMR_get_gfn("betaR_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+    
+    if ((Br_n_gfn   = PAMR_get_gfn("Br_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((Br_np1_gfn = PAMR_get_gfn("Br_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((Br_gfn=PAMR_get_gfn("Br_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+    // Gauge end
 
     if ((phi_n_gfn   = PAMR_get_gfn("phi_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_np1_gfn = PAMR_get_gfn("phi_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
@@ -322,7 +340,16 @@ void ldptr(void)
    hamC_n   = gfs[hamC_n_gfn-1];
    hamC_np1 = gfs[hamC_np1_gfn-1];
    hamC = gfs[hamC_gfn-1];
-   
+  
+   //Gauge
+   betaR_n   = gfs[betaR_n_gfn-1];
+   betaR_np1 = gfs[betaR_np1_gfn-1];
+   betaR = gfs[betaR_gfn-1];
+
+   Br_n   = gfs[Br_n_gfn-1];
+   Br_np1 = gfs[Br_np1_gfn-1];
+   Br = gfs[Br_gfn-1];
+
    if (AMRD_num_inject_wavg_vars) wavg = gfs[wavg_gfn-1];
    if (AMRD_num_inject_wavg_vars) wavg_mg = gfs[wavg_mg_gfn-1];
 
@@ -662,6 +689,8 @@ void ssgrhydro_AMRH_var_clear(void)
    zero(GamDelta_n, Nr);
    zero(momC_n, Nr);
    zero(hamC_n, Nr);
+   zero(betaR, Nr);
+   zero(Br, Nr);
    #endif
    zero(q1_np1, numCells); 
    zero(q2_np1, numCells); 
@@ -680,6 +709,8 @@ void ssgrhydro_AMRH_var_clear(void)
    zero(GamDelta_np1, Nr);
    zero(momC_np1, Nr);
    zero(hamC_np1, Nr);
+   zero(betaR_np1, Nr);
+   zero(Br_np1, Nr);
    #endif
 
    deallocVec();
