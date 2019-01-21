@@ -58,8 +58,8 @@ real *mask_c, *mask_v, *mask_mg;
 real *wavg, *wavg_mg;
 
 // Additional variables for eqns
-real Delta_c;
-
+real *trK_n, *trK_np1, *trK, *b_n, *b_np1, *b, *chi_n, *chi_np1, *chi;
+real *Arr_n, *Arr_np1, *Arr;
 real *rVertex, *rCell;
 
 int shape[3],shape_c[3],ghost_width[6],Nr,phys_bdy[6],numCells,g_rank,dim;
@@ -85,9 +85,12 @@ int phi_res_gfn, phi_lop_gfn, phi_rhs_gfn;
 int mask_mg_gfn, mask_v_gfn, mask_c_gfn;
 int wavg_gfn, wavg_mg_gfn;
 
-#if 0
-int Krr, Kthth;
-#endif
+//Additional vars
+int trK_n_gfn, trK_np1_gfn, trK_gfn;
+int b_n_gfn, b_np1_gfn, b_gfn;
+int chi_n_gfn, chi_np1_gfn, chi_gfn;
+int Arr_n_gfn, Arr_np1_gfn, Arr_gfn;
+
 
 //=============================================================================
 // call after variables have been defined
@@ -140,6 +143,25 @@ void set_gfns(void)
     if ((alpha_n_gfn   = PAMR_get_gfn("alpha_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
     if ((alpha_np1_gfn = PAMR_get_gfn("alpha_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((alpha_gfn=PAMR_get_gfn("alpha_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+
+    //New scalar vars for GR
+
+    if ((trK_n_gfn   = PAMR_get_gfn("trK_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((trK_np1_gfn = PAMR_get_gfn("trK_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((trK_gfn=PAMR_get_gfn("trK_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+    
+    if ((b_n_gfn   = PAMR_get_gfn("b_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((b_np1_gfn = PAMR_get_gfn("b_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((b_gfn=PAMR_get_gfn("b_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+
+    if ((chi_n_gfn   = PAMR_get_gfn("chi_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((chi_np1_gfn = PAMR_get_gfn("chi_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((chi_gfn=PAMR_get_gfn("chi_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+
+    if ((Arr_n_gfn   = PAMR_get_gfn("Arr_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((Arr_np1_gfn = PAMR_get_gfn("Arr_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((Arr_gfn=PAMR_get_gfn("Arr_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+   // New vars end   
 
     if ((phi_n_gfn   = PAMR_get_gfn("phi_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_np1_gfn = PAMR_get_gfn("phi_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
@@ -245,12 +267,25 @@ void ldptr(void)
    mask_mg = gfs[mask_mg_gfn-1];
    mask_v = gfs[mask_v_gfn-1];
    mask_c = gfs[mask_c_gfn-1];
-  
-   #if 0
-   Krr = gfs[Krr_gtn-1];
-   Kthth = gfs[Kthth_gtn-1];
-   #endif	
  
+   //New vars
+   trK_n   = gfs[trK_n_gfn-1];
+   trK_np1 = gfs[trK_np1_gfn-1];
+   trK = gfs[trK_gfn-1];
+ 
+   b_n   = gfs[b_n_gfn-1];
+   b_np1 = gfs[b_np1_gfn-1];
+   b = gfs[b_gfn-1];
+   
+   chi_n   = gfs[chi_n_gfn-1];
+   chi_np1 = gfs[chi_np1_gfn-1];
+   chi = gfs[chi_gfn-1];
+   
+   Arr_n   = gfs[Arr_n_gfn-1];
+   Arr_np1 = gfs[Arr_np1_gfn-1];
+   Arr = gfs[Arr_gfn-1];
+
+
    if (AMRD_num_inject_wavg_vars) wavg = gfs[wavg_gfn-1];
    if (AMRD_num_inject_wavg_vars) wavg_mg = gfs[wavg_mg_gfn-1];
 
