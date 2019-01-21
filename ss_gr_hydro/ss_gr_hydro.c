@@ -59,7 +59,11 @@ real *wavg, *wavg_mg;
 
 // Additional variables for eqns
 real *trK_n, *trK_np1, *trK, *b_n, *b_np1, *b, *chi_n, *chi_np1, *chi;
-real *Arr_n, *Arr_np1, *Arr;
+real *Arr_n, *Arr_np1, *Arr, *GamDelta_n, *GamDelta_np1, *GamDelta;
+
+// Constraints
+real *momC_n, *momC_np1, *momC, *hamC_n, *hamC_np1, *hamC;
+
 real *rVertex, *rCell;
 
 int shape[3],shape_c[3],ghost_width[6],Nr,phys_bdy[6],numCells,g_rank,dim;
@@ -90,7 +94,11 @@ int trK_n_gfn, trK_np1_gfn, trK_gfn;
 int b_n_gfn, b_np1_gfn, b_gfn;
 int chi_n_gfn, chi_np1_gfn, chi_gfn;
 int Arr_n_gfn, Arr_np1_gfn, Arr_gfn;
+int GamDelta_n_gfn, GamDelta_np1_gfn, GamDelta_gfn;
 
+//Constraints treat as additional vars
+int momC_n_gfn, momC_np1_gfn, momC_gfn;
+int hamC_n_gfn, hamC_np1_gfn, hamC_gfn;
 
 //=============================================================================
 // call after variables have been defined
@@ -161,7 +169,24 @@ void set_gfns(void)
     if ((Arr_n_gfn   = PAMR_get_gfn("Arr_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
     if ((Arr_np1_gfn = PAMR_get_gfn("Arr_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((Arr_gfn=PAMR_get_gfn("Arr_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
-   // New vars end   
+
+    if ((GamDelta_n_gfn   = PAMR_get_gfn("GamDelta_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((GamDelta_np1_gfn = PAMR_get_gfn("GamDelta_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((GamDelta_gfn=PAMR_get_gfn("GamDelta_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+
+    // New vars for GR end
+
+    // Constraints monitoring
+
+    if ((momC_n_gfn   = PAMR_get_gfn("momC_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((momC_np1_gfn = PAMR_get_gfn("momC_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((momC_gfn=PAMR_get_gfn("momC_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+
+    if ((hamC_n_gfn   = PAMR_get_gfn("hamC_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
+    if ((hamC_np1_gfn = PAMR_get_gfn("hamC_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
+    if ((hamC_gfn=PAMR_get_gfn("hamC_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
+
+    // Constraints monitoring end   
 
     if ((phi_n_gfn   = PAMR_get_gfn("phi_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_np1_gfn = PAMR_get_gfn("phi_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
@@ -285,7 +310,19 @@ void ldptr(void)
    Arr_np1 = gfs[Arr_np1_gfn-1];
    Arr = gfs[Arr_gfn-1];
 
+   GamDelta_n   = gfs[GamDelta_n_gfn-1];
+   GamDelta_np1 = gfs[GamDelta_np1_gfn-1];
+   GamDelta = gfs[GamDelta_gfn-1];
 
+   //Constraints
+   momC_n   = gfs[momC_n_gfn-1];
+   momC_np1 = gfs[momC_np1_gfn-1];
+   momC = gfs[momC_gfn-1];
+
+   hamC_n   = gfs[hamC_n_gfn-1];
+   hamC_np1 = gfs[hamC_np1_gfn-1];
+   hamC = gfs[hamC_gfn-1];
+   
    if (AMRD_num_inject_wavg_vars) wavg = gfs[wavg_gfn-1];
    if (AMRD_num_inject_wavg_vars) wavg_mg = gfs[wavg_mg_gfn-1];
 
@@ -617,6 +654,15 @@ void ssgrhydro_AMRH_var_clear(void)
    zero(a_n, Nr);
    zero(alpha_n, Nr);
    zero(phi_n, Nr);
+   #if 1 //Is this neccessary for additionals? set zero for initialization just in case
+   zero(trK_n, Nr);
+   zero(b_n, Nr);
+   zero(chi_n, Nr);
+   zero(Arr_n, Nr);
+   zero(GamDelta_n, Nr);
+   zero(momC_n, Nr);
+   zero(hamC_n, Nr);
+   #endif
    zero(q1_np1, numCells); 
    zero(q2_np1, numCells); 
    zero(q3_np1, numCells); 
@@ -626,7 +672,15 @@ void ssgrhydro_AMRH_var_clear(void)
    zero(a_np1, Nr);
    zero(alpha_np1, Nr);
    zero(phi_np1, Nr);
-
+   #if 1 
+   zero(trK_np1, Nr);
+   zero(b_np1, Nr);
+   zero(chi_np1, Nr);
+   zero(Arr_np1, Nr);
+   zero(GamDelta_np1, Nr);
+   zero(momC_np1, Nr);
+   zero(hamC_np1, Nr);
+   #endif
 
    deallocVec();
    return;
