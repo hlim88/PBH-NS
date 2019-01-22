@@ -57,6 +57,7 @@ real *T_trace;
 real *mask_c, *mask_v, *mask_mg;
 real *wavg, *wavg_mg;
 
+#if 1
 // Additional variables for eqns
 real *trK_n, *trK_np1, *trK, *b_n, *b_np1, *b, *chi_n, *chi_np1, *chi;
 real *Arr_n, *Arr_np1, *Arr, *GamDelta_n, *GamDelta_np1, *GamDelta;
@@ -66,6 +67,7 @@ real *momC_n, *momC_np1, *momC, *hamC_n, *hamC_np1, *hamC;
 
 //Gauge
 real *betaR_n, *betaR_np1, *betaR, *Br_n, *Br_np1, *Br;
+#endif
 
 real *rVertex, *rCell;
 
@@ -92,6 +94,7 @@ int phi_res_gfn, phi_lop_gfn, phi_rhs_gfn;
 int mask_mg_gfn, mask_v_gfn, mask_c_gfn;
 int wavg_gfn, wavg_mg_gfn;
 
+#if 1
 //Additional vars
 int trK_n_gfn, trK_np1_gfn, trK_gfn;
 int b_n_gfn, b_np1_gfn, b_gfn;
@@ -106,6 +109,7 @@ int hamC_n_gfn, hamC_np1_gfn, hamC_gfn;
 //Gauge
 int betaR_n_gfn, betaR_np1_gfn, betaR_gfn;
 int Br_n_gfn, Br_np1_gfn, Br_gfn;
+#endif
 
 //=============================================================================
 // call after variables have been defined
@@ -159,6 +163,7 @@ void set_gfns(void)
     if ((alpha_np1_gfn = PAMR_get_gfn("alpha_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((alpha_gfn=PAMR_get_gfn("alpha_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
 
+    #if 1
     //New scalar vars for GR
 
     if ((trK_n_gfn   = PAMR_get_gfn("trK_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
@@ -205,6 +210,7 @@ void set_gfns(void)
     if ((Br_np1_gfn = PAMR_get_gfn("Br_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((Br_gfn=PAMR_get_gfn("Br_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     // Gauge end
+    #endif
 
     if ((phi_n_gfn   = PAMR_get_gfn("phi_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
     if ((phi_np1_gfn = PAMR_get_gfn("phi_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
@@ -218,10 +224,6 @@ void set_gfns(void)
     if ((mask_v_gfn=PAMR_get_gfn("cmask_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((mask_c_gfn=PAMR_get_gfn("cmask",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
    
-    #if 0 
-    if ((Krr_gfn=PAMR_get_gfn("Krr_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
-    if ((Kthth_gfn=PAMR_get_gfn("Kthth_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
-    #endif 
     if (AMRD_num_inject_wavg_vars) if ((wavg_mg_gfn = PAMR_get_gfn("wavg",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
     if (AMRD_num_inject_wavg_vars) if ((wavg_gfn    = PAMR_get_gfn("wavg",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
 }
@@ -310,7 +312,8 @@ void ldptr(void)
    mask_mg = gfs[mask_mg_gfn-1];
    mask_v = gfs[mask_v_gfn-1];
    mask_c = gfs[mask_c_gfn-1];
- 
+
+   #if 1 
    //New vars
    trK_n   = gfs[trK_n_gfn-1];
    trK_np1 = gfs[trK_np1_gfn-1];
@@ -349,6 +352,7 @@ void ldptr(void)
    Br_n   = gfs[Br_n_gfn-1];
    Br_np1 = gfs[Br_np1_gfn-1];
    Br = gfs[Br_gfn-1];
+   #endif
 
    if (AMRD_num_inject_wavg_vars) wavg = gfs[wavg_gfn-1];
    if (AMRD_num_inject_wavg_vars) wavg_mg = gfs[wavg_mg_gfn-1];
