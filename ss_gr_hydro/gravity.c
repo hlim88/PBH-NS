@@ -140,34 +140,35 @@ void evolveMomentumEq(double *consVar, double *a,  double *a_n, double *a_np1, d
 	if(outerBdy) a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*0.5*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI]);
 }
 
-// HL : This is the addtional part
-
-#if 0
+#if 1
 /*
-Solve maximal slicing condition for alpha.
-It is assumed that the last entry of alpha is already set.
+  Slicing condition for alpha. 
+  We choose 1+log slicing
 */
-void solveSlicingConditionHP(double *consVar, double *primVar, double *a, double *r, int length, double *alpha){
+void solveAlphaSlicingCondition(double *consVar, double *primVar, double *r,
+                             int length, double *alpha, double *trK) {
 
-	int k;
+    int k;
 
-	//Recast equations in terms of B=ln(alpha)
-	double lnalpha = log(alpha[length-1]);
 	
 	for(k=length-1; k>0; k--){
 
-		double pressure = getPressure(primVar[(k-1)*numVariables+REST_DENSITY],primVar[(k-1)*numVariables+SPECIFIC_ENERGY]);
-		double coef = 0.5*(consVar[(k-1)*numVariables+PI]-consVar[(k-1)*numVariables+PHI])*primVar[(k-1)*numVariables+VELOCITY]+pressure;
+		double pressure = getPressure(primVar[(k-1)*numVariables+REST_DENSITY],
+                                      primVar[(k-1)*numVariables+SPECIFIC_ENERGY]);
+		double coef = 0.5*(consVar[(k-1)*numVariables+PI]-consVar[(k-1)*numVariables+PHI]) 
+                         *primVar[(k-1)*numVariables+VELOCITY]+pressure;
 		double rAvg = 0.5*(r[k]+r[k-1]);
-		double aAvg = 0.5*(a[k]+a[k-1]);
+		double trKAvg = 0.5*(trK[k]+trK[k-1]);
 		double dr = r[k]-r[k-1];
-		double aSq = aAvg*aAvg;
-		double psQuantity = aSq*4.0*CONSTANT_PI*rAvg*coef+0.5/rAvg*(aSq-1.0);
-		lnalpha-=dr*psQuantity;
-		alpha[k-1]=exp(lnalpha);
+		double trKSq = trKAvg*trKAvg;
+		double psQuantity = trKSq*4.0*CONSTANT_PI*rAvg*coef+0.5/rAvg*(trKSq-1.0);
+		alpha[k-1]=-dr*psQuantity;
 	}	
 
 }
+#endif
+
+#if 0
 
 /*
 Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.

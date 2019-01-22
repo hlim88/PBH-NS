@@ -17,11 +17,6 @@ Solve polar-areal slicing condition for alpha
 void solveSlicingCondition(double *consVar, double *primVar, double *a, double *r, int length, double *alpha);
 
 /*
-Solve polar-areal slicing condition for alpha
-*/
-void solveSlicingConditionHP(double *consVar, double *primVar, double *a, double *r, int length, double *alpha);
-
-/*
 Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.
 */
 void calculateMomentumEqResidual(double *consVar_n, double *consVar_np1, double *a_n, double *a_np1, double *alpha_n, double *alpha_np1, double *r, double dt, int length, double *residual);
@@ -35,10 +30,10 @@ void evolveMomentumEq(double *consVar, double *a, double *a_n, double *a_np1, do
 // HL : Here we define different set of solving system 
 
 /*
-Solve polar-areal slicing condition for alpha
+Solve 1+log slicing condition for alpha
 */
-void solveSlicingConditionHP(double *consVar, double *primVar, 
-                             double *a, double *r, int length, double *alpha);
+void solveAlphaSlicingCondition(double *consVar, double *primVar, double *r, 
+                             int length, double *alpha, double *trK);
 
 /*
 Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.
