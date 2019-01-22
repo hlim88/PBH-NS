@@ -30,10 +30,19 @@ void evolveMomentumEq(double *consVar, double *a, double *a_n, double *a_np1, do
 // HL : Here we define different set of solving system 
 
 /*
-Solve 1+log slicing condition for alpha
+  Solve 1+log slicing condition for alpha
 */
 void solveAlphaSlicingCondition(double *consVar, double *primVar, double *r, 
                              int length, double *alpha, double *trK);
+
+
+/*
+  Slicing condition for beta
+  We choose Gamma-freezing with auxilary variable
+*/
+void solveShiftSlicingCondition(double *consVar, double *primVar, double *r,
+                                int length, double *betaR, double *Br, double *GamDelta);
+
 
 /*
 Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.

@@ -166,6 +166,21 @@ void solveAlphaSlicingCondition(double *consVar, double *primVar, double *r,
 	}	
 
 }
+/* 
+ Slicing condition for beta
+ We choose Gamma-freezing with auxilary variable
+*/
+void solveShiftSlicingCondition(double *consVar, double *primVar, double *r,
+                              int length, double *betaR, double *Br, double *GamDelta){
+
+
+    int i;
+    for(i=length-1; i>0; i--) {
+        Br[i] =3.0/4.0*GamDelta[i];
+        betaR[i] = Br[i];
+    }
+}
+
 #endif
 
 #if 0
