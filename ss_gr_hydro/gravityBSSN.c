@@ -44,6 +44,9 @@ void bssnrhs(double *u){
   #endif
 
   // Const var for BSSN gauge
+  const unsigned int BSSN_LAMBDA[4];
+  const unsigned int BSSN_LAMBDA_F[4];
+
   const unsigned int lambda[4] = {BSSN_LAMBDA[0], BSSN_LAMBDA[1],
                                     BSSN_LAMBDA[2], BSSN_LAMBDA[3]};
   const double lambda_f[2] = {BSSN_LAMBDA_F[0], BSSN_LAMBDA_F[1]};
@@ -56,20 +59,23 @@ void bssnrhs(double *u){
 void solBSSN() {
 
   //Apply RK4 routine
-  for(i=1; i<length; i++) {
+  #if 0
+  for(int i=1; i<length; i++) {
 
       fourthOrderRKStep(); //TODO : Reduce inputs?
 
   }
+  #endif
 
 
 
 }
 
+#if 0
 void computeConstraints(double *u){
 
   #include "gravityBSSNeqns.h"
   #include "consteqns.h"
 
 }
-
+#endif
