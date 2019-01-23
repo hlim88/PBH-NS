@@ -12,12 +12,15 @@ CC_COMP  = $(CC) -c $(CFLAGS)
 F_COMP = mpif77 -c
 
 SHEN_OBJS = loadTable.o shenInterface.o
+EVOL_OBJS = gravityBSSN.o
 
+ifeq($(BSSN),1)
+OBJS = blackHoleFinder.o fluxCorrection.o gravityElliptic.o initialData.o fluidEvolve.o initialVelocity.o rungeKutta.o TOV.o gravity.o boundaryConditions.o flux.o matrixInverse.o conservedPrimitive.o equationOfState.o brent.o ss_gr_hydro.o $(SHEN_OBJS) $(EVOL_OBJS)
+else
 OBJS = blackHoleFinder.o fluxCorrection.o gravityElliptic.o initialData.o fluidEvolve.o initialVelocity.o rungeKutta.o TOV.o gravity.o boundaryConditions.o flux.o matrixInverse.o conservedPrimitive.o equationOfState.o brent.o ss_gr_hydro.o $(SHEN_OBJS)
+endif
 
 all: ss_gr_hydro
-
-
 
 ss_gr_hydro: $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o ss_gr_hydroSolver
@@ -54,15 +57,12 @@ gravity.o: gravity.c gravity.h
 
 gravityElliptic.o: gravityElliptic.c gravityElliptic.h
 	$(CC_COMP) gravityElliptic.c
+
 # Additional part
 ifeq ($(BSSN),1)
-prefix = /usr/local
-gravityBSSN.o: gravityBSSN.c gravityBSSNeqns.c gravityBSSN.h
+gravityBSSN.o: gravityBSSN.c gravityBSSNeqns.h gravityBSSN.h
         $(CC_COMP) gravityBSSN.c
-analysis.o: analysis.c
-        $(CC_COMP) analysis.c
 endif
-
 
 TOV.o: TOV.c TOV.h
 	$(CC_COMP) TOV.c

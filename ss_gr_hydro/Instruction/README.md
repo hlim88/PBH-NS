@@ -59,6 +59,12 @@ typing
 ```
 make
 ```
+If you would like to use different evolution formalism for the code,
+you can type
+```
+make BSSN=1
+```
+to enable addtional features
 
 In this directory, different `Makefile` is saved for users.
 
