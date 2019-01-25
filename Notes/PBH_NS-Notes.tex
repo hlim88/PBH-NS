@@ -440,13 +440,25 @@ We also use traceless part of the extrinsic curvature $\hat{A}_{ij}$. In SS, we 
 \end{align}
 Evolution equation for trace of extrinsic curvature $K$ is
 \begin{align}
-\partial_t K &= \beta^r \partial_r K - \frac{\chi^2}{\alpha} \left[\partial_r \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r b}{b} +\frac{\partial_r \chi}{\chi} - \frac{2}{r} \right) \right] \nonumber \\
+\partial_t K &= \beta^r \partial_r K - \frac{\chi^2}{\alpha} \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r b}{b} +\frac{\partial_r \chi}{\chi} - \frac{2}{r} \right) \right] \nonumber \\
 &+ \alpha \left(\frac{3}{2} (\hat{A}^r_r)^2 + \frac{1}{3} K^2 \right) + 4 \pi \alpha (\rho + S^r_r + S^\theta_\theta)
 \end{align}
 We have only one independent component of traceless part of the extrinsic curvature. Evolution equations for that is
-\TODO {Check eqns for A and conformal connection function}
 \begin{align}
-\partial_t \hat{A}^r_r = \beta^r \partial_r \hat{A}^r_r 
+\partial_t \hat{A}^r_r &= \beta^r \partial_r \hat{A}^r_r - \frac{\chi^2}{\alpha}\left( \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r b}{b} +\frac{\partial_r \chi}{\chi} - \frac{2}{r} \right) \right] -\frac{1}{3} \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r \chi}{\chi} \right) \right] \right)\nonumber \\
+&+\frac{\alpha}{3}(2 R\indices{^r_r} - R\indices{^\theta_\theta}) + \alpha K \hat{A}^r_r - 16\pi \alpha ( S^r_r - S^\theta_\theta)
+\end{align}
+Finally, we obtain the evolution equation for $\hat{\Delta}^r$ which is the radial component of conformal connection function which is defined by $\hat{\Delta}^i = \hat{\gamma}^{mn}( \hat{\Gamma}\indices{^i_{mn}} - \mathring{\Gamma}\indices{^i_{mn}})$ where $\mathring{\Gamma}\indices{^i_{mn}}$ is defined by $\mathring{\gamma}\indices{_{ij}}$ which is flat metric in spherical coordinate i.e. $\mathring{\gamma}=r^2 \sin^2 \theta$
+\begin{align}
+\partial_t \hat{\Delta}^r &= \beta^r \partial_r \hat{\Delta}^r - \hat{\Delta}^r \partial_r \beta^r + \frac{1}{a} \partial^2 \beta^r + \frac{2}{b} \partial_r \left(\frac{\beta^r}{r} \right) \nonumber \\
+&+\frac{1}{3}\left[\frac{1}{a} \partial_r^2 \beta^r + 2 \partial_r \beta^r +\partial_r \left\{ \beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right\} + 2 \beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right]  \nonumber \\
+&-\frac{2}{a} (\hat{A}^r_r \partial_r \alpha + \alpha \partial_r \hat{A}^r_r) + 2 \alpha \left(\hat{A}^r_r \hat{\Delta}^r + \frac{3}{rb} \hat{A}^r_r \right) \nonumber \\
+&+ \frac{2\alpha}{a} \left[ \partial_r \hat{A}^r_r - \frac{2}{3} \partial_r K - \frac{3\hat{A}^r_r}{\chi} \partial_r \chi + \frac{3}{2} \hat{A}^r_r \left(\frac{2}{r} + \frac{\partial_r b}{b} \right) - 8 \pi S_r \right]
+\end{align}
+We also evaluate Hamiltonian and momentum constraints to monitor our numerical evolutions
+\begin{align}
+\mathcal{H} &= -\frac{2}{arb} \partial_r \left(\frac{\partial_r (rb)}{a} \right) + \frac{1}{ar^2b^2} \left[a-\partial_r \left(\frac{rb \partial_r (rb)}{a} \right) \right] - \frac{3}{2} (\hat{A}^r_r)^2 + \frac{2}{3} K^2 - 16 \pi \rho = 0 \\
+\mathcal{M} &= \partial_r \hat{A}^r_r - \frac{2}{3} \partial_r K - \frac{3 \hat{A}^r_r}{2\chi}\partial_r \chi + \frac{2}{3} \hat{A}^r_r \left(\frac{2}{r} + \frac{\partial_r b}{b} \right) - 8 \pi S_r = 0
 \end{align}
 \subsubsection{Gauge Choice}
 In addition to SS-GBSSN variables, we still have two more variables that need to be chosen. Here, we use 1+log condition for lapse and Gamma driver condition for shift.
