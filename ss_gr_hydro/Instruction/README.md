@@ -50,6 +50,25 @@ If you build the library correctly, you should fine `libpamr.a`
 and `libamrd.a` in your `/home/<your username>/local/lib` 
 directory
 
+### On Symmetry
+
+Working modules to build the library for Symmetry are below
+```
+ 1) julia/1.0.3(default)   3) hdf5_18/1.8.20        5) gcc/7.2.0
+ 2) slurm/17.11.8          4) python/3.7(default)   6) openmpi/gcc/64/1.10.7
+```
+Once you have these modules, you need to configure it first via
+
+`./configure --prefix=/home/<your username>/local`
+
+Once you didn't see any problmes during configuration, then type
+```
+make install
+```
+If you build the library correctly, you should fine `libpamr.a`
+and `libamrd.a` in your `/home/<your username>/local/lib` 
+directory
+
 ### On Mac
 
 We highly recommend to use `GNU` complier instead of `clang`. You can easily install `GNU` 
@@ -104,6 +123,10 @@ Use Makefile.m7 then change to your user name and/or path
 ### On Comet
 
 Use Makefile.comet then change to your user name and/or path
+
+### On Symmetry
+
+Use Makefile.symmetry then change to your user name and/or path
 
 ### On Mac
 
