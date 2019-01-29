@@ -70,11 +70,15 @@ and `libamrd.a` in your `/usr/local/lib`
 directory
 
 Note that there is a problem with `malloc.h` in `cls_.c`. Since Xcode compliation 
-can be different with usual compliers. Mostly, `malloc.h` is located 
-in `/usr/include/malloc` rather than `/usr/local/include`. To fix this problem, 
+can be different with usual compliers so it stores basic libs in different spots.
+Especially, if you are using package management like `homebrew` and `macport`, you may
+have multiple directories that save bin and libs. Most of case for Mac, `malloc.h` is 
+located  in `/usr/include/malloc` rather than `/usr/local/include`. To fix this problem, 
 you can simply add this path during configuration 
 
 `./configure CC=<your GNU gcc> CXX=<your GNU g++> CPPFLAGS=-I/usr/include/malloc --prefix=/usr/local`
+
+Then type `make install` to build.
 
 
 ## Build the code
@@ -103,7 +107,8 @@ Use Makefile.comet then change to your user name and/or path
 
 ### On Mac
 
-TODO : Need to figure out how we can work with Mac.
+Use Makefile.Mac. If you follow the instruction above, you do not
+need to change anything
 
 ## Contact
 Other architectures should work if you have similar/same modules as
