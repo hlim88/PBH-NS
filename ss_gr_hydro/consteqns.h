@@ -1,7 +1,8 @@
 // constraint equations
-int pp
+double hamC_rhs[pp], momC_rhs[pp];
 
-#if 0
+// Fake eqns
+#if 1
 
 hamC_rhs[pp] = 0.0;
 momC_rhs[pp] = 0.0;
