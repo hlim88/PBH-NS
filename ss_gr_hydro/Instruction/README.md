@@ -37,7 +37,7 @@ Working modules to build the library for Comet are below
 ```
 Once you have these modules, you need to configure it first via
 
-`./configure --prefix=/home/<your username>/local --CC=mpicc`
+`./configure --prefix=/home/<your username>/local CC=mpicc`
 
 We recommend to use mpicc as your c complier because somehow it complains
 about cannot find `mpi.h` even you call mpi module
@@ -50,7 +50,55 @@ If you build the library correctly, you should fine `libpamr.a`
 and `libamrd.a` in your `/home/<your username>/local/lib` 
 directory
 
+### On Symmetry
+
+Working modules to build the library for Symmetry are below
+```
+ 1) julia/1.0.3(default)   3) hdf5_18/1.8.20        5) gcc/7.2.0
+ 2) slurm/17.11.8          4) python/3.7(default)   6) openmpi/gcc/64/1.10.7
+```
+Once you have these modules, you need to configure it first via
+
+`./configure --prefix=/home/<your username>/local`
+
+Once you didn't see any problmes during configuration, then type
+```
+make install
+```
+If you build the library correctly, you should fine `libpamr.a`
+and `libamrd.a` in your `/home/<your username>/local/lib` 
+directory
+
 ### On Mac
+
+We highly recommend to use `GNU` complier instead of `clang`. You can easily install `GNU` 
+complier via various ways such as `homebrew`, `fink`, or manually. Once you successfully install
+gnu complier then install `OpenMPI` with `GNU` complier. During configuration, you must specify
+`GNU` complier. 
+
+After all installations, you can simply follow similar way as above. For example
+
+`./configure CC=<your GNU gcc> CXX=<your GNU g++> --prefix=/usr/local`
+
+Once you didn't see any problmes during configuration, then type
+```
+make install
+```
+If you build the library correctly, you should fine `libpamr.a`
+and `libamrd.a` in your `/usr/local/lib` 
+directory
+
+Note that there is a problem with `malloc.h` in `cls_.c`. Since Xcode compliation 
+can be different with usual compliers so it stores basic libs in different spots.
+Especially, if you are using package management like `homebrew` and `macport`, you may
+have multiple directories that save bin and libs. Most of case for Mac, `malloc.h` is 
+located  in `/usr/include/malloc` rather than `/usr/local/include`. To fix this problem, 
+you can simply add this path during configuration 
+
+`./configure CC=<your GNU gcc> CXX=<your GNU g++> CPPFLAGS=-I/usr/include/malloc --prefix=/usr/local`
+
+Then type `make install` to build.
+
 
 ## Build the code
 
@@ -76,9 +124,14 @@ Use Makefile.m7 then change to your user name and/or path
 
 Use Makefile.comet then change to your user name and/or path
 
+### On Symmetry
+
+Use Makefile.symmetry then change to your user name and/or path
+
 ### On Mac
 
-TODO : Need to figure out how we can work with Mac.
+Use Makefile.Mac. If you follow the instruction above, you do not
+need to change anything
 
 ## Contact
 Other architectures should work if you have similar/same modules as
