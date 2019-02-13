@@ -54,7 +54,7 @@ void bssnrhs(double *u){
   #include "gravityBSSNeqns.h"
 }
 
-//Solving this with RK routine
+//Solving this with RK routine. Constraint is monitoring with this
 
 void solBSSN() {
 
@@ -71,11 +71,3 @@ void solBSSN() {
 
 }
 
-#if 0
-void computeConstraints(double *u){
-
-  #include "gravityBSSNeqns.h"
-  #include "consteqns.h"
-
-}
-#endif
