@@ -445,13 +445,13 @@ Evolution equation for trace of extrinsic curvature $K$ is
 \end{align}
 We have only one independent component of traceless part of the extrinsic curvature. Evolution equations for that is
 \begin{align}
-\partial_t \hat{A}^r_r &= \beta^r \partial_r \hat{A}^r_r - \frac{\chi^2}{\alpha}\left( \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r b}{b} +\frac{\partial_r \chi}{\chi} - \frac{2}{r} \right) \right] -\frac{1}{3} \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r \chi}{\chi} \right) \right] \right)\nonumber \\
+\partial_t \hat{A}^r_r &= \beta^r \partial_r \hat{A}^r_r - \frac{\chi^2}{\alpha}\left( \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r \chi}{\chi} \right) \right] -\frac{1}{3} \left[\partial_r^2 \alpha - \partial_r \left(\frac{\partial_r a}{2a} - \frac{\partial_r b}{b} +\frac{\partial_r \chi}{\chi} - \frac{2}{r} \right) \right] \right)\nonumber \\
 &+\frac{\alpha}{3}(2 R\indices{^r_r} - R\indices{^\theta_\theta}) + \alpha K \hat{A}^r_r - 16\pi \alpha ( S^r_r - S^\theta_\theta)
 \end{align}
 Finally, we obtain the evolution equation for $\hat{\Delta}^r$ which is the radial component of conformal connection function which is defined by $\hat{\Delta}^i = \hat{\gamma}^{mn}( \hat{\Gamma}\indices{^i_{mn}} - \mathring{\Gamma}\indices{^i_{mn}})$ where $\mathring{\Gamma}\indices{^i_{mn}}$ is defined by $\mathring{\gamma}\indices{_{ij}}$ which is flat metric in spherical coordinate i.e. $\mathring{\gamma}=r^2 \sin^2 \theta$
 \begin{align}
 \partial_t \hat{\Delta}^r &= \beta^r \partial_r \hat{\Delta}^r - \hat{\Delta}^r \partial_r \beta^r + \frac{1}{a} \partial^2 \beta^r + \frac{2}{b} \partial_r \left(\frac{\beta^r}{r} \right) \nonumber \\
-&+\frac{1}{3}\left[\frac{1}{a} \partial_r^2 \beta^r + 2 \partial_r \beta^r +\partial_r \left\{ \beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right\} + 2 \beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right]  \nonumber \\
+&+\frac{1}{3}\left[\frac{1}{a} \left\{\partial_r^2 \beta^r + \partial_r \beta^r  \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right) + \beta^r \partial_r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right\} + 2 \hat{\Delta}^r \left\{\partial_r \beta^r +\beta^r \left(\frac{\partial_r (a b^2)}{2 a b^2} + \frac{2}{r}\right)\right\}\right]  \nonumber \\
 &-\frac{2}{a} (\hat{A}^r_r \partial_r \alpha + \alpha \partial_r \hat{A}^r_r) + 2 \alpha \left(\hat{A}^r_r \hat{\Delta}^r + \frac{3}{rb} \hat{A}^r_r \right) \nonumber \\
 &+ \frac{2\alpha}{a} \left[ \partial_r \hat{A}^r_r - \frac{2}{3} \partial_r K - \frac{3\hat{A}^r_r}{\chi} \partial_r \chi + \frac{3}{2} \hat{A}^r_r \left(\frac{2}{r} + \frac{\partial_r b}{b} \right) - 8 \pi S_r \right]
 \end{align}
@@ -545,8 +545,8 @@ $U_{crit}$ is the amplitude that occurs critical collapse, and $x_{tlv}$ the reg
 
 Our interest is interaction between BH inside of NS we set $x_{tlv}$ is small value such as 1\% of size of star i.e. $x_{tlv} = 0.01$ since $x$ is normalized radius by star radius ($x_{tlv}$ must be smaller than $1$).
 
-\subsection{Analytic Case}
+%\subsection{Analytic Case}
 
-For code test and validation, we use well-known Michel problem
+%For code test and validation, we use well-known Michel problem
 
 \end{document}
