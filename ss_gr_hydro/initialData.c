@@ -130,10 +130,12 @@ double getInitialData(double centralPressure, double velocityAmp, double *consVa
 
 // HL : New initial data : put a valocity profile in certain region and make it BH very fastly
 
-double getID2(double centralPressure, double velocityAmp, 
-		      double *consVar, double *primVar, double *a, 
-                      double *alpha, double *rGravity, double *rFluid, 
-                      int length){
+double getID_BSSN(double centralPressure, double velocityAmp, 
+	          double *consVar, double *primVar, 
+                  double *a, double *alpha, double *b,
+                  double *trK, double *chi, double *Arr,
+                  double *GamDelta, double *betaR, double *Br,
+                  double *rGravity, double *rFluid, int length){
 
 	double pressure[length];
 	double atmPressure = ATM_PRESSURE;
@@ -226,9 +228,12 @@ double getID2(double centralPressure, double velocityAmp,
  Then it uses getInitialData() to find ID over this extended domain and then
  copies in the required part.
  */
-double getInitialDataPartialDomain(double centralPressure, double velocityAmp, double rMaxExt, 
-				   double *consVar, double *primVar, double *a, double *alpha, 
-   		                   double *rGravity, double *rFluid, int length){
+double getIDPD_BSSN(double centralPressure, double velocityAmp, double rMaxExt, 
+		    double *consVar, double *primVar, 
+                    double *a, double *alpha, double *b,
+		    double *trK, double *chi, double *Arr,
+   	  	    double *GamDelta, double *betaR, double *Br, 
+   		    double *rGravity, double *rFluid, int length){
 
 	
 	double dr = rGravity[1]-rGravity[0];

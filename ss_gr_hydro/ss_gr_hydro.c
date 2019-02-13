@@ -732,10 +732,27 @@ void ssgrhydro_free_data(void)
    calculateVolumeElement(wavg);
 
    if(phys_bdy[0] && phys_bdy[1]){
+        #if 0
 	initialRadius = getInitialData(Pressure_central, U_amp, consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
+        #endif
+        #if 1
+	initialRadius = getID_BSSN(Pressure_central, U_amp, consVar_n, primVar_n, 
+                                       a_n, alpha_n, b_n, trK_n, chi_n, Arr_n,
+                                       GamDelta_n, betaR_n, Br_n, 
+                                       rVertex, rCell, Nr);
+        #endif
    } else{
 	printf("Partial domain initial data.\n");
+        #if 0
 	initialRadius = getInitialDataPartialDomain(Pressure_central, U_amp, base_bbox[1], consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
+        #endif
+	#if 1
+        initialRadius = getIDPD_BSSN(Pressure_central, U_amp, base_bbox[1], 
+                                     consVar_n, primVar_n,
+                                     a_n, alpha_n, b_n, trK_n, chi_n, Arr_n,
+                                     GamDelta_n, betaR_n, Br_n,
+                                     rVertex, rCell, Nr);
+        #endif
    }
    rMax = initialRadius;
 
