@@ -219,6 +219,18 @@ double getID_BSSN(double centralPressure, double velocityAmp,
 	alpha[length-1] = 1.0/a[length-1];
 
 	solveSlicingCondition(consVar, primVar, a, rGravity, length, alpha);
+
+	//Some initial values set to be zero 
+ 	//TODO : check this
+        for (i=0; i<length-1; i++) {
+	   b[i] = 0.0;
+           trK[i] = 0.0;
+           chi[i] = 0.0;
+           Arr[i] = 0.0;
+           GamDelta[i] = 0.0;
+           betaR[i] = 0.0;
+           Br[i] = 0.0; 			  
+        }
 	
 	return starRadius;
 }
@@ -241,6 +253,13 @@ double getIDPD_BSSN(double centralPressure, double velocityAmp, double rMaxExt,
 	double rGravityExt[NrExt];
 	double aExt[NrExt];
 	double alphaExt[NrExt];
+        double bExt[NrExt];
+        double trKExt[NrExt];
+        double chiExt[NrExt];
+        double ArrExt[NrExt];
+        double GamDeltaExt[NrExt];
+        double betaRExt[NrExt];
+        double BrExt[NrExt];
 	double rFluidExt[NrExt-1];
 	double primVarExt[(NrExt-1)*numVariables];
 	double consVarExt[(NrExt-1)*numVariables];
@@ -249,7 +268,10 @@ double getIDPD_BSSN(double centralPressure, double velocityAmp, double rMaxExt,
 	for(i=0; i<NrExt; i++) rGravityExt[i] = rMaxExt*((double) i)/(((double) NrExt)-1.0);
 	for(i=0; i<NrExt-1; i++) rFluidExt[i] = 0.5*(rGravityExt[i]+rGravityExt[i+1]);
 
-	double radius = getInitialData(centralPressure, velocityAmp, consVarExt, primVarExt, aExt, alphaExt, rGravityExt, rFluidExt, NrExt);
+	double radius = getID_BSSN(centralPressure, velocityAmp, consVarExt, primVarExt, 
+				   aExt, alphaExt, bExt, trKExt, chiExt, ArrExt,
+  				   GamDeltaExt, betaRExt, BrExt,
+                                   rGravityExt, rFluidExt, NrExt);
 
 	int startIndex = (int) (rGravity[0]/dr+0.5);
 	for(i=0; i<length; i++){
