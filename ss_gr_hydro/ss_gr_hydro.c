@@ -902,7 +902,7 @@ void ssgrhydro_L_op(void)
    LPhi(phi, phys_bdy, consVar_v, primVar_v, a, rVertex, mask_mg, Nr, phi_lop);
    deallocVec();
 }
-#if 1
+#if(BSSN==1)
 /*
  Call new evolution equation function
 */
