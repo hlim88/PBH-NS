@@ -24,6 +24,7 @@ defs to track geometric vars
 #include "ss_gr_hydro.h"
 #include "blackHoleFinder.h"
 #include "flux.h"
+#include "gravityBSSN.h"
 
 //=============================================================================
 // id parameters 
@@ -901,7 +902,19 @@ void ssgrhydro_L_op(void)
    LPhi(phi, phys_bdy, consVar_v, primVar_v, a, rVertex, mask_mg, Nr, phi_lop);
    deallocVec();
 }
+#if 1
+/*
+ Call new evolution equation function
+*/
+void ssgrhydro_BSSN_HPC(coll_point_t *pfunc){
 
+ const double t = 10.0;
+ const double dt = 0.01;
+ const int gen = 4;
+ solBSSNeqns(pfunc, t, dt, 4);
+
+}
+#endif
 //=============================================================================
 // Called after calculating the TRE for all variables
 //=============================================================================

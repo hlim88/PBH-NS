@@ -42,17 +42,16 @@ extern const int npts_in_array;
 
 void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt, const int gen);
 
-
 //2nd order central FD for first derivs
-double derivFirst(double *u, double dr, int n) {
+static double derivFirst(double *u, double dr, int n) {
 
     double du;
     return du = (u[n+1]-u[n-1])/(2.0*dr);
-    
+
 }
 
 //2nd order central FD for sencond derivs
-double derivSecond(double *u, double dr, int n) {
+static double derivSecond(double *u, double dr, int n) {
 
     double ddu;
     return ddu = (u[n-1]-2.0*u[n]+u[n+1])/(dr*dr);
