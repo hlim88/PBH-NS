@@ -16,8 +16,29 @@ double a_rhs[pp], b_rhs[pp], trK_rhs[pp], Arr_rhs[pp], chi_rhs[pp],
 double dr_a[pp], dr_b[pp], dr_trK[pp], dr_Arr[pp], dr_GamDelta[pp], 
        dr_betaR[pp], dr_alpha[pp], dr_chi[pp];
 
+//2nd order centeral FD for first dervis
+// Meshing unit
+double dr,h; 
+dr = r[pp] - r[pp-1];
+h = dr*dr;
+dr_a[pp] = (a[pp+1]-a[pp-1])/(2.0*h);
+dr_b[pp] = (b[pp+1]-b[pp-1])/(2.0*h);
+dr_trK[pp] = (trK[pp+1]-trK[pp-1])/(2.0*h);
+dr_Arr[pp] = (Arr[pp+1]-Arr[pp-1])/(2.0*h);
+dr_GamDelta[pp] = (GamDelta[pp+1]-GamDelta[pp-1])/(2.0*h);
+dr_betaR[pp] = (betaR[pp+1]-betaR[pp-1])/(2.0*h);
+dr_alpha[pp] = (alpha[pp+1]-alpha[pp-1])/(2.0*h);
+dr_chi[pp] = (chi[pp+1]-chi[pp-1])/(2.0*h);
+
 //Second derivative def
 double drdr_alpha[pp], drdr_b[pp], drdr_chi[pp], drdr_a[pp], drdr_betaR[pp];
+
+//2nd order central FD for 2nd derivs
+drdr_alpha[pp] = (alpha[pp-1] - 2.0*alpha[pp] + alpha[pp+1])/(h*h);
+drdr_b[pp] = (b[pp-1] - 2.0*b[pp] + b[pp+1])/(h*h);
+drdr_chi[pp] = (chi[pp-1] - 2.0*chi[pp] + chi[pp+1])/(h*h);
+drdr_a[pp] = (a[pp-1] - 2.0*a[pp] + a[pp+1])/(h*h);
+drdr_betaR[pp] = (betaR[pp-1] - 2.0*betaR[pp] + betaR[pp+1])/(h*h);
 
 //Source term from fluid TODO : Link it explicitly
 double rhoFlu[pp], SrrFlu[pp], SthetathetaFlu[pp], SrFlu[pp];
