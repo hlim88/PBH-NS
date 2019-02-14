@@ -60,7 +60,7 @@ gravityElliptic.o: gravityElliptic.c gravityElliptic.h
 
 # Additional part
 ifeq ($(BSSN),1)
-gravityBSSN.o: gravityBSSN.c gravityBSSNeqns.h gravityBSSN.h
+gravityBSSN.o: gravityBSSN.c gravityBSSN.h
         $(CC_COMP) gravityBSSN.c
 endif
 
