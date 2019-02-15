@@ -817,7 +817,11 @@ void ssgrhydro_evolve(int iter, int *ifc_mask)
    
    timeStep(iter, phys_bdy[0],phys_bdy[1], dt, Nr, rVertex, consVar_n, consVar_np1, primVar_n, primVar_np1, a_n, a_np1, phi_n, phi_np1, fluxCorr, ifc_mask);
 
-	
+   //Calling BSSN sol part in evolve loop : TODO : check this	
+   #if(BSSN==1)
+   ssgrhydro_BSSN_HPC(coll_point_t *pfunc);
+   #endif
+   
    //Update T_trace
    if(iter==3) {
 	getStressEnergyTraceArray(T_trace,primVar_np1,numCells);
@@ -908,6 +912,7 @@ void ssgrhydro_L_op(void)
 */
 void ssgrhydro_BSSN_HPC(coll_point_t *pfunc){
 
+ //TODO : Make it parameter
  const double t = 10.0;
  const double dt = 0.01;
  const int gen = 4;
@@ -1010,5 +1015,6 @@ int main(int argc, char **argv)
         &ssgrhydro_pre_io_calc, &ssgrhydro_scale_tre, 
         &ssgrhydro_post_regrid, &ssgrhydro_post_tstep,
         &ssgrhydro_fill_ex_mask, &ssgrhydro_fill_bh_bboxes);
+  
 }
 
