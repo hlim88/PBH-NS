@@ -5,6 +5,9 @@
  *  Created by William East on 10/26/09.
  *  Copyright 2009 __MyCompanyName__. All rights reserved.
  *
+ *  Modified by Hyun Lim on Jan.2.19
+ *  Change the naming convention and add more options for performance
+ *
  */
 
 #include <stdlib.h>
@@ -13,7 +16,10 @@
 Take a fourth order Runge-Kutta step of size 'step' from startValue.  The dimension of the system is 'dimension'.
  deriv(x,y,dy/dx, auxFunc) stores the derivative at x, y to the pointer dy/dx and may use the aux function auxFunc.
  */
-void fourthOrderRKStep(double* startValue, double x, double* endValue, double* startDeriv, int dimension, double step, void (*deriv) (double, double*, double*, double(*)(double)) , double (*auxFunc)(double)){
+void fourthOrderRKStep(double* startValue, double x, double* endValue, double* startDeriv, 
+                       int dimension, double step, 
+                       void (*deriv) (double, double*, double*, double(*)(double)) , 
+                       double (*auxFunc)(double)){
 	
 	double *initialDeriv;
 	if(startDeriv==NULL){
@@ -54,6 +60,43 @@ void fourthOrderRKStep(double* startValue, double x, double* endValue, double* s
 	for(i=0; i<dimension; i++){
 		d[i] *= step;
 		endValue[i] = startValue[i] + a[i]/6.0 + b[i]/3.0 + c[i]/3.0 + d[i]/6.0;
+	}
+	
+	if(startDeriv==NULL){
+		free(initialDeriv);
+	}
+
+}
+
+
+void PIRK2Step(double* startValue, double x, double* endValue, double* startDeriv, 
+               int dimension, double step, 
+               void (*deriv) (double, double*, double*, double(*)(double)) , 
+               double (*auxFunc)(double)){
+	
+	double *initialDeriv;
+	if(startDeriv==NULL){
+		initialDeriv = malloc(dimension*sizeof(double));
+		deriv(x, startValue, initialDeriv, auxFunc);
+	} else {
+		initialDeriv = startDeriv;
+	}
+	
+	double l1[dimension];
+	double l2[dimension];
+	double argument[dimension];
+	
+	int i;
+	for(i=0; i<dimension; i++){
+		l1[i] = step*initialDeriv[i];
+		argument[i]=startValue[i]+0.5*l1[i];
+	}
+	
+	deriv((x+0.5*step), argument, l1, auxFunc);
+	
+	for(i=0; i<dimension; i++){
+		l2[i] *= step;
+		endValue[i] = startValue[i] + l2[i];
 	}
 	
 	if(startDeriv==NULL){
