@@ -10,15 +10,29 @@ velocityAmp is parameter determining magnitude of velcity profile
 */
 double getInitialData(double centralPressure, double velocityAmp, double *consVar, double *primVar, double *a, double *alpha, double *rGravity, double *rFluid, int length);
 
-// Working on addiational ID
-double getID2(double centralPressure, double velocityAmp,
-              double *consVar, double *primVar, double *a,
-              double *alpha, double *rGravity, double *rFluid,
-              int length);
-
+// Additional routine for initialize new hypervars in BSSNform
+double getID_BSSN(double centralPressure, double velocityAmp,
+                  double *consVar, double *primVar,
+                  double *a, double *alpha, double *b,
+                  double *trK, double *chi, double *Arr,
+                  double *GamDelta, double *betaR, double *Br,
+                  double *rGravity, double *rFluid, int length);
 /*
  For partial domains, this function extends the domain from r=0 to r=rMaxExt
  Then it uses getInitialData() to find ID over this extended domain and then
  copies in the required part.
  */
 double getInitialDataPartialDomain(double centralPressure, double velocityAmp, double rMaxExt, double *consVar, double *primVar, double *a, double *alpha, double *rGravity, double *rFluid, int length);
+
+
+/*
+ For partial domains, this function extends the domain from r=0 to r=rMaxExt
+ Then it uses getID_BSSN() to find ID over this extended domain and then
+ copies in the required part.
+ */
+double getIDPD_BSSN(double centralPressure, double velocityAmp, double rMaxExt,
+                    double *consVar, double *primVar,
+                    double *a, double *alpha, double *b,
+                    double *trK, double *chi, double *Arr,
+                    double *GamDelta, double *betaR, double *Br,
+                    double *rGravity, double *rFluid, int length);

@@ -182,36 +182,3 @@ void solveShiftSlicingCondition(double *consVar, double *primVar, double *r,
 }
 
 #endif
-
-#if 0
-
-/*
-Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.
-*/
-void calculateMomentumEqResidualHP(double *consVar_n, double *consVar_np1, double *a_n, double *a_np1, double *alpha_n, double *alpha_np1, double *r, double dt, int length, double *residual){
-	int i;
-	residual[0]=0.0;
-	for(i=1; i<length; i++){
-		double S_np1 = 0.25*(consVar_np1[(i-1)*numVariables+PI]-consVar_np1[(i-1)*numVariables+PHI])+0.25*(consVar_np1[i*numVariables+PI]-consVar_np1[i*numVariables+PHI]);
-		double S_n = 0.25*(consVar_n[(i-1)*numVariables+PI]-consVar_n[(i-1)*numVariables+PHI])+0.25*(consVar_n[i*numVariables+PI]-consVar_n[i*numVariables+PHI]);
-		residual[i]=(a_np1[i]-a_n[i])/dt+4.0*CONSTANT_PI*r[i]*0.5*(alpha_np1[i]*a_np1[i]*a_np1[i]*S_np1+alpha_n[i]*a_n[i]*a_n[i]*S_n);
-
-	}
-
-}
-
-/*
-Use momentum equation to evolve a
-We let a_np1 = a_n + dt*F(a)
-*/
-void evolveMomentumEqHP(double *consVar, double *a,  double *a_n, double *a_np1, double *alpha, double *r, double dt, int length, int innerBdy, int outerBdy){
-	int i;
-	if(innerBdy) a_np1[0]=1.0;
-	for(i=1; i<length-1; i++){
-		double S = 0.25*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI])+0.25*(consVar[i*numVariables+PI]-consVar[i*numVariables+PHI]);
-		a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*S;
-	}
-	i=length-1;
-	if(outerBdy) a_np1[i] = a_n[i] - dt*4.0*CONSTANT_PI*r[i]*alpha[i]*a[i]*a[i]*0.5*(consVar[(i-1)*numVariables+PI]-consVar[(i-1)*numVariables+PHI]);
-}
-#endif

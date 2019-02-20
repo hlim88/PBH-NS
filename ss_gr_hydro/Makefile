@@ -1,26 +1,27 @@
 MPILIB = -lmpi
-#prefix = /home/weast/
 prefix = /usr/local
 
 LIBS       = -lpamr -lamrd $(MPILIB) -lm -lgfortran -lbbhutil  
-#LDFLAGS    =  -L../../lib  -L. -L$(prefix)/lib -L/home/weast/software/pamr/lib/ 
 LDFLAGS    = -L. -L$(prefix)/lib -L/Users/hyunlim/Desktop/project/pamr/lib/ 
 
 CC       = mpicc 
 CFLAGS     = -g -O2 
-#CPPFLAGS = -I.  -I../../include -I$(prefix)/include -I/home/weast/software/pamr/include/ 
 CPPFLAGS = -I. -I$(prefix)/include -I/Users/hyunlim/Desktop/project/pamr/include/ 
 CC_COMP  = $(CC) -c $(CFLAGS)
 
 F_COMP = mpif77 -c
 
 SHEN_OBJS = loadTable.o shenInterface.o
+EVOL_OBJS = gravityBSSN.o
 
-OBJS = blackHoleFinder.o fluxCorrection.o gravityElliptic.o initialData.o fluidEvolve.o initialVelocity.o rungeKutta.o TOV.o gravity.o boundaryConditions.o flux.o matrixInverse.o conservedPrimitive.o equationOfState.o brent.o ss_gr_hydro.o $(SHEN_OBJS)
+ifeq ($(BSSN),1)
+OBJS = blackHoleFinder.o fluxCorrection.o gravityElliptic.o initialData.o fluidEvolve.o           initialVelocity.o rungeKutta.o TOV.o gravity.o boundaryConditions.o flux.o matrixInverse.o        conservedPrimitive.o equationOfState.o brent.o ss_gr_hydro.o $(SHEN_OBJS) $(EVOL_OBJS)
+else
+OBJS = blackHoleFinder.o fluxCorrection.o gravityElliptic.o initialData.o fluidEvolve.o           initialVelocity.o rungeKutta.o TOV.o gravity.o boundaryConditions.o flux.o matrixInverse.o        conservedPrimitive.o equationOfState.o brent.o ss_gr_hydro.o $(SHEN_OBJS)
+endif
+
 
 all: ss_gr_hydro
-
-
 
 ss_gr_hydro: $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o ss_gr_hydroSolver
@@ -57,6 +58,11 @@ gravity.o: gravity.c gravity.h
 
 gravityElliptic.o: gravityElliptic.c gravityElliptic.h
 	$(CC_COMP) gravityElliptic.c
+
+ifeq ($(BSSN),1)
+gravityBSSN.o: gravityBSSN.c gravityBSSN.h
+	$(CC_COMP) gravityBSSN.c
+endif
 
 TOV.o: TOV.c TOV.h
 	$(CC_COMP) TOV.c

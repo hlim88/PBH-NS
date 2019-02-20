@@ -24,6 +24,7 @@ defs to track geometric vars
 #include "ss_gr_hydro.h"
 #include "blackHoleFinder.h"
 #include "flux.h"
+#include "gravityBSSN.h"
 
 //=============================================================================
 // id parameters 
@@ -732,10 +733,27 @@ void ssgrhydro_free_data(void)
    calculateVolumeElement(wavg);
 
    if(phys_bdy[0] && phys_bdy[1]){
+        #if 0
 	initialRadius = getInitialData(Pressure_central, U_amp, consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
+        #endif
+        #if 1
+	initialRadius = getID_BSSN(Pressure_central, U_amp, consVar_n, primVar_n, 
+                                       a_n, alpha_n, b_n, trK_n, chi_n, Arr_n,
+                                       GamDelta_n, betaR_n, Br_n, 
+                                       rVertex, rCell, Nr);
+        #endif
    } else{
 	printf("Partial domain initial data.\n");
+        #if 0
 	initialRadius = getInitialDataPartialDomain(Pressure_central, U_amp, base_bbox[1], consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
+        #endif
+	#if 1
+        initialRadius = getIDPD_BSSN(Pressure_central, U_amp, base_bbox[1], 
+                                     consVar_n, primVar_n,
+                                     a_n, alpha_n, b_n, trK_n, chi_n, Arr_n,
+                                     GamDelta_n, betaR_n, Br_n,
+                                     rVertex, rCell, Nr);
+        #endif
    }
    rMax = initialRadius;
 
@@ -799,7 +817,11 @@ void ssgrhydro_evolve(int iter, int *ifc_mask)
    
    timeStep(iter, phys_bdy[0],phys_bdy[1], dt, Nr, rVertex, consVar_n, consVar_np1, primVar_n, primVar_np1, a_n, a_np1, phi_n, phi_np1, fluxCorr, ifc_mask);
 
-	
+   //Calling BSSN sol part in evolve loop : TODO : check this	
+   #if(BSSN==1)
+   ssgrhydro_BSSN_HPC(coll_point_t *pfunc);
+   #endif
+   
    //Update T_trace
    if(iter==3) {
 	getStressEnergyTraceArray(T_trace,primVar_np1,numCells);
@@ -884,7 +906,20 @@ void ssgrhydro_L_op(void)
    LPhi(phi, phys_bdy, consVar_v, primVar_v, a, rVertex, mask_mg, Nr, phi_lop);
    deallocVec();
 }
+#if(BSSN==1)
+/*
+ Call new evolution equation function
+*/
+void ssgrhydro_BSSN_HPC(coll_point_t *pfunc){
 
+ //TODO : Make it parameter
+ const double t = 10.0;
+ const double dt = 0.01;
+ const int gen = 4;
+ solBSSNeqns(pfunc, t, dt, 4);
+
+}
+#endif
 //=============================================================================
 // Called after calculating the TRE for all variables
 //=============================================================================
@@ -980,5 +1015,6 @@ int main(int argc, char **argv)
         &ssgrhydro_pre_io_calc, &ssgrhydro_scale_tre, 
         &ssgrhydro_post_regrid, &ssgrhydro_post_tstep,
         &ssgrhydro_fill_ex_mask, &ssgrhydro_fill_bh_bboxes);
+  
 }
 

@@ -12,6 +12,8 @@ This is working note so contents are updating frequently and correctness are not
 code that is origianlly written by Will East. To run this code,
 user needs `PAMR` lib
 
+`par` directory contains parameter files for testing
+
 Instruction to build/run this code is under 
 [ss_gr_hydro/Instruction](https://github.com/hlim88/PBH-NS/tree/master/ss_gr_hydro/Instruction)
 

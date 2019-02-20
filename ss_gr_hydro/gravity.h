@@ -43,17 +43,3 @@ void solveAlphaSlicingCondition(double *consVar, double *primVar, double *r,
 void solveShiftSlicingCondition(double *consVar, double *primVar, double *r,
                                 int length, double *betaR, double *Br, double *GamDelta);
 
-
-/*
-Calculate the residual of the momentum equation (a evolution equation) using CN finite differencing.
-*/
-void calculateMomentumEqResidualHP(double *consVar_n, double *consVar_np1, double *a_n, 
-                                 double *a_np1, double *alpha_n, double *alpha_np1, 
-                                 double *r, double dt, int length, double *residual);
-
-/*
-Use momentum equation to evolve a
-*/
-void evolveMomentumEqHP(double *consVar, double *a, double *a_n, double *a_np1, 
-                      double *alpha, double *r, double dt, int length, 
-                      int innerBdy, int outerBdy);
