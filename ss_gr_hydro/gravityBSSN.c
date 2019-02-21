@@ -5,16 +5,15 @@
 
 unsigned time_stamp;
 
-void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt, const int gen) {
+void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt, 
+                 const int gen, int iter) {
 
     void(*rk4_helpers[4])(coll_point_t *, const double) = {rk4_helper1, rk4_helper2, rk4_helper3, rk4_helper4};
 
     //index
     int pp;
-    int n_pp; //TODO : need to link it with previous defs for PAMR/AMRD
 
-
-    for(pp = 0; pp < n_pp; pp++) {
+    for(pp = 0; pp < gen; pp++) {
         //Polar-areal radius in HPC
         double r[pp];
 
@@ -176,7 +175,7 @@ void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt, const int
         // Applying solver here
         void(*rk4_helper)(coll_point_t *, const double) = rk4_helpers[pp];
         
-        for (int i = 0; i<npts_in_array; i++) {
+        for (int i = 0; i<iter; i++) {
             //coll_point_t *pfunc = &coll_points->array[i];
             rk4_helper(pfunc, dt);
         }

@@ -40,7 +40,7 @@ extern const int npts_in_array;
    Define BSSN eqns with usual 1+log slicing and gamma driver
 */
 
-void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt, const int gen);
+void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt, const int gen, int iter);
 
 //2nd order central FD for first derivs
 static double derivFirst(double *u, double dr, int n) {

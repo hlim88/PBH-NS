@@ -819,7 +819,7 @@ void ssgrhydro_evolve(int iter, int *ifc_mask)
 
    //Calling BSSN sol part in evolve loop : TODO : check this	
    #if(BSSN==1)
-   ssgrhydro_BSSN_HPC(coll_point_t *pfunc);
+   ssgrhydro_BSSN_HPC(coll_point_t *pfunc, iter);
    #endif
    
    //Update T_trace
@@ -910,13 +910,13 @@ void ssgrhydro_L_op(void)
 /*
  Call new evolution equation function
 */
-void ssgrhydro_BSSN_HPC(coll_point_t *pfunc){
+void ssgrhydro_BSSN_HPC(coll_point_t *pfunc, int iter){
 
  //TODO : Make it parameter
  const double t = 10.0;
  const double dt = 0.01;
  const int gen = 4;
- solBSSNeqns(pfunc, t, dt, 4);
+ solBSSNeqns(pfunc, t, dt, 4, iter);
 
 }
 #endif
