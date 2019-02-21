@@ -58,7 +58,7 @@ real *T_trace;
 real *mask_c, *mask_v, *mask_mg;
 real *wavg, *wavg_mg;
 
-#if 1
+#if(BSSN==1)
 // Additional variables for eqns
 real *trK_n, *trK_np1, *trK, *b_n, *b_np1, *b, *chi_n, *chi_np1, *chi;
 real *Arr_n, *Arr_np1, *Arr, *GamDelta_n, *GamDelta_np1, *GamDelta;
@@ -95,7 +95,7 @@ int phi_res_gfn, phi_lop_gfn, phi_rhs_gfn;
 int mask_mg_gfn, mask_v_gfn, mask_c_gfn;
 int wavg_gfn, wavg_mg_gfn;
 
-#if 1
+#if(BSSN==1)
 //Additional vars
 int trK_n_gfn, trK_np1_gfn, trK_gfn;
 int b_n_gfn, b_np1_gfn, b_gfn;
@@ -164,7 +164,7 @@ void set_gfns(void)
     if ((alpha_np1_gfn = PAMR_get_gfn("alpha_v",PAMR_AMRH,1))<0) AMRD_stop("set_gnfs error",0);
     if ((alpha_gfn=PAMR_get_gfn("alpha_v",PAMR_MGH,0))<0) AMRD_stop("set_gnfs error",0);
 
-    #if 1
+    #if(BSSN==1)
     //New scalar vars for GR
 
     if ((trK_n_gfn   = PAMR_get_gfn("trK_v",PAMR_AMRH,2))<0) AMRD_stop("set_gnfs error",0);
@@ -314,7 +314,7 @@ void ldptr(void)
    mask_v = gfs[mask_v_gfn-1];
    mask_c = gfs[mask_c_gfn-1];
 
-   #if 1 
+   #if(BSSN==1)
    //New vars
    trK_n   = gfs[trK_n_gfn-1];
    trK_np1 = gfs[trK_np1_gfn-1];
@@ -650,6 +650,11 @@ void ssgrhydro_var_post_init(char *pfile)
 
    AMRD_real_param(pfile,"Pressure_c",&Pressure_central,1);
    AMRD_real_param(pfile,"U_amp",&U_amp,1);
+
+
+   //Define size of stamp for monitoring
+   int time_stamp = 1;
+   AMRD_int_param(pfile, "time_stamp", &time_stamp, 1);
    
    int eos_flag = 0;
    real gamma_poly = 2.0;
@@ -686,7 +691,7 @@ void ssgrhydro_AMRH_var_clear(void)
    zero(a_n, Nr);
    zero(alpha_n, Nr);
    zero(phi_n, Nr);
-   #if 1 //Is this neccessary for additionals? set zero for initialization just in case
+   #if(BSSN==1) //Is this neccessary for additionals? set zero for initialization just in case
    zero(trK_n, Nr);
    zero(b_n, Nr);
    zero(chi_n, Nr);
@@ -706,7 +711,7 @@ void ssgrhydro_AMRH_var_clear(void)
    zero(a_np1, Nr);
    zero(alpha_np1, Nr);
    zero(phi_np1, Nr);
-   #if 1 
+   #if(BSSN==1) 
    zero(trK_np1, Nr);
    zero(b_np1, Nr);
    zero(chi_np1, Nr);
@@ -732,28 +737,26 @@ void ssgrhydro_free_data(void)
    ldptr();
    calculateVolumeElement(wavg);
 
-   if(phys_bdy[0] && phys_bdy[1]){
-        #if 0
-	initialRadius = getInitialData(Pressure_central, U_amp, consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
-        #endif
-        #if 1
+   if(phys_bdy[0] && phys_bdy[1]){ 
+    #if(BSSN==1)
 	initialRadius = getID_BSSN(Pressure_central, U_amp, consVar_n, primVar_n, 
                                        a_n, alpha_n, b_n, trK_n, chi_n, Arr_n,
                                        GamDelta_n, betaR_n, Br_n, 
                                        rVertex, rCell, Nr);
-        #endif
+    #else
+	initialRadius = getInitialData(Pressure_central, U_amp, consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
+    #endif
    } else{
 	printf("Partial domain initial data.\n");
-        #if 0
-	initialRadius = getInitialDataPartialDomain(Pressure_central, U_amp, base_bbox[1], consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
-        #endif
-	#if 1
-        initialRadius = getIDPD_BSSN(Pressure_central, U_amp, base_bbox[1], 
+	#if(BSSN==1)
+    initialRadius = getIDPD_BSSN(Pressure_central, U_amp, base_bbox[1], 
                                      consVar_n, primVar_n,
                                      a_n, alpha_n, b_n, trK_n, chi_n, Arr_n,
                                      GamDelta_n, betaR_n, Br_n,
                                      rVertex, rCell, Nr);
-        #endif
+	#else
+    //initialRadius = getInitialDataPartialDomain(Pressure_central, U_amp, base_bbox[1], consVar_n, primVar_n, a_n, alpha_n, rVertex, rCell, Nr);
+    #endif
    }
    rMax = initialRadius;
 
