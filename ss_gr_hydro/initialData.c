@@ -127,6 +127,43 @@ double getInitialData(double centralPressure, double velocityAmp, double *consVa
 	
 	return starRadius;
 }
+double getInitialDataPartialDomain(double centralPressure, double velocityAmp, double rMaxExt,    double *consVar, double *primVar, double *a, double *alpha, double *rGravity, double *rFluid, int length){
+
+	 double dr = rGravity[1]-rGravity[0];
+	 int NrExt = (int) (rMaxExt/dr+1.5);
+	 double rGravityExt[NrExt];
+	 double aExt[NrExt];
+	 double alphaExt[NrExt];
+	 double rFluidExt[NrExt-1];
+	 double primVarExt[(NrExt-1)*numVariables];
+	 double consVarExt[(NrExt-1)*numVariables];
+
+	 int i,j;
+	 for(i=0; i<NrExt; i++) rGravityExt[i] = rMaxExt*((double) i)/(((double) NrExt)-1.0);
+	 for(i=0; i<NrExt-1; i++) rFluidExt[i] = 0.5*(rGravityExt[i]+rGravityExt[i+1]);
+
+	 double radius = getInitialData(centralPressure, velocityAmp, consVarExt, primVarExt, aExt, alphaExt, rGravityExt, rFluidExt, NrExt);
+
+	 int startIndex = (int) (rGravity[0]/dr+0.5);
+	 for(i=0; i<length; i++){
+	  a[i] = aExt[i+startIndex];
+	  alpha[i] = alphaExt[i+startIndex];
+	 }
+
+	 for(i=0; i<length-1; i++){
+	  for(j=0; j<numVariables; j++){
+	   consVar[i*numVariables+j]=consVarExt[(i+startIndex)*numVariables+j];
+	   primVar[i*numVariables+j]=primVarExt[(i+startIndex)*numVariables+j];
+	  }
+	 }
+
+	 printf("Partial ID r=%e to %e with extended r=%e and %e\n",rGravity[0],rGravity[length-1],rGravityExt[0],rGravityExt[NrExt-1]); 
+	 printf("aExt %e %e %e a %e %e %e\n", aExt[NrExt-1],aExt[NrExt-2],aExt[NrExt-3],a[length-1],a[length-2],a[length-3]);
+	 return radius;
+
+
+
+}
 
 // HL : New initial data : put a valocity profile in certain region and make it BH very fastly
 
