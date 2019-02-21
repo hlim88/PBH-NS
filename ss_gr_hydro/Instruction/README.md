@@ -133,6 +133,10 @@ Use Makefile.symmetry then change to your user name and/or path
 Use Makefile.Mac. If you follow the instruction above, you do not
 need to change anything
 
+## Run the code
+Once you successfully installed and complied the code, you must have
+`ss_gr_hydroSolver` as a binary executable. 
+
 ## Contact
 Other architectures should work if you have similar/same modules as
 above. If you have questions, please contact Hyun Lim (hylim1988@gmail.com)
