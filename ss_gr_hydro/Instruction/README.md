@@ -137,6 +137,29 @@ need to change anything
 Once you successfully installed and complied the code, you must have
 `ss_gr_hydroSolver` as a binary executable. 
 
+In this code, we have two different parameter files:
+
+[ss_gr_hydro.fparam](https://github.com/hlim88/PBH-NS/blob/master/ss_gr_hydro/ss_gr_hydro.fparam) 
+is a parameter file that is related with `AMRD`. If you choose different evolution scheme
+or adding more varaibles/equations, you must include your contribution in this parameter
+
+[ss_gr_hydro.rtparam](https://github.com/hlim88/PBH-NS/blob/master/ss_gr_hydro/run/ss_gr_hydro.rtparam)
+can be found in `run` directory. This contains all simulations parameters such as initial data,
+AMR levels etc. 
+
+Once you finished to set up your parameters, you can simply run the code via
+```
+cat ss_gr_hydro.fparam ss_gr_hydro.rtparam > ss_gr_hydro.param; 
+./ss_gr_hydroSolver ss_gr_hydro.param
+```
+This code supports `OpenMPI` so you can run 
+```
+mpirun -np <# of cores> ss_gr_hydroSolver ss_gr_hydro.param
+```
+
+Alternatively, you can simply use [runScript](https://github.com/hlim88/PBH-NS/blob/master/ss_gr_hydro/run/runScript)
+under `run` directory
+
 ## Contact
 Other architectures should work if you have similar/same modules as
 above. If you have questions, please contact Hyun Lim (hylim1988@gmail.com)
