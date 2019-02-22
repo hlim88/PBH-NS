@@ -916,9 +916,8 @@ void ssgrhydro_L_op(void)
 void ssgrhydro_BSSN_HPC(coll_point_t *pfunc, int iter){
 
  //TODO : Make it parameter
- const double t = 10.0;
- const double dt = 0.01;
- const int gen = 4;
+ //const double t = 10.0;
+ //const int gen = 4;
  solBSSNeqns(pfunc, t, dt, 4, iter);
 
 }

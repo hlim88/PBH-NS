@@ -27,8 +27,15 @@ void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt,
         double dr_a, dr_b, dr_trK, dr_Arr, dr_GamDelta, dr_betaR, dr_alpha, dr_chi, dr_Br;
 
         //Source term from fluid : TODO Link it explicitly
-        double rhoFlu, SrrFlu, SthetathetaFlu, SrFlu;    
+        double rhoFlu = 0.0;
+        double SrrFlu = 0.0;
+        double SthetathetaFlu = 0.0;
+        double SrFlu = 0.0;
 
+        #if 0
+        double rhoFlu, SrrFlu, SthetathetaFlu, SrFlu;    
+        #endif
+        
         //Call arrays to start compute
         double *rhs = pfunc->rhs[pp];
         double *u = pfunc->u[pp];
@@ -184,17 +191,21 @@ void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt,
         // Constraint equations
         // Constraints are not evoling with respect to time. It receives the value for each
         // vars and evaluate the value
-        double hamC_rhs, momC_rhs;
+        double hamC, momC;
 
         //Fake zeros
         #if 0
-        hamC_rhs = 0.0;
-        momC_rhs = 0.0;
+        hamC = 0.0;
+        momC = 0.0;
         #endif
 
-        hamC_rhs = Ricci_scal - 3.0/2.0*Arr*Arr + 2.0/3.0*trK*trK 
+        double *cst = pfunc->cst[pp];
+        hamC = cst[U_HAMC];
+        momC = cst[U_MOMC];
+
+        hamC = Ricci_scal - 3.0/2.0*Arr*Arr + 2.0/3.0*trK*trK 
                      - 16.0*CONST_PI*rhoFlu;
-        momC_rhs = dr_Arr - 2.0/3.0*dr_trK - 3.0*Arr/(2.0*chi)*dr_chi
+        momC = dr_Arr - 2.0/3.0*dr_trK - 3.0*Arr/(2.0*chi)*dr_chi
                      + 2.0/3.0*Arr*(2.0/r[pp] - dr_b/b) - 8.0*CONST_PI*rhoFlu;
     
     }   

@@ -11,6 +11,7 @@
 #define n_vars 9
 #define n_gen 4
 #define n_deriv 9
+#define n_const 2
 
 //Define var names
 #define U_A 0
@@ -22,14 +23,17 @@
 #define U_BETAR 6
 #define U_ALPHA 7
 #define U_BR 8
+#define U_HAMC 9
+#define U_MOMC 10
 
 typedef struct coll_point_t {
 
-    double u[n_gen][n_vars];
-    double du[n_gen][n_deriv];
-    double ddu[n_gen][n_deriv];
-    double rhs[n_gen][n_vars];
-    unsigned time_stamp;
+    double *u[n_gen][n_vars];
+    double *cst[n_gen][n_const];
+    double *du[n_gen][n_deriv];
+    double *ddu[n_gen][n_deriv];
+    double *rhs[n_gen][n_vars];
+    unsigned time_stamp; //TODO : Need it?
 
 } coll_point_t;
 
