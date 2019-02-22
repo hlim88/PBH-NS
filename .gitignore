@@ -4,3 +4,5 @@
 *.o
 ss_gr_hydroSolver
 .DS_Store
+*.sdf
+*.dSYM
