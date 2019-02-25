@@ -42,6 +42,10 @@ void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt,
         double *du = pfunc->du[pp];
         double *ddu = pfunc->ddu[pp];
 
+        //Initialize it
+        rhs = NULL, u = NULL, du = NULL, ddu = NULL;
+
+
         //Save it into array;
         a = u[U_A];
         b = u[U_B];
@@ -98,6 +102,9 @@ void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt,
         betaR_rhs = rhs[U_BETAR];
         alpha_rhs = rhs[U_ALPHA];
         Br_rhs = rhs[U_BR];
+
+        if (alpha == 0 || a == 0 || betaR == 0)
+            printf("Error, you are passing worng stuff\n");
 
         //Fake zero rhs for testing code
         
@@ -199,9 +206,8 @@ void solBSSNeqns(coll_point_t *pfunc, const double t, const double dt,
         momC = 0.0;
         #endif
 
-        double *cst = pfunc->cst[pp];
-        hamC = cst[U_HAMC];
-        momC = cst[U_MOMC];
+        hamC = u[U_HAMC];
+        momC = u[U_MOMC];
 
         hamC = Ricci_scal - 3.0/2.0*Arr*Arr + 2.0/3.0*trK*trK 
                      - 16.0*CONST_PI*rhoFlu;

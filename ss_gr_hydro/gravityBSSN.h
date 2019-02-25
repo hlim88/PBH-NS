@@ -26,6 +26,7 @@
 #define U_HAMC 9
 #define U_MOMC 10
 
+#if 0
 typedef struct coll_point_t {
 
     double *u[n_gen][n_vars];
@@ -36,9 +37,21 @@ typedef struct coll_point_t {
     unsigned time_stamp; //TODO : Need it?
 
 } coll_point_t;
+#endif
+
+typedef struct coll_point_t {
+
+    double *u[n_vars];
+    double *du[n_deriv];
+    double *ddu[n_deriv];
+    double *rhs[n_vars];
+    const int lenght;
+    unsigned time_stamp; //TODO : Need it?
+
+} coll_point_t;
 
 extern unsigned time_stamp;
-extern const int npts_in_array;
+extern const int length;
 
 /*
    Define BSSN eqns with usual 1+log slicing and gamma driver

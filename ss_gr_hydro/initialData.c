@@ -206,12 +206,11 @@ double getID_BSSN(double centralPressure, double velocityAmp,
 		
 		//HL : TODO make belows as parameters or other treatment
 		double bh_tlv = 0.01; //Test threshold value to put fast velocity profile
-		double bigVelAmp = 5.0;
 
 		if (x<bh_tlv) {
 			//Still use same ingoing velocity prof as in Eqn.25 in 0709.3527 but
 			// big velocity amplitude. This is just for testing
-			coordVelocity[i] = 0.5*bigVelAmp * (x*x*x-3.0*x); 
+			coordVelocity[i] = 0.5*velocityAmp*(x*x*x-3.0*x); 
 		} else {
 			coordVelocity[i] = 0.0;
 		}

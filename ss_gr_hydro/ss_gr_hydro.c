@@ -821,7 +821,8 @@ void ssgrhydro_evolve(int iter, int *ifc_mask)
    timeStep(iter, phys_bdy[0],phys_bdy[1], dt, Nr, rVertex, consVar_n, consVar_np1, primVar_n, primVar_np1, a_n, a_np1, phi_n, phi_np1, fluxCorr, ifc_mask);
 
    //Calling BSSN sol part in evolve loop : TODO : check this	
-   #if(BSSN==1)
+   #if(BSSN==1) 
+   getBSSNvar(coll_point_t *pfunc);
    ssgrhydro_BSSN_HPC(coll_point_t *pfunc, iter);
    #endif
    
@@ -911,14 +912,33 @@ void ssgrhydro_L_op(void)
 }
 #if(BSSN==1)
 /*
+  Allocate new vars into grid function
+*/
+double getBSSNvar(coll_point_t *pfunc){
+    
+    double *u = pfunc->u; //This contians all vars
+
+    u[0] = a_n;
+    u[1] = b_n;
+    u[2] = trK_n;
+    u[3] = Arr_n;
+    u[4] = chi_n;
+    u[5] = GamDelta_n;
+    u[6] = betaR_n;
+    u[7] = alpha_n;
+    u[8] = Br_n;
+    u[9] = hamC_n;
+    u[10] = momC_n;
+
+    return pfunc;
+}
+
+/*
  Call new evolution equation function
 */
 void ssgrhydro_BSSN_HPC(coll_point_t *pfunc, int iter){
 
- //TODO : Make it parameter
- //const double t = 10.0;
- //const int gen = 4;
- solBSSNeqns(pfunc, t, dt, 4, iter);
+ solBSSNeqns(pfunc, t, dt, length, iter);
 
 }
 #endif
