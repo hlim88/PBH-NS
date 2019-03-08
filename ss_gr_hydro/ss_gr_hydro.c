@@ -8,7 +8,7 @@ defs to track geometric vars
 
 #define NUM_HYDRO_VAR 3
 #define CONSTANT_PI 3.1415926535897932384626433
-#define BSSN 1
+#define BSSN 
 //=============================================================================
 // application interface functions
 //=============================================================================
