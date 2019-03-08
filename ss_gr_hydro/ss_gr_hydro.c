@@ -727,7 +727,37 @@ void ssgrhydro_AMRH_var_clear(void)
    deallocVec();
    return;
 }
+#if(BSSN==1)
+/*
+  Allocate new vars into grid function
+*/
+double getBSSNvar(coll_point_t *pfunc, int length){
+ 
+    double *u = pfunc->u[length]; //This contians all vars
+    
+    u[U_B] = *b_n;
+    u[U_TRK] = *trK_n;
+    u[U_ARR] = *Arr_n;
+    u[U_CHI] = *chi_n;
+    u[U_GAMDELTA] = *GamDelta_n;
+    u[U_BETAR] = *betaR_n;
+    u[U_ALPHA] = *alpha_n;
+    u[U_BR] = *Br_n;
+    u[U_HAMC] = *hamC_n;
+    u[U_MOMC] = *momC_n;
 
+    return *u;
+}
+
+/*
+ Call new evolution equation function
+*/
+void ssgrhydro_BSSN_HPC(coll_point_t *pfunc, int iter, int length){
+
+ solBSSNeqns(pfunc, t, dt, length, iter);
+
+}
+#endif
 //=============================================================================
 // Initial data for free fields: (at tn=2)
 //
@@ -815,7 +845,8 @@ real ssgrhydro_MG_residual(void)
 //=============================================================================
 // Performs 1 iteration of the evolution equations 
 //=============================================================================
-void ssgrhydro_evolve(int iter, int *ifc_mask, coll_point_t *pfunc)
+void ssgrhydro_evolve(int iter, int *ifc_mask, coll_point_t *pfunc, int length)
+//void ssgrhydro_evolve(int iter, int *ifc_mask)
 {
    ldptr();
    
@@ -823,8 +854,18 @@ void ssgrhydro_evolve(int iter, int *ifc_mask, coll_point_t *pfunc)
 
    //Calling BSSN sol part in evolve loop : TODO : check this	
    #if BSSN==1 
-   getBSSNvar(pfunc);
-   ssgrhydro_BSSN_HPC(pfunc, iter);
+   #if 1
+   double *rhs = pfunc->rhs[length];
+   double *u = pfunc->u[length];
+   double *du = pfunc->ddu[length];
+   double *ddu = pfunc->du[length];
+   #endif
+   rhs = malloc(numCells*n_vars*sizeof(real));
+   u = malloc(numCells*n_vars*sizeof(real));
+   du = malloc(numCells*n_vars*sizeof(real));
+   ddu = malloc(numCells*n_vars*sizeof(real));
+   *u=getBSSNvar(pfunc, length);
+   ssgrhydro_BSSN_HPC(pfunc, iter, length);
    #endif
    
    //Update T_trace
@@ -862,6 +903,13 @@ void ssgrhydro_evolve(int iter, int *ifc_mask, coll_point_t *pfunc)
    	}
 	//if(aLocalMax>2.0) printf("BH at r=%E a=%E\n",aLocalMax,rLocalMax);
    }
+
+   #if BSSN==1
+   free(u); u=NULL;
+   free(du); du=NULL;
+   free(ddu); ddu=NULL;
+   free(rhs); rhs=NULL;
+   #endif
 
    deallocVec();
 
@@ -911,38 +959,7 @@ void ssgrhydro_L_op(void)
    LPhi(phi, phys_bdy, consVar_v, primVar_v, a, rVertex, mask_mg, Nr, phi_lop);
    deallocVec();
 }
-#if(BSSN==1)
-/*
-  Allocate new vars into grid function
-*/
-void getBSSNvar(coll_point_t *pfunc){
-//struct getBSSNvar(coll_point_t *pfunc){
- 
-    double *u = pfunc->u; //This contians all vars
 
-    u[U_B] = *b_n;
-    u[U_TRK] = *trK_n;
-    u[U_ARR] = *Arr_n;
-    u[U_CHI] = *chi_n;
-    u[U_GAMDELTA] = *GamDelta_n;
-    u[U_BETAR] = *betaR_n;
-    u[U_ALPHA] = *alpha_n;
-    u[U_BR] = *Br_n;
-    u[U_HAMC] = *hamC_n;
-    u[U_MOMC] = *momC_n;
-    
-    //return pfunc;
-}
-
-/*
- Call new evolution equation function
-*/
-void ssgrhydro_BSSN_HPC(coll_point_t *pfunc, int iter, int length){
-
- solBSSNeqns(pfunc, t, dt, length, iter);
-
-}
-#endif
 //=============================================================================
 // Called after calculating the TRE for all variables
 //=============================================================================

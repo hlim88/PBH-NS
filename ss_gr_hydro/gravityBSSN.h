@@ -8,10 +8,10 @@
 #include <stdlib.h>
 
 //Some numbers of vars
-#define n_vars 9
+#define n_vars 11
 #define n_gen 4
 #define n_deriv 9
-#define n_const 2
+//#define n_const 2
 
 //Define var names
 #define U_A 0
